@@ -1,3 +1,4 @@
+import './index.css';
 import { createApp, type App as VueApp } from 'vue'
 import router from './router'
 import App from './App.vue'
