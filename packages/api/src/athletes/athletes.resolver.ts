@@ -15,21 +15,8 @@ export class AthletesResolver {
 
   @Query(() => [Athlete], { name: 'athletes' })
   findAll() {
-    // return this.athletesService.findAll();
-    return [
-      {
-        id: '1',
-        name: 'Duif',
-        fullname: 'Duif',
-        category: 'Roekoes',
-        // url: 'test',
-        observations: 1,
-        // description: 'test',
-        // active: true,
-        // createdAt: new Date(),
-        // updatedAt: new Date(),
-      },
-    ]
+    console.log('Finding all athletes');
+    return this.athletesService.findAll();
   }
 
   @Query(() => Athlete, { name: 'athlete' })

@@ -1,19 +1,22 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, ObjectIdColumn } from 'typeorm';
 
-@ObjectType()
+@Entity() // Database link - Typeorm
+@ObjectType() // GraphQL link - NestJS
 export class Athlete {
+  @ObjectIdColumn() // Database link - TypeORM
   @Field(() => ID)
   id: string
 
-  @Field()
+  @Column() // Database link - Typeorm
+  @Field() //graphql
   name: string
 
-  @Field()
-  fullname: string;
+  @CreateDateColumn({ type: 'timestamp', nullable: true })
+  @Field({ nullable: true })
+  createdAt: Date;
 
-  @Field()
-  category: string;
-
-  @Field()
-  observations: number;
+  @UpdateDateColumn({ type: 'timestamp', nullable: true })
+  @Field({ nullable: true })
+  updatedAt: Date;
 }

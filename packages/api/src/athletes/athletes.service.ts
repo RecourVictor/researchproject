@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAthleteInput } from './dto/create-athlete.input';
 import { UpdateAthleteInput } from './dto/update-athlete.input';
+import { Athlete } from './entities/athlete.entity';
+import { MongoRepository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AthletesService {
+  constructor(
+    @InjectRepository(Athlete)
+    private readonly athleteRepository: MongoRepository<Athlete>,
+  ) {}
+  
+
   create(createAthleteInput: CreateAthleteInput) {
     return 'This action adds a new athlete';
   }
 
   findAll() {
-    return `This action returns all athletes`;
+    return this.athleteRepository.find()
   }
 
   findOne(id: number) {
