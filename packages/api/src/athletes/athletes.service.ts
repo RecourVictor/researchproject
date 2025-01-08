@@ -32,4 +32,14 @@ export class AthletesService {
   remove(id: number) {
     return `This action removes a #${id} athlete`;
   }
+
+  
+  // Function for seeding
+  saveAll(athletes: Athlete[]): Promise<Athlete[]> {
+    return this.athleteRepository.save(athletes)
+  }
+
+  truncate(): Promise<void> {
+    return this.athleteRepository.clear()
+  }
 }
