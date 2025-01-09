@@ -17,7 +17,7 @@ export class Setting {
   name: string
 
   @Column() // Database link - Typeorm
-  @Field() //graphql
+  @Field({ defaultValue: false }) //graphql
   value: boolean
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })

@@ -1,8 +1,19 @@
-import { CreateSettingInput } from './create-setting.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, ID } from '@nestjs/graphql'
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
-export class UpdateSettingInput extends PartialType(CreateSettingInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateSettingInput {
+  @Field(() => ID)
+  @IsString()
+  @IsNotEmpty()
+  id: string
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  name: string
+
+  @Field()
+  @IsBoolean()
+  value: boolean
 }
