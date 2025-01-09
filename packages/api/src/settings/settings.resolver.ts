@@ -8,28 +8,18 @@ import { UpdateSettingInput } from './dto/update-setting.input';
 export class SettingsResolver {
   constructor(private readonly settingsService: SettingsService) {}
 
-  @Mutation(() => Setting)
-  createSetting(@Args('createSettingInput') createSettingInput: CreateSettingInput) {
-    return this.settingsService.create(createSettingInput);
-  }
-
   @Query(() => [Setting], { name: 'settings' })
   findAll() {
     return this.settingsService.findAll();
   }
 
   @Query(() => Setting, { name: 'setting' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
-    return this.settingsService.findOne(id);
+  findOne(@Args('id') id: string) {
+    return this.settingsService.findOneById(id);
   }
 
   @Mutation(() => Setting)
   updateSetting(@Args('updateSettingInput') updateSettingInput: UpdateSettingInput) {
     return this.settingsService.update(updateSettingInput);
-  }
-
-  @Mutation(() => Setting)
-  removeSetting(@Args('id', { type: () => Int }) id: string) {
-    return this.settingsService.remove(id);
   }
 }
