@@ -89,4 +89,25 @@ export class DatabaseSeedCommand {
     await this.seedService.deleteAllAthletes()
     console.info('🪶 Removed athletes')
   }
+
+  // Simulations
+  @Command({
+    command: 'seed:database:simulations',
+    describe: 'Seed the database with simulations',
+  })
+  async seedSimulations() {
+    console.info('🪺 Start seeding of simulations')
+    const simulations = await this.seedService.addSimulationsFromJson()
+    console.info(`🐣 ${simulations.length} simulations are added`)
+  }
+
+  @Command({
+    command: 'seed:reset:simulations',
+    describe: 'Delete all data from the simulations table',
+  })
+  async deleteSimulations() {
+    console.info('🔪 Start deleting simulations')
+    await this.seedService.deleteAllSimulations()
+    console.info('🪶 Removed simulations')
+  }
 }

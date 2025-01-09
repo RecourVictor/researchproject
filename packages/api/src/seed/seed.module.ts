@@ -6,9 +6,10 @@ import { DatabaseSeedCommand } from './seed.command'
 import { CountryModule } from 'src/country/country.module'
 import { DisiplinesModule } from 'src/disiplines/disiplines.module'
 import { SettingsModule } from 'src/settings/settings.module'
+import { SimulationsModule } from 'src/simulations/simulations.module'
 
 @Module({
-  imports: [CountryModule, AthletesModule, DisiplinesModule, SettingsModule, CommandModule],
+  imports: [CountryModule, AthletesModule, DisiplinesModule, SettingsModule, SimulationsModule, CommandModule],
   providers: [DatabaseSeedCommand, SeedService],
 })
 export class SeedModule {}

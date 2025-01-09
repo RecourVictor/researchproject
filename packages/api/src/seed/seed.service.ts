@@ -7,12 +7,15 @@ import { DisiplinesService } from 'src/disiplines/disiplines.service'
 import { Disipline } from 'src/disiplines/entities/disipline.entity'
 import { SettingsService } from 'src/settings/settings.service'
 import { Setting } from 'src/settings/entities/setting.entity'
+import { Record } from 'src/athletes/entities/record.entity'
+import { SimulationsService } from 'src/simulations/simulations.service'
+import { Simulation } from 'src/simulations/entities/simulation.entity'
 
 import * as athletes from './data/athletes.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as countries from './data/countries.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as disiplines from './data/disiplines.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as settings from './data/settings.json' // set  "resolveJsonModule": true in tsconfig.json
-import { Record } from 'src/athletes/entities/record.entity'
+import * as simulations from './data/simulations.json' // set  "resolveJsonModule": true in tsconfig.json
 
 @Injectable()
 export class SeedService {
@@ -20,7 +23,8 @@ export class SeedService {
     private athletesService: AthletesService,
     private countryService: CountryService,
     private disiplineService: DisiplinesService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private simulationService: SimulationsService,
   ) {}
 
   //  Countries
@@ -86,7 +90,9 @@ export class SeedService {
       a.surname = athlete.surname
       a.birthDate = new Date(athlete.dateOfBirth)
       a.gender = Gender[athlete.gender]
-      const country = await this.countryService.findByCountryCode(athlete.nationality)
+      const country = await this.countryService.findByCountryCode(
+        athlete.nationality,
+      )
       a.nationalityId = country.id
       a.records = []
       for (const record of athlete.disciplines) {
@@ -105,5 +111,34 @@ export class SeedService {
 
   async deleteAllAthletes(): Promise<void> {
     return this.athletesService.truncate()
+  }
+
+  //  Simulations
+  async addSimulationsFromJson(): Promise<Simulation[]> {
+    const theSimulations: Simulation[] = []
+    for (const simulation of simulations) {
+      const s = new Simulation()
+      s.name = simulation.name
+      s.athletesId = []
+      for (const athlete of simulation.athletes) {
+        const a = await this.athletesService.findByName(
+          athlete.name,
+          athlete.surname,
+        )
+        s.athletesId.push(a.id)
+      }
+      const disipline = await this.disiplineService.findByName(
+        simulation.disipline,
+      )
+      s.disiplineId = disipline.id
+
+      theSimulations.push(s)
+    }
+
+    return this.simulationService.saveAll(theSimulations)
+  }
+
+  async deleteAllSimulations(): Promise<void> {
+    return this.simulationService.truncate()
   }
 }

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Simulatie 1",
+    "athletes": [
+      {
+        "name": "John",
+        "surname": "Doe"
+      },
+      {
+        "name": "Jane",
+        "surname": "Doe"
+      }
+    ],
+    "disipline": "100m"
+  },
+  {
+    "name": "Simulatie 2",
+    "athletes": [
+      {
+        "name": "John",
+        "surname": "Doe"
+      }
+    ],
+    "disipline": "200m"
+  },
+  {
+    "name": "Simulatie 3",
+    "athletes": [
+      {
+        "name": "Jane",
+        "surname": "Doe"
+      }
+    ],
+    "disipline": "400m"
+  },
+  {
+    "name": "Simulatie 4",
+    "athletes": [
+      {
+        "name": "John",
+        "surname": "Doe"
+      },
+      {
+        "name": "Jane",
+        "surname": "Doe"
+      }
+    ],
+    "disipline": "800m"
+  }
+]

@@ -42,4 +42,8 @@ export class AthletesService {
   truncate(): Promise<void> {
     return this.athleteRepository.clear()
   }
+
+  findByName(name: string, surname: string) {
+    return this.athleteRepository.findOneBy({ name: name, surname: surname})
+  }
 }

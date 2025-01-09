@@ -22,12 +22,12 @@ export class Simulation {
   name: string
 
   @Column() // Database link - Typeorm
-  athletesId: ObjectId[]
+  athletesId: string[]
   @Field(() => Athlete) //graphql
   athletes: Athlete[]
 
   @Column() // Database link - Typeorm
-  disiplineId: ObjectId
+  disiplineId: string
   @Field(() => Disipline) //graphql
   disipline: Disipline
 
