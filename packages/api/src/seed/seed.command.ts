@@ -110,4 +110,33 @@ export class DatabaseSeedCommand {
     await this.seedService.deleteAllSimulations()
     console.info('🪶 Removed simulations')
   }
+
+  // Seed all
+  @Command({
+    command: 'seed:database:all',
+    describe: 'Seed the database with all data',
+  })
+  async seedAll() {
+    console.info('🪺 Start seeding of all data')
+    await this.seedCountries()
+    await this.seedDisiplines()
+    await this.seedSettings()
+    await this.seedAthletes()
+    await this.seedSimulations()
+    console.info('🐣 All data is added')
+  }
+
+  @Command({
+    command: 'seed:reset:all',
+    describe: 'Delete all data from all tables',
+  })
+  async deleteAll() {
+    console.info('🔪 Start deleting all data')
+    await this.deleteCountries()
+    await this.deleteDisiplines()
+    await this.deleteSettings()
+    await this.deleteAthletes()
+    await this.deleteSimulations()
+    console.info('🪶 Removed all data')
+  }
 }
