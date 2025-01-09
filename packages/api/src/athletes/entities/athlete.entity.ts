@@ -32,10 +32,10 @@ export class Athlete {
   gender: Gender
 
   @Column() // Database link - Typeorm
+  nationalityId: string
   @Field(() => Country) //graphql
   nationality: Country
 
-  // TODO: records
   @Column() // Database link - Typeorm
   @Field(() => Record) //graphql
   records: Record
