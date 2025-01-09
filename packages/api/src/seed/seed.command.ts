@@ -27,6 +27,27 @@ export class DatabaseSeedCommand {
     console.info('🪶 Removed countries')
   }
 
+  // Disiplines
+  @Command({
+    command: 'seed:database:disiplines',
+    describe: 'Seed the database with disiplines',
+  })
+  async seedDisiplines() {
+    console.info('🪺 Start seeding of disiplines')
+    const disiplines = await this.seedService.addDisiplinesFromJson()
+    console.info(`🐣 ${disiplines.length} disiplines are added`)
+  }
+
+  @Command({
+    command: 'seed:reset:disiplines',
+    describe: 'Delete all data from the disiplines table',
+  })
+  async deleteDisiplines() {
+    console.info('🔪 Start deleting disiplines')
+    await this.seedService.deleteAllDisiplines()
+    console.info('🪶 Removed disiplines')
+  }
+
   // Athletes
   @Command({
     command: 'seed:database:athletes',

@@ -3,16 +3,19 @@ import { AthletesService } from 'src/athletes/athletes.service'
 import { Athlete } from 'src/athletes/entities/athlete.entity'
 import { CountryService } from 'src/country/country.service'
 import { Country } from 'src/country/entities/country.entity'
+import { DisiplinesService } from 'src/disiplines/disiplines.service'
+import { Disipline } from 'src/disiplines/entities/disipline.entity'
 
 import * as athletes from './data/athletes.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as countries from './data/countries.json' // set  "resolveJsonModule": true in tsconfig.json
-
+import * as disiplines from './data/disiplines.json' // set  "resolveJsonModule": true in tsconfig.json
 
 @Injectable()
 export class SeedService {
   constructor(
     private athletesService: AthletesService,
-    private countryService: CountryService
+    private countryService: CountryService,
+    private disiplineService: DisiplinesService,
   ) {}
 
   //  Countries
@@ -31,6 +34,24 @@ export class SeedService {
 
   async deleteAllCountries(): Promise<void> {
     return this.countryService.truncate()
+  }
+
+  //   Disiplines
+  async addDisiplinesFromJson(): Promise<Disipline[]> {
+    const theDisiplines: Disipline[] = []
+    for (const disipline of disiplines) {
+      const d = new Disipline()
+      d.name = disipline.name
+      d.rounds = disipline.rounds
+
+      theDisiplines.push(d)
+    }
+
+    return this.disiplineService.saveAll(theDisiplines)
+  }
+
+  async deleteAllDisiplines(): Promise<void> {
+    return this.disiplineService.truncate()
   }
 
   //   Athletes

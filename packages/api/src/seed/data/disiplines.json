@@ -1,0 +1,47 @@
+[
+    {
+      "name": "100m",
+      "rounds": 0.25
+    },
+    {
+      "name": "200m",
+      "rounds": 0.5
+    },
+    {
+      "name": "400m",
+      "rounds": 1
+    },
+    {
+      "name": "800m",
+      "rounds": 2
+    },
+    {
+      "name": "1500m",
+      "rounds": 3.75
+    },
+    {
+      "name": "5000m",
+      "rounds": 12.5
+    },
+    {
+      "name": "10,000m",
+      "rounds": 25
+    },
+    {
+      "name": "3000m Steeplechase",
+      "rounds": 7.5
+    },
+    {
+      "name": "110m Hurdles",
+      "rounds": 0.25
+    },
+    {
+      "name": "400m Hurdles",
+      "rounds": 1
+    },
+    {
+      "name": "100m Hurdles",
+      "rounds": 0.25
+    }
+  ]
+  
