@@ -5,10 +5,13 @@ import { CountryService } from 'src/country/country.service'
 import { Country } from 'src/country/entities/country.entity'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
 import { Disipline } from 'src/disiplines/entities/disipline.entity'
+import { SettingsService } from 'src/settings/settings.service'
+import { Setting } from 'src/settings/entities/setting.entity'
 
 import * as athletes from './data/athletes.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as countries from './data/countries.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as disiplines from './data/disiplines.json' // set  "resolveJsonModule": true in tsconfig.json
+import * as settings from './data/settings.json' // set  "resolveJsonModule": true in tsconfig.json
 
 @Injectable()
 export class SeedService {
@@ -16,6 +19,7 @@ export class SeedService {
     private athletesService: AthletesService,
     private countryService: CountryService,
     private disiplineService: DisiplinesService,
+    private settingsService: SettingsService
   ) {}
 
   //  Countries
@@ -52,6 +56,24 @@ export class SeedService {
 
   async deleteAllDisiplines(): Promise<void> {
     return this.disiplineService.truncate()
+  }
+
+  //   Settings
+  async addSettingsFromJson(): Promise<Setting[]> {
+    const theSettings: Setting[] = []
+    for (const setting of settings) {
+      const s = new Setting()
+      s.name = setting.name
+      s.value = setting.value
+
+      theSettings.push(s)
+    }
+
+    return this.settingsService.saveAll(theSettings)
+  }
+
+  async deleteAllSettings(): Promise<void> {
+    return this.settingsService.truncate()
   }
 
   //   Athletes

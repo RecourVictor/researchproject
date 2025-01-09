@@ -48,6 +48,27 @@ export class DatabaseSeedCommand {
     console.info('🪶 Removed disiplines')
   }
 
+  // Settings
+  @Command({
+    command: 'seed:database:settings',
+    describe: 'Seed the database with settings',
+  })
+  async seedSettings() {
+    console.info('🪺 Start seeding of settings')
+    const settings = await this.seedService.addSettingsFromJson()
+    console.info(`🐣 ${settings.length} settings are added`)
+  }
+
+  @Command({
+    command: 'seed:reset:settings',
+    describe: 'Delete all data from the settings table',
+  })
+  async deleteSettings() {
+    console.info('🔪 Start deleting settings')
+    await this.seedService.deleteAllSettings()
+    console.info('🪶 Removed settings')
+  }
+
   // Athletes
   @Command({
     command: 'seed:database:athletes',

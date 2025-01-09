@@ -9,11 +9,6 @@ export class UpdateSettingInput {
   id: string
 
   @Field()
-  @IsNotEmpty()
-  @IsString()
-  name: string
-
-  @Field()
   @IsBoolean()
   value: boolean
 }
