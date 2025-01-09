@@ -10,6 +10,7 @@ export class Record {
   id: string
 
   @Column() // Database link - Typeorm
+  disiplineId: string
   @Field(() => Disipline) //graphql
   disipline: Disipline
 

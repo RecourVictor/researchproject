@@ -38,7 +38,7 @@ export class Athlete {
 
   @Column() // Database link - Typeorm
   @Field(() => Record) //graphql
-  records: Record
+  records: Record[]
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
   @Field({ nullable: true })

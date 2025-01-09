@@ -1,8 +1,47 @@
-import { CreateAthleteInput } from './create-athlete.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, ID } from '@nestjs/graphql';
+import { Gender } from '../entities/athlete.entity';
+import { Record } from '../entities/record.entity';
+import {
+  IsString,
+  IsArray,
+  IsDate,
+  IsNotEmpty,
+} from 'class-validator'
 
 @InputType()
-export class UpdateAthleteInput extends PartialType(CreateAthleteInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateAthleteInput {
+  @Field(() => ID)
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  surname: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsDate()
+  birthDate: Date;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  @IsString()
+  gender: Gender;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  nationalityId: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsArray()
+  records: Record[];
 }
