@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { AthletesService } from 'src/athletes/athletes.service'
-import { Athlete } from 'src/athletes/entities/athlete.entity'
+import { Athlete, Gender } from 'src/athletes/entities/athlete.entity'
 import { CountryService } from 'src/country/country.service'
 import { Country } from 'src/country/entities/country.entity'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
@@ -12,6 +12,7 @@ import * as athletes from './data/athletes.json' // set  "resolveJsonModule": tr
 import * as countries from './data/countries.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as disiplines from './data/disiplines.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as settings from './data/settings.json' // set  "resolveJsonModule": true in tsconfig.json
+import { Record } from 'src/athletes/entities/record.entity'
 
 @Injectable()
 export class SeedService {
@@ -82,6 +83,19 @@ export class SeedService {
     for (const athlete of athletes) {
       const a = new Athlete()
       a.name = athlete.name
+      a.surname = athlete.surname
+      a.birthDate = new Date(athlete.dateOfBirth)
+      a.gender = Gender[athlete.gender]
+      const country = await this.countryService.findByCountryCode(athlete.nationality)
+      a.nationalityId = country.id
+      a.records = []
+      for (const record of athlete.disciplines) {
+        const r = new Record()
+        const disipline = await this.disiplineService.findByName(record.name)
+        r.disiplineId = disipline.id
+        r.PB = record.personalBest
+        a.records.push(r)
+      }
 
       theAthletes.push(a)
     }

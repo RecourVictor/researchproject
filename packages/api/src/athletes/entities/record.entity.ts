@@ -16,7 +16,7 @@ export class Record {
 
   @Column() // Database link - Typeorm
   @Field() //graphql
-  PB: string
+  PB: number
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
   @Field({ nullable: true })

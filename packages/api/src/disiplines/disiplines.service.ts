@@ -40,4 +40,8 @@ export class DisiplinesService {
   truncate(): Promise<void> {
     return this.disiplineRepository.clear()
   }
+
+  findByName(name: string) {
+    return this.disiplineRepository.findOneBy({ name: name})
+  }
 }

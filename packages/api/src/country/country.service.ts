@@ -40,4 +40,8 @@ export class CountryService {
   truncate(): Promise<void> {
     return this.countryRepository.clear()
   }
+
+  findByCountryCode(countryCode: string) {
+    return this.countryRepository.findOneBy({ countryCode: countryCode })
+  }
 }
