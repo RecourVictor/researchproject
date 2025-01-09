@@ -7,6 +7,7 @@ import { AthletesModule } from './athletes/athletes.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { SeedModule } from './seed/seed.module';
 import { CountryModule } from './country/country.module';
+import { DisiplinesModule } from './disiplines/disiplines.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { CountryModule } from './country/country.module';
     AthletesModule,
     SeedModule,
     CountryModule,
+    DisiplinesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

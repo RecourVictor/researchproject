@@ -1,44 +1,21 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Country } from 'src/country/entities/country.entity';
+import { Disipline } from 'src/disiplines/entities/disipline.entity';
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, ObjectIdColumn } from 'typeorm';
-import { Record } from './record.entity';
-
-export enum Gender {
-  MALE = 'MALE',
-  FEMALE = 'FEAMLE',
-}
 
 @Entity() // Database link - Typeorm
 @ObjectType() // GraphQL link - NestJS
-export class Athlete {
+export class Record {
   @ObjectIdColumn() // Database link - TypeORM
   @Field(() => ID)
   id: string
 
   @Column() // Database link - Typeorm
-  @Field() //graphql
-  name: string
+  @Field(() => Disipline) //graphql
+  disipline: Disipline
 
   @Column() // Database link - Typeorm
   @Field() //graphql
-  surname: string
-
-  @Column() // Database link - Typeorm
-  @Field() //graphql
-  birthDate: Date
-
-  @Column() // Database link - Typeorm
-  @Field(() => String) //graphql
-  gender: Gender
-
-  @Column() // Database link - Typeorm
-  @Field(() => Country) //graphql
-  nationality: Country
-
-  // TODO: records
-  @Column() // Database link - Typeorm
-  @Field(() => Record) //graphql
-  records: Record
+  PB: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
   @Field({ nullable: true })
