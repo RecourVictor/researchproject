@@ -9,6 +9,7 @@ import { SeedModule } from './seed/seed.module';
 import { CountryModule } from './country/country.module';
 import { DisiplinesModule } from './disiplines/disiplines.module';
 import { SettingsModule } from './settings/settings.module';
+import { SimulationsModule } from './simulations/simulations.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { SettingsModule } from './settings/settings.module';
     CountryModule,
     DisiplinesModule,
     SettingsModule,
+    SimulationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
