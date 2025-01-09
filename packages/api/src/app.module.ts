@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { SeedModule } from './seed/seed.module';
 import { CountryModule } from './country/country.module';
 import { DisiplinesModule } from './disiplines/disiplines.module';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { DisiplinesModule } from './disiplines/disiplines.module';
     SeedModule,
     CountryModule,
     DisiplinesModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
