@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { CreateCountryInput } from './dto/create-country.input'
-import { UpdateCountryInput } from './dto/update-country.input'
 import { Country } from './entities/country.entity'
 import { MongoRepository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class CountryService {
@@ -12,24 +11,39 @@ export class CountryService {
     private readonly countryRepository: MongoRepository<Country>,
   ) {}
 
-  create(createCountryInput: CreateCountryInput) {
-    return 'This action adds a new country'
-  }
-
   findAll() {
-    return `This action returns all country`
+    return this.countryRepository.find()
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} country`
+    if (!ObjectId.isValid(id)) {
+      throw new Error('Invalid id')
+    }
+
+    const objId = new ObjectId(id)
+    return this.countryRepository.findOneBy({ _id: objId })
   }
 
-  update(updateCountryInput: UpdateCountryInput) {
-    return `This action updates a #${updateCountryInput.id} country`
+  findCountriesBySearchString(searchString: string) {
+    const terms = searchString.split(' ').filter(Boolean) // Remove empty strings
+
+    if (terms.length === 0) {
+      return this.countryRepository.find({})
+    }
+
+    const searchStrings = terms.map(term => {
+      return { countryName: { $regex: term, $options: 'i' } }
+    })
+
+    return this.countryRepository.find({ $or: searchStrings })
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} country`
+  findByCode(countryCode: string) {
+    return this.countryRepository.findOneBy({ countryCode: countryCode })
+  }
+
+  findOneByName(name: string) {
+    return this.countryRepository.findOneBy({ countryName: name })
   }
 
   // Function for seeding
