@@ -19,17 +19,17 @@ export class CountryResolver {
   }
 
   @Query(() => Country, { name: 'country' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: string) {
     return this.countryService.findOne(id);
   }
 
   @Mutation(() => Country)
   updateCountry(@Args('updateCountryInput') updateCountryInput: UpdateCountryInput) {
-    return this.countryService.update(updateCountryInput.id, updateCountryInput);
+    return this.countryService.update(updateCountryInput);
   }
 
   @Mutation(() => Country)
-  removeCountry(@Args('id', { type: () => Int }) id: number) {
+  removeCountry(@Args('id', { type: () => Int }) id: string) {
     return this.countryService.remove(id);
   }
 }

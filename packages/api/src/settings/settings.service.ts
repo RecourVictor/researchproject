@@ -12,15 +12,15 @@ export class SettingsService {
     return `This action returns all settings`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} setting`;
   }
 
-  update(id: number, updateSettingInput: UpdateSettingInput) {
-    return `This action updates a #${id} setting`;
+  update(updateSettingInput: UpdateSettingInput) {
+    return `This action updates a #${updateSettingInput.id} setting`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} setting`;
   }
 }

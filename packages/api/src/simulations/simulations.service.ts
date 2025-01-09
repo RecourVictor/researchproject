@@ -12,15 +12,15 @@ export class SimulationsService {
     return `This action returns all simulations`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} simulation`;
   }
 
-  update(id: number, updateSimulationInput: UpdateSimulationInput) {
-    return `This action updates a #${id} simulation`;
+  update(updateSimulationInput: UpdateSimulationInput) {
+    return `This action updates a #${updateSimulationInput.id} simulation`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} simulation`;
   }
 }

@@ -1,7 +1,8 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, ObjectIdColumn } from 'typeorm';
 
-@ObjectType()
+@Entity() // Database link - Typeorm
+@ObjectType() // GraphQL link - NestJS
 export class Country {
     @ObjectIdColumn() // Database link - TypeORM
     @Field(() => ID)

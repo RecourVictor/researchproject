@@ -35,7 +35,7 @@ export class CreateAthleteInput {
   @IsString()
   nationalityId: string;
 
-  @Field()
+  @Field(() => [CreateRecordInput])
   @IsNotEmpty()
   @IsArray()
   records: CreateRecordInput[];

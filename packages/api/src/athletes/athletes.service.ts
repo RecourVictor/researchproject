@@ -21,15 +21,15 @@ export class AthletesService {
     return this.athleteRepository.find()
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} athlete`;
   }
 
-  update(id: number, updateAthleteInput: UpdateAthleteInput) {
-    return `This action updates a #${id} athlete`;
+  update(updateAthleteInput: UpdateAthleteInput) {
+    return `This action updates a #${updateAthleteInput.id} athlete`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} athlete`;
   }
 

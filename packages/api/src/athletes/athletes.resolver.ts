@@ -20,17 +20,17 @@ export class AthletesResolver {
   }
 
   @Query(() => Athlete, { name: 'athlete' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: string) {
     return this.athletesService.findOne(id);
   }
 
   @Mutation(() => Athlete)
   updateAthlete(@Args('updateAthleteInput') updateAthleteInput: UpdateAthleteInput) {
-    return this.athletesService.update(updateAthleteInput.id, updateAthleteInput);
+    return this.athletesService.update(updateAthleteInput);
   }
 
   @Mutation(() => Athlete)
-  removeAthlete(@Args('id', { type: () => Int }) id: number) {
+  removeAthlete(@Args('id', { type: () => Int }) id: string) {
     return this.athletesService.remove(id);
   }
 }

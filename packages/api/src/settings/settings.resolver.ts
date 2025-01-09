@@ -19,17 +19,17 @@ export class SettingsResolver {
   }
 
   @Query(() => Setting, { name: 'setting' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: string) {
     return this.settingsService.findOne(id);
   }
 
   @Mutation(() => Setting)
   updateSetting(@Args('updateSettingInput') updateSettingInput: UpdateSettingInput) {
-    return this.settingsService.update(updateSettingInput.id, updateSettingInput);
+    return this.settingsService.update(updateSettingInput);
   }
 
   @Mutation(() => Setting)
-  removeSetting(@Args('id', { type: () => Int }) id: number) {
+  removeSetting(@Args('id', { type: () => Int }) id: string) {
     return this.settingsService.remove(id);
   }
 }

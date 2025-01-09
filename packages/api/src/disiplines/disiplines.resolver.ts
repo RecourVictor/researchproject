@@ -19,17 +19,17 @@ export class DisiplinesResolver {
   }
 
   @Query(() => Disipline, { name: 'disipline' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: string) {
     return this.disiplinesService.findOne(id);
   }
 
   @Mutation(() => Disipline)
   updateDisipline(@Args('updateDisiplineInput') updateDisiplineInput: UpdateDisiplineInput) {
-    return this.disiplinesService.update(updateDisiplineInput.id, updateDisiplineInput);
+    return this.disiplinesService.update(updateDisiplineInput);
   }
 
   @Mutation(() => Disipline)
-  removeDisipline(@Args('id', { type: () => Int }) id: number) {
+  removeDisipline(@Args('id', { type: () => Int }) id: string) {
     return this.disiplinesService.remove(id);
   }
 }

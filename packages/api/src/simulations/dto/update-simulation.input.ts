@@ -13,12 +13,12 @@ export class UpdateSimulationInput {
   @IsString()
   name: string
 
-  @Field()
+  @Field(() => String)
   @IsNotEmpty()
   @IsArray()
   athletesId: string[]
 
-  @Field()
+  @Field(() => String)
   @IsNotEmpty()
   @IsString()
   disiplineId: string

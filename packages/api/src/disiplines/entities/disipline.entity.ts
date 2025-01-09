@@ -4,9 +4,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectIdColumn,
+  Entity,
 } from 'typeorm'
 
-@ObjectType()
+@Entity() // Database link - Typeorm
+@ObjectType() // GraphQL link - NestJS
 export class Disipline {
   @ObjectIdColumn() // Database link - TypeORM
   @Field(() => ID)

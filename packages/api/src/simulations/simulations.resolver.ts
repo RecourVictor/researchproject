@@ -19,17 +19,17 @@ export class SimulationsResolver {
   }
 
   @Query(() => Simulation, { name: 'simulation' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: string) {
     return this.simulationsService.findOne(id);
   }
 
   @Mutation(() => Simulation)
   updateSimulation(@Args('updateSimulationInput') updateSimulationInput: UpdateSimulationInput) {
-    return this.simulationsService.update(updateSimulationInput.id, updateSimulationInput);
+    return this.simulationsService.update(updateSimulationInput);
   }
 
   @Mutation(() => Simulation)
-  removeSimulation(@Args('id', { type: () => Int }) id: number) {
+  removeSimulation(@Args('id', { type: () => Int }) id: string) {
     return this.simulationsService.remove(id);
   }
 }

@@ -7,9 +7,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ObjectIdColumn,
+  Entity,
 } from 'typeorm'
 
-@ObjectType()
+@Entity() // Database link - Typeorm
+@ObjectType() // GraphQL link - NestJS
 export class Simulation {
   @ObjectIdColumn() // Database link - TypeORM
   @Field(() => ID)

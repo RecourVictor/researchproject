@@ -12,15 +12,15 @@ export class DisiplinesService {
     return `This action returns all disiplines`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} disipline`;
   }
 
-  update(id: number, updateDisiplineInput: UpdateDisiplineInput) {
-    return `This action updates a #${id} disipline`;
+  update(updateDisiplineInput: UpdateDisiplineInput) {
+    return `This action updates a #${updateDisiplineInput.id} disipline`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} disipline`;
   }
 }

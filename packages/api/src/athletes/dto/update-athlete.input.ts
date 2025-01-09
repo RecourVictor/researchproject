@@ -7,6 +7,7 @@ import {
   IsDate,
   IsNotEmpty,
 } from 'class-validator'
+import { UpdateRecordInput } from './update-record.input';
 
 @InputType()
 export class UpdateAthleteInput {
@@ -40,8 +41,8 @@ export class UpdateAthleteInput {
   @IsString()
   nationalityId: string;
 
-  @Field()
+  @Field(() => [UpdateRecordInput])
   @IsNotEmpty()
   @IsArray()
-  records: Record[];
+  records: UpdateRecordInput[];
 }
