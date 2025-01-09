@@ -1,8 +1,19 @@
-import { CreateCountryInput } from './create-country.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, ID } from '@nestjs/graphql'
+import { IsNotEmpty, IsString,MaxLength } from 'class-validator';
 
 @InputType()
-export class UpdateCountryInput extends PartialType(CreateCountryInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateCountryInput {
+  @Field(() => ID)
+  id: string
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(2)
+  countryCode: string
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  countryName: string
 }

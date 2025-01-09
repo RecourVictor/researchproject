@@ -1,7 +1,16 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsString,MaxLength } from 'class-validator';
 
 @InputType()
 export class CreateCountryInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(2)
+  countryCode: string;
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  countryName: string;
 }
