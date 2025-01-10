@@ -126,12 +126,12 @@ export class SeedService {
           athlete.name,
           athlete.surname,
         )
-        s.athletesId.push(a.id)
+        s.athletesId.push(new ObjectId(a.id))
       }
       const disipline = await this.disiplineService.findByName(
         simulation.disipline,
       )
-      s.disiplineId = disipline.id
+      s.disiplineId = new ObjectId(disipline.id)
 
       theSimulations.push(s)
     }
