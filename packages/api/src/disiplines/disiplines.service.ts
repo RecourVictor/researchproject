@@ -4,6 +4,7 @@ import { UpdateDisiplineInput } from './dto/update-disipline.input'
 import { Disipline } from './entities/disipline.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class DisiplinesService {
@@ -12,24 +13,35 @@ export class DisiplinesService {
     private readonly disiplineRepository: MongoRepository<Disipline>,
   ) {}
 
-  create(createDisiplineInput: CreateDisiplineInput) {
-    return 'This action adds a new disipline'
-  }
-
   findAll() {
-    return `This action returns all disiplines`
+    return this.disiplineRepository.find()
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} disipline`
+    if (!ObjectId.isValid(id)) {
+      throw new Error('Invalid id')
+    }
+
+    const objId = new ObjectId(id)
+    return this.disiplineRepository.findOneBy({ _id: objId })
   }
 
-  update(updateDisiplineInput: UpdateDisiplineInput) {
-    return `This action updates a #${updateDisiplineInput.id} disipline`
+  findOneByName(name: string) {
+    return this.disiplineRepository.findOneBy({ name: name })
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} disipline`
+  findBySearchString(searchString: string) {
+    const terms = searchString.split(' ').filter(Boolean) // Remove empty strings
+
+    if (terms.length === 0) {
+      return this.disiplineRepository.find({})
+    }
+
+    const searchStrings = terms.map(term => {
+      return { name: { $regex: term, $options: 'i' } }
+    })
+
+    return this.disiplineRepository.find({ $or: searchStrings })
   }
 
   // Function for seeding

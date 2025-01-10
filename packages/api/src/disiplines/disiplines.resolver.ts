@@ -1,17 +1,10 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Args } from '@nestjs/graphql';
 import { DisiplinesService } from './disiplines.service';
 import { Disipline } from './entities/disipline.entity';
-import { CreateDisiplineInput } from './dto/create-disipline.input';
-import { UpdateDisiplineInput } from './dto/update-disipline.input';
 
 @Resolver(() => Disipline)
 export class DisiplinesResolver {
   constructor(private readonly disiplinesService: DisiplinesService) {}
-
-  @Mutation(() => Disipline)
-  createDisipline(@Args('createDisiplineInput') createDisiplineInput: CreateDisiplineInput) {
-    return this.disiplinesService.create(createDisiplineInput);
-  }
 
   @Query(() => [Disipline], { name: 'disiplines' })
   findAll() {
@@ -19,17 +12,17 @@ export class DisiplinesResolver {
   }
 
   @Query(() => Disipline, { name: 'disipline' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.disiplinesService.findOne(id);
   }
 
-  @Mutation(() => Disipline)
-  updateDisipline(@Args('updateDisiplineInput') updateDisiplineInput: UpdateDisiplineInput) {
-    return this.disiplinesService.update(updateDisiplineInput);
+  @Query(() => Disipline, { name: 'disiplineByName' })
+  findByName(@Args('name', { type: () => String }) name: string) {
+    return this.disiplinesService.findByName(name);
   }
 
-  @Mutation(() => Disipline)
-  removeDisipline(@Args('id', { type: () => Int }) id: string) {
-    return this.disiplinesService.remove(id);
+  @Query(() => [Disipline], { name: 'disiplinesBySearchString' })
+  findBySearchString(@Args('searchString', { type: () => String }) searchString: string) {
+    return this.disiplinesService.findBySearchString(searchString);
   }
 }
