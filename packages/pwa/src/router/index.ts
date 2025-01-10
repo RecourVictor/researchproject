@@ -72,4 +72,12 @@ const router = createRouter({
   ],
 })
 
+router.beforeEach(async (to
+) => {
+  const { title } = to.meta
+  const defaultTitle = 'Simurace'
+
+  document.title = ((title as string) || defaultTitle) + ' | ' + defaultTitle
+})
+
 export default router
