@@ -1,11 +1,44 @@
 [
   {
-    "name": "John Doe"
+    "name": "John",
+    "surname": "Doe",
+    "dateOfBirth": "2003-10-08T08:00:00Z",
+    "gender": "MALE",
+    "nationality": "US",
+    "disciplines": [
+      {
+        "name": "100m",
+        "personalBest": 9.98
+      },
+      {
+        "name": "200m",
+        "personalBest": 20.99
+      },
+      {
+        "name": "400m",
+        "personalBest": 45.05
+      }
+    ]
   },
   {
-    "name": "Jane Doe"
-  },
-  {
-    "name": "Alice"
+    "name": "Jane",
+    "surname": "Doe",
+    "dateOfBirth": "1999-12-20T08:00:00Z",
+    "gender": "FEMALE",
+    "nationality": "BE",
+    "disciplines": [
+      {
+        "name": "100m",
+        "personalBest": 11.99
+      },
+      {
+        "name": "200m",
+        "personalBest": 22.22
+      },
+      {
+        "name": "400m",
+        "personalBest": 46.97
+      }
+    ]
   }
 ]

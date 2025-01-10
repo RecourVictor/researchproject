@@ -1,0 +1,26 @@
+[
+    {
+        "name": "speed",
+        "value": true
+    },
+    {
+        "name": "distance",
+        "value": true
+    },
+    {
+        "name": "timer",
+        "value": true
+    },
+    {
+        "name": "country",
+        "value": true
+    },
+    {
+        "name": "lane",
+        "value": false
+    },
+    {
+        "name": "lap_time",
+        "value": false
+    }
+]
