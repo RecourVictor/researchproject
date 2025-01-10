@@ -11,5 +11,5 @@ export class CreateRecordInput {
   @Field()
   @IsNotEmpty()
   @IsString()
-  PB: string
+  PB: number
 }

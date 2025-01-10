@@ -16,6 +16,7 @@ import * as countries from './data/countries.json' // set  "resolveJsonModule": 
 import * as disiplines from './data/disiplines.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as settings from './data/settings.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as simulations from './data/simulations.json' // set  "resolveJsonModule": true in tsconfig.json
+import { ObjectId } from 'mongodb'
 
 @Injectable()
 export class SeedService {
@@ -93,12 +94,12 @@ export class SeedService {
       const country = await this.countryService.findByCountryCode(
         athlete.nationality,
       )
-      a.nationalityId = country.id
+      a.nationalityId = new ObjectId(country.id)
       a.records = []
       for (const record of athlete.disciplines) {
         const r = new Record()
         const disipline = await this.disiplineService.findByName(record.name)
-        r.disiplineId = disipline.id
+        r.disiplineId = new ObjectId(disipline.id)
         r.PB = record.personalBest
         a.records.push(r)
       }

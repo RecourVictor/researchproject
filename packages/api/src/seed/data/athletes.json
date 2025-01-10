@@ -24,7 +24,7 @@
     "name": "Jane",
     "surname": "Doe",
     "dateOfBirth": "1999-12-20T08:00:00Z",
-    "gender": "FEAMLE",
+    "gender": "FEMALE",
     "nationality": "BE",
     "disciplines": [
       {

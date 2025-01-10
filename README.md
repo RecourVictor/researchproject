@@ -15,4 +15,4 @@ Of delete alles appart\
 ```npx nestjs-command seed:reset:disiplines```\
 ```npx nestjs-command seed:reset:settings```\
 ```npx nestjs-command seed:reset:athletes```\
-```npx nestjs-command seed:reset:simulations```\
+```npx nestjs-command seed:reset:simulations```

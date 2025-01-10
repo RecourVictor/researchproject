@@ -16,5 +16,5 @@ export class UpdateRecordInput {
   @Field()
   @IsNotEmpty()
   @IsString()
-  PB: string
+  PB: number
 }

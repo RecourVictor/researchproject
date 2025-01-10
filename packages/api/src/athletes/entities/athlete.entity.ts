@@ -2,6 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Country } from 'src/country/entities/country.entity';
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, ObjectIdColumn } from 'typeorm';
 import { Record } from './record.entity';
+import { ObjectId } from 'mongodb';
 
 export enum Gender {
   MALE = 'MALE',
@@ -32,12 +33,12 @@ export class Athlete {
   gender: Gender
 
   @Column() // Database link - Typeorm
-  nationalityId: string
+  nationalityId: ObjectId
   @Field(() => Country) //graphql
   nationality: Country
 
   @Column() // Database link - Typeorm
-  @Field(() => Record) //graphql
+  @Field(() => [Record]) //graphql
   records: Record[]
 
   @CreateDateColumn({ type: 'timestamp', nullable: true })
