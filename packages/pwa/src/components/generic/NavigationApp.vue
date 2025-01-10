@@ -1,8 +1,8 @@
 <template>
-  <nav class="bg-gray-800 text-white p-4 flex justify-between">
-    <div>
-        <img src="../../../public/logo.svg" alt="Logo Simurace" />
-        <p>Simurace</p>
+  <nav class=" text-white p-4 flex justify-between">
+    <div class="flex items-center gap-6">
+        <img class="h-20" src="/logo.svg" alt="Logo Simurace" />
+        <p class="text-5xl text-wa-blue font-worldAthleticsHeading">Simurace</p>
     </div>
     <div>
       <router-link
@@ -14,6 +14,9 @@
       </router-link>
     </div>
   </nav>
+  <div class="font-worldAthletics">Tekst met WorldAthletics</div>
+<h1 class="font-worldAthleticsHeading">Kop met WorldAthleticsHeading</h1>
+
 </template>
 
 <script setup lang="ts"></script>

@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'WorldAthletics';
+  src: url('/assets/fonts/WorldAthletics-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'WorldAthletics';
+  src: url('/assets/fonts/WorldAthletics-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'WorldAthleticsHeading';
+  src: url('/assets/fonts/WorldAthleticsHeadline.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
