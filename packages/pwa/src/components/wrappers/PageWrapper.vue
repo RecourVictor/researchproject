@@ -1,6 +1,8 @@
 <template>
   <NavigationApp />
-  <RouterView />
+  <div class="mx-auto px-4 max-w-screen-lg">
+    <RouterView />
+  </div>
 </template>
 
 <script setup lang="ts">

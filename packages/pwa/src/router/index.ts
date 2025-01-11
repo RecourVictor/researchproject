@@ -32,7 +32,7 @@ const router = createRouter({
           meta: { title: 'Atleten' }
         },
         {
-          path: ':id',
+          path: ':slug',
           name: 'athlete',
           component: () => import('../views/athletes/_id.vue'),
           meta: { title: 'Atleet' }
@@ -56,7 +56,7 @@ const router = createRouter({
           meta: { title: 'Simulaties' }
         },
         {
-          path: ':id',
+          path: ':slug',
           name: 'simulation',
           component: () => import('../views/simulations/_id.vue'),
           meta: { title: 'Simulatie' }
