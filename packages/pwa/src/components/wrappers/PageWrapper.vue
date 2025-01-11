@@ -1,6 +1,6 @@
 <template>
   <NavigationApp />
-  <div class="mx-auto px-4 max-w-screen-lg">
+  <div class="mx-auto px-4 max-w-screen-lg pb-10">
     <RouterView />
   </div>
 </template>
