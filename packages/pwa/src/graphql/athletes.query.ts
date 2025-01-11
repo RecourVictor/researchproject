@@ -7,6 +7,7 @@ export const GET_ATHLETES = gql`
       name
       surname
       gender
+      birthDate
       nationality {
         id
         countryCode
@@ -23,22 +24,43 @@ export const GET_ATHLETES = gql`
 `
 
 export const GET_ALL_ATHLETES = gql`
-query {
-  athletes {
-    id
-    name
-    surname
-    gender
-    nationality {
+  query {
+    athletes {
       id
-      countryCode
-      countryName
-    }
-    records {
-			disiplineId
-      PB
+      name
+      surname
+      gender
+      birthDate
+      nationality {
+        id
+        countryCode
+        countryName
+      }
+      records {
+        disiplineId
+        PB
+      }
     }
   }
-}
+`
 
+export const GET_ATHLETE_BY_ID = gql`
+  query athlete($id: String!) {
+    athlete(id: $id) {
+      id
+      name
+      surname
+      gender
+      birthDate
+      nationality {
+        id
+        countryCode
+        countryName
+      }
+      records {
+        disiplineId
+        PB
+      }
+    }
+  }
 `

@@ -105,7 +105,9 @@ const disiplineOptions = ref<{ label: string; value: string }[]>([])
 const { result, onResult: onInputResult } = useQuery(GET_DISIPLINES)
 
 onInputResult(() => {
-  disiplines(result.value.disiplines)
+  if (result.value?.disiplines){
+    disiplines(result.value.disiplines)
+  }
 })
 
 interface Disipline {
