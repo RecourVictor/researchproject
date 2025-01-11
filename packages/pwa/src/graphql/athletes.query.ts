@@ -21,3 +21,24 @@ export const GET_ATHLETES = gql`
     }
   }
 `
+
+export const GET_ALL_ATHLETES = gql`
+query {
+  athletes {
+    id
+    name
+    surname
+    gender
+    nationality {
+      id
+      countryCode
+      countryName
+    }
+    records {
+			disiplineId
+      PB
+    }
+  }
+}
+
+`
