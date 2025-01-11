@@ -33,9 +33,9 @@ const { result } = useQuery(GET_COUNTRIES)
 watchEffect(() => {
   if (result.value && result.value.countries) {
     // Vul de opties array met de landen uit het resultaat
-    options.value = result.value.countries.map((country: { countryName: string, countryCode: string }) => ({
+    options.value = result.value.countries.map((country: { countryName: string, id: string }) => ({
       label: country.countryName,
-      value: country.countryCode,
+      value: country.id,
     }));
   }
 });
