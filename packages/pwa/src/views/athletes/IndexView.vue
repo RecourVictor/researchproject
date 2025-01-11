@@ -7,7 +7,7 @@
         textOnButton="Atleet toevoegen"
       >
         <template #icon>
-          <Plus class="text-wa-orange" />
+          <Plus />
         </template>
       </SecondaryButton>
     </div>

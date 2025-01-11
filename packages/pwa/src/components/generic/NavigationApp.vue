@@ -7,17 +7,17 @@
     <div class="flex items-center gap-6">
       <NavigationButton :to="{ name: 'simulations' }" label="Simulaties">
         <template #icon>
-          <Play class="text-wa-orange" />
+          <Play />
         </template>
       </NavigationButton>
       <NavigationButton :to="{ name: 'athletes' }" label="Atleten">
         <template #icon>
-          <UserRound class="text-wa-orange" />
+          <UserRound />
         </template>
       </NavigationButton>
       <NavigationButton :to="{ name: 'settings' }" label="Instellingen">
         <template #icon>
-          <Settings class="text-wa-orange" />
+          <Settings />
         </template>
       </NavigationButton>
     </div>
