@@ -65,12 +65,4 @@ export class SimulationsResolver {
   disipline(@Parent() simulation: Simulation): Promise<Disipline> {
     return this.disiplinesService.findOne(simulation.disiplineId.toString())
   }
-
-  @ResolveField(() => [Athlete])
-  async athletes(@Parent() simulation: Simulation): Promise<Athlete[]> {
-    const athletes = await this.athletesService.findAllForResolver(
-      simulation.athletesId,
-    )
-    return athletes
-  }
 }

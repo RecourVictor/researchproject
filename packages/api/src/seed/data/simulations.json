@@ -4,11 +4,13 @@
     "athletes": [
       {
         "name": "John",
-        "surname": "Doe"
+        "surname": "Doe",
+        "time": 10.5
       },
       {
         "name": "Jane",
-        "surname": "Doe"
+        "surname": "Doe",
+        "time": 10.6
       }
     ],
     "disipline": "100m"
@@ -18,7 +20,8 @@
     "athletes": [
       {
         "name": "John",
-        "surname": "Doe"
+        "surname": "Doe",
+        "time": 20.5
       }
     ],
     "disipline": "200m"
@@ -28,7 +31,8 @@
     "athletes": [
       {
         "name": "Jane",
-        "surname": "Doe"
+        "surname": "Doe",
+        "time": 50.5
       }
     ],
     "disipline": "400m"
@@ -38,11 +42,13 @@
     "athletes": [
       {
         "name": "John",
-        "surname": "Doe"
+        "surname": "Doe",
+        "time": 105.5
       },
       {
         "name": "Jane",
-        "surname": "Doe"
+        "surname": "Doe",
+        "time": 119.5
       }
     ],
     "disipline": "800m"
