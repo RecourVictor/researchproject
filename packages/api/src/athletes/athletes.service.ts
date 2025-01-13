@@ -121,6 +121,8 @@ export class AthletesService {
     }
 
     await this.athleteRepository.remove(athlete)
+
+    // Return the removed athlete
     return athlete
   }
 

@@ -28,7 +28,7 @@ export const UPDATE_ATHLETE = gql`
       id
       name
       surname
-            gender
+      gender
       nationality {
         id
         countryCode
@@ -40,6 +40,14 @@ export const UPDATE_ATHLETE = gql`
         PB
       }
       __typename
+    }
+  }
+`
+
+export const DELETE_ATHLETE = gql`
+  mutation athletes($id: String!) {
+    removeAthlete(id: $id){
+      name
     }
   }
 `

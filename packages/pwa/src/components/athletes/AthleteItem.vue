@@ -24,19 +24,46 @@
     <div class="justify-self-end">
       <div class="flex gap-2">
         <button @click="editAthlete(athlete.id)">
-            <Pencil class="text-wa-blue" />
+          <Pencil class="text-wa-blue" />
         </button>
-        <button @click="deleteAthlete(athlete.id)">
-            <Trash class="text-wa-red" />
+        <button @click="deleteAthlete()">
+          <Trash class="text-wa-red" />
         </button>
       </div>
     </div>
   </div>
+  <PopupView
+    v-if="isPopupVisible"
+    title="Bevestiging"
+    :message="popupMessage"
+    @confirmed="handleConfirmed"
+    @cancelled="handleCancelled"
+  />
 </template>
 
 <script setup lang="ts">
 import { Trash, Pencil } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
+import PopupView from '../generic/PopupView.vue'
+import { ref } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
+import { DELETE_ATHLETE } from '@/graphql/athletes.mutation'
+import { GET_ATHLETES } from '@/graphql/athletes.query'
+
+const { mutate: removeAthlete } = useMutation(
+  DELETE_ATHLETE,
+  {
+    refetchQueries: [
+      {
+        query: GET_ATHLETES,
+        variables: { searchString: '' },
+      },
+    ],
+  },
+)
+
+const isPopupVisible = ref(false)
+const popupMessage = ref('')
 
 const { athlete } = defineProps({
   athlete: Object,
@@ -52,9 +79,22 @@ const editAthlete = (id: string) => {
   })
 }
 
-const deleteAthlete = (id: string) => {
-    console.log('Delete athlete with id: ' + id)
-    window.alert('Delete athlete with id: ' + id)
-    window.alert("Not implemented yet")
+const deleteAthlete = () => {
+  if (athlete) {
+    popupMessage.value = 'Weet je zeker dat je ' + athlete.name + ' ' + athlete.surname + ' wilt verwijderen?'
+  }
+  isPopupVisible.value = true
 }
+
+const handleConfirmed = () => {
+  isPopupVisible.value = false
+  if (athlete) {
+    removeAthlete({ id: athlete.id })
+  }
+};
+
+const handleCancelled = () => {
+  isPopupVisible.value = false
+};
+
 </script>
