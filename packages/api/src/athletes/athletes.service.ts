@@ -135,9 +135,11 @@ export class AthletesService {
     return this.athleteRepository.findOneBy({ name: name, surname: surname })
   }
 
-
   // In je AthletesService
-  async findAllForResolver(athletesIds: ObjectId[]): Promise<Athlete[]> {
-    return this.athleteRepository.find({ _id: { $in: athletesIds } }) // MongoDB zoekquery om de atleten op te halen
+  async findManyByIds(ids: string[]): Promise<Athlete[]> {
+    const objectIds = ids.map(id => new ObjectId(id)) // Zet strings om naar ObjectId
+    return this.athleteRepository.find({
+      where: { _id: { $in: objectIds } },
+    })
   }
 }

@@ -117,25 +117,43 @@ export class SeedService {
   //  Simulations
   async addSimulationsFromJson(): Promise<Simulation[]> {
     const theSimulations: Simulation[] = []
+
     for (const simulation of simulations) {
       const s = new Simulation()
       s.name = simulation.name
-      s.athletesId = []
+      s.athletes = [] // Gebruik het nieuwe 'athletes' veld met gekoppelde objecten en tijden
+
+      // Voeg atleten toe met gekoppelde ID's en tijden
       for (const athlete of simulation.athletes) {
         const a = await this.athletesService.findByName(
           athlete.name,
           athlete.surname,
         )
-        s.athletesId.push(new ObjectId(a.id))
+        if (!a) {
+          throw new Error(
+            `Athlete ${athlete.name} ${athlete.surname} not found`,
+          )
+        }
+
+        s.athletes.push({
+          athleteId: new ObjectId(a.id),
+          time: athlete.time ?? 0, // Tijd koppelen aan ID
+        })
       }
+
+      // Koppel de discipline aan de simulatie
       const disipline = await this.disiplineService.findByName(
         simulation.disipline,
       )
+      if (!disipline) {
+        throw new Error(`Disipline ${simulation.disipline} not found`)
+      }
       s.disiplineId = new ObjectId(disipline.id)
 
       theSimulations.push(s)
     }
 
+    // Sla alle simulaties in één keer op
     return this.simulationService.saveAll(theSimulations)
   }
 

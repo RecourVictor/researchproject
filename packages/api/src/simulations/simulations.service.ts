@@ -20,20 +20,31 @@ export class SimulationsService {
   async create(createSimulationInput: CreateSimulationInput) {
     const simulation = new Simulation()
     simulation.name = createSimulationInput.name
-    // Check of the disipline exists
-    const disipline = await this.disiplineService.findOne(createSimulationInput.disiplineId)
+
+    // Check of de discipline bestaat
+    const disipline = await this.disiplineService.findOne(
+      createSimulationInput.disiplineId,
+    )
     if (!disipline) {
       throw new Error('Disipline not found')
     }
     simulation.disiplineId = new ObjectId(disipline.id)
-    simulation.athletesId = []
-    // Check of the athletes exists
-    for (const athleteId of createSimulationInput.athletesId) {
-      const athlete = await this.athletesService.findOne(athleteId)
+
+    // Initialize de athletes array
+    simulation.athletes = []
+
+    // Controleer of de atleten bestaan en voeg ze toe met een default time
+    for (const athleteInput of createSimulationInput.athletes) {
+      const athlete = await this.athletesService.findOne(athleteInput.athleteId)
       if (!athlete) {
-        throw new Error('Athlete not found')
+        throw new Error(`Athlete with ID ${athleteInput.athleteId} not found`)
       }
-      simulation.athletesId.push(new ObjectId(athlete.id))
+
+      // Voeg het AthletePerformance object toe aan de athletes array
+      simulation.athletes.push({
+        athleteId: new ObjectId(athlete.id),
+        time: athleteInput.time ?? 0, // Default tijd als geen tijd wordt meegegeven
+      })
     }
 
     return this.simulationsRepository.save(simulation)
@@ -79,30 +90,46 @@ export class SimulationsService {
 
     const objId = new ObjectId(updateSimulationInput.id)
 
-    return this.simulationsRepository.findOneBy({ _id: objId }).then(async simulation => {
-      if (!simulation) {
-        throw new Error('Simulation not found')
-      }
-
-      simulation.name = updateSimulationInput.name
-      // Check of the disipline exists
-      const disipline = await this.disiplineService.findOne(updateSimulationInput.disiplineId)
-      if (!disipline) {
-        throw new Error('Disipline not found')
-      }
-      simulation.disiplineId = new ObjectId(disipline.id)
-      simulation.athletesId = []
-      // Check of the athletes exists
-      for (const athleteId of updateSimulationInput.athletesId) {
-        const athlete = await this.athletesService.findOne(athleteId)
-        if (!athlete) {
-          throw new Error('Athlete not found')
+    return this.simulationsRepository
+      .findOneBy({ _id: objId })
+      .then(async simulation => {
+        if (!simulation) {
+          throw new Error('Simulation not found')
         }
-        simulation.athletesId.push(new ObjectId(athlete.id))
-      }
 
-      return this.simulationsRepository.save(simulation)
-    })
+        simulation.name = updateSimulationInput.name
+
+        // Check of de discipline bestaat
+        const disipline = await this.disiplineService.findOne(
+          updateSimulationInput.disiplineId,
+        )
+        if (!disipline) {
+          throw new Error('Disipline not found')
+        }
+        simulation.disiplineId = new ObjectId(disipline.id)
+
+        // Update de athletes array
+        simulation.athletes = []
+
+        // Controleer of de atleten bestaan en voeg ze toe met een eventuele tijd
+        for (const athleteInput of updateSimulationInput.athletes) {
+          const athlete = await this.athletesService.findOne(
+            athleteInput.athleteId,
+          )
+          if (!athlete) {
+            throw new Error(
+              `Athlete with ID ${athleteInput.athleteId} not found`,
+            )
+          }
+
+          simulation.athletes.push({
+            athleteId: new ObjectId(athlete.id),
+            time: athleteInput.time ?? 0, // Default tijd als geen tijd wordt opgegeven
+          })
+        }
+
+        return this.simulationsRepository.save(simulation)
+      })
   }
 
   async remove(id: string) {
@@ -111,7 +138,9 @@ export class SimulationsService {
     }
 
     const objId = new ObjectId(id)
-    const simulation = await this.simulationsRepository.findOneBy({ _id: objId })
+    const simulation = await this.simulationsRepository.findOneBy({
+      _id: objId,
+    })
 
     if (!simulation) {
       throw new Error('Simulation not found')
