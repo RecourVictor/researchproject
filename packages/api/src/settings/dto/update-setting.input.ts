@@ -1,12 +1,12 @@
-import { InputType, Field, ID } from '@nestjs/graphql'
+import { InputType, Field } from '@nestjs/graphql'
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class UpdateSettingInput {
-  @Field(() => ID)
+  @Field()
   @IsString()
   @IsNotEmpty()
-  id: string
+  name: string
 
   @Field()
   @IsBoolean()

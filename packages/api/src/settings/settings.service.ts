@@ -27,12 +27,7 @@ export class SettingsService {
   }
 
   update(updateSettingInput: UpdateSettingInput) {
-    if (!ObjectId.isValid(updateSettingInput.id)) {
-      throw new Error('Invalid id')
-    }
-
-    const objId = new ObjectId(updateSettingInput.id)
-    return this.settingsRepository.findOneBy({ _id: objId }).then(setting => {
+    return this.settingsRepository.findOneBy({ name: updateSettingInput.name }).then(setting => {
       if (!setting) {
         throw new Error('Setting not found')
       }

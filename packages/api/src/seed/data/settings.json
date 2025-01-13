@@ -8,12 +8,16 @@
         "value": true
     },
     {
-        "name": "timer",
+        "name": "clock",
         "value": true
     },
     {
         "name": "country",
         "value": true
+    },
+    {
+        "name": "position",
+        "value": false
     },
     {
         "name": "lane",
