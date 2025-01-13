@@ -1,3 +1,4 @@
+import './fonts.css'
 import './index.css';
 import router from './router'
 import App from './App.vue'

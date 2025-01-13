@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1 class="bg-blue-500 text-white">hallo world</h1>
+    <h1 class="bg-blue-500 text-white">hallo victor recour hier</h1>
     <div v-if="loading">Loading...</div>
 
     <div v-else>
