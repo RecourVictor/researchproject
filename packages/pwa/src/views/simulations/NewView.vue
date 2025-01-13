@@ -1,5 +1,6 @@
 <template>
   <section class="space-y-6">
+    <GoBackButton />
     <AppHeading :level="1">Simulatie toevoegen</AppHeading>
     <form @submit.prevent="handleSubmit" class="space-y-5">
       <AppHeading :level="2">Algemene info</AppHeading>
@@ -68,6 +69,7 @@ import { GET_ALL_ATHLETES } from '@/graphql/athletes.query'
 import { useRouter } from 'vue-router'
 import { GET_SIMULATIONS } from '@/graphql/simulations.query'
 import { CREATE_SIMULATION } from '@/graphql/simulations.mutation'
+import GoBackButton from '@/components/generic/GoBackButton.vue'
 
 const { push } = useRouter()
 

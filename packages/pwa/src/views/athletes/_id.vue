@@ -1,5 +1,6 @@
 <template>
   <section class="space-y-6">
+    <GoBackButton />
     <AppHeading :level="1">Atleet bewerken</AppHeading>
     <form
       v-if="athleteResult?.athlete"
@@ -83,6 +84,7 @@ import NumberInput from '@/components/inputs/NumberInput.vue'
 import { GET_ATHLETES } from '@/graphql/athletes.query'
 import { UPDATE_ATHLETE } from '@/graphql/athletes.mutation'
 import { useRouter, useRoute } from 'vue-router'
+import GoBackButton from '@/components/generic/GoBackButton.vue'
 
 const { push } = useRouter()
 

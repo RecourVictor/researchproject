@@ -1,5 +1,6 @@
 <template>
   <section class="space-y-6">
+    <GoBackButton />
     <AppHeading :level="1">Simulatie bewerken</AppHeading>
     <form @submit.prevent="handleSubmit" class="space-y-5">
       <AppHeading :level="2">Algemene info</AppHeading>
@@ -69,6 +70,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { GET_SIMULATIONS } from '@/graphql/simulations.query'
 import { UPDATE_SIMULATION } from '@/graphql/simulations.mutation'
 import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
+import GoBackButton from '@/components/generic/GoBackButton.vue'
 
 const { push } = useRouter()
 
