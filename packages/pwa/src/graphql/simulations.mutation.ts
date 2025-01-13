@@ -33,3 +33,11 @@ export const UPDATE_SIMULATION = gql`
     }
   }
 `
+
+export const DELETE_SIMULATION = gql`
+  mutation simulations($id: String!) {
+    removeSimulation(id: $id) {
+      name
+    }
+  }
+`

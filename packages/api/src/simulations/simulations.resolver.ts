@@ -56,7 +56,7 @@ export class SimulationsResolver {
   }
 
   @Mutation(() => Simulation)
-  removeSimulation(@Args('id', { type: () => Int }) id: string) {
+  removeSimulation(@Args('id', { type: () => String }) id: string) {
     return this.simulationsService.remove(id)
   }
 

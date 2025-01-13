@@ -14,17 +14,44 @@
         <button @click="editSimulation(simulatie.id)">
           <Pencil class="text-wa-blue" />
         </button>
-        <button @click="deleteSimulation(simulatie.id)">
+        <button @click="deleteSimulation()">
           <Trash class="text-wa-red" />
         </button>
       </div>
     </div>
   </div>
+  <PopupView
+    v-if="isPopupVisible"
+    title="Bevestiging"
+    :message="popupMessage"
+    @confirmed="handleConfirmed"
+    @cancelled="handleCancelled"
+  />
 </template>
 
 <script setup lang="ts">
 import { Trash, Pencil, Play } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
+import PopupView from '../generic/PopupView.vue'
+import { ref } from 'vue'
+import { useMutation } from '@vue/apollo-composable'
+import { DELETE_SIMULATION } from '@/graphql/simulations.mutation'
+import { GET_SIMULATIONS } from '@/graphql/simulations.query'
+
+const { mutate: removeSimulation } = useMutation(
+  DELETE_SIMULATION,
+  {
+    refetchQueries: [
+      {
+        query: GET_SIMULATIONS,
+        variables: { searchString: '' },
+      },
+    ],
+  },
+)
+
+const isPopupVisible = ref(false)
+const popupMessage = ref('')
 
 const { simulatie } = defineProps({
   simulatie: Object,
@@ -40,11 +67,23 @@ const editSimulation = (id: string) => {
   })
 }
 
-const deleteSimulation = (id: string) => {
-  console.log('Delete simulation with id: ' + id)
-  window.alert('Delete simulation with id: ' + id)
-  window.alert('Not implemented yet')
+const deleteSimulation = () => {
+  if (simulatie) {
+    popupMessage.value = `Weet je zeker dat je de simulatie ${simulatie.name} wilt verwijderen?`
+    isPopupVisible.value = true
+  }
 }
+
+const handleConfirmed = () => {
+  isPopupVisible.value = false
+  if (simulatie) {
+    removeSimulation({ id: simulatie.id })
+  }
+};
+
+const handleCancelled = () => {
+  isPopupVisible.value = false
+};
 
 const playSimulation = (id: string) => {
   console.log('Play simulation with id: ' + id)
