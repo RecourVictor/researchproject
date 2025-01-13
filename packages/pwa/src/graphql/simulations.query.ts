@@ -14,3 +14,22 @@ export const GET_SIMULATIONS = gql`
     }
   }
 `
+
+export const GET_SIMULATION_BY_ID = gql`
+  query simulation($id: String!) {
+    simulation(id: $id) {
+      id
+      name
+      disipline {
+        name
+        __typename
+        id
+      }
+      athletes {
+        time
+        athleteId
+      }
+      __typename
+    }
+  }
+`

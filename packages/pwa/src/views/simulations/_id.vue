@@ -1,98 +1,213 @@
 <template>
-    <section class="space-y-6">
-      <AppHeading :level="1">Simulatie bewerken</AppHeading>
-      <form class="space-y-5">
-        <AppHeading :level="2">Algemene info</AppHeading>
-        <div class="space-y-4">
-          <TextInput
-            label="Wedstrijdnaam"
-            v-model="name"
-            placeholder="Wedsrijdnaam"
-          />
-          <SelectInput
-            class="col-span-3 mt-4"
-            label="Disipline"
-            v-model="disipline"
-            :options="disiplineOptions"
-            firstOption="Kies een disipline"
-          />
-        </div>
-        <AppHeading :level="2">Atleten</AppHeading>
-        <div class="space-y-4">
-          <div class="grid grid-cols-4 gap-x-4">
-            <p class="col-span-3 text-xl">Atleet</p>
-            <p class="text-xl">Te lopen tijd</p>
+  <section class="space-y-6">
+    <AppHeading :level="1">Simulatie bewerken</AppHeading>
+    <form @submit.prevent="handleSubmit" class="space-y-5">
+      <AppHeading :level="2">Algemene info</AppHeading>
+      <div class="space-y-4">
+        <TextInput
+          label="Wedstrijdnaam"
+          v-model="simulationInput.name"
+          placeholder="Wedsrijdnaam"
+        />
+        <SelectInput
+          class="col-span-3 mt-4"
+          label="Disipline"
+          v-model="simulationInput.disipline"
+          :options="disiplineOptions"
+          firstOption="Kies een disipline"
+        />
+      </div>
+      <AppHeading :level="2">Atleten</AppHeading>
+      <div class="space-y-4">
+        <div class="grid grid-cols-4 gap-x-4">
+          <p class="col-span-3 text-xl">Atleet</p>
+          <p class="text-xl">Te lopen tijd</p>
+          <div
+            v-for="(athleteInput, index) in athletesInput"
+            :key="index"
+            class="grid grid-cols-4 gap-x-4 col-span-4"
+          >
             <SelectInput
               class="col-span-3 mt-4"
-              v-model="athlete"
+              v-model="athleteInput.athlete"
               :options="athleteOptions"
+              @change="handleAthleteChange()"
               firstOption="Kies een atleet"
             />
             <TextInput
-              v-model="time"
-              class="mt-4"
-              placeholder="Tijd"
-            />
-            <SelectInput
-              class="col-span-3 mt-4"
-              v-model="athlete"
-              :options="athleteOptions"
-              firstOption="Kies een atleet"
-            />
-            <TextInput
-              v-model="time"
+              v-model="athleteInput.time"
               class="mt-4"
               placeholder="Tijd"
             />
           </div>
         </div>
-        <PrimaryButton textOnButton="Simulatie bijwerken">
-          <template #icon>
-            <Play />
-          </template>
-        </PrimaryButton>
-      </form>
-    </section>
-  </template>
-  
-  <script setup lang="ts">
-  import AppHeading from '@/components/generic/AppHeading.vue'
-  import PrimaryButton from '@/components/generic/PrimaryButton.vue'
-  import SelectInput from '@/components/inputs/SelectInput.vue'
-  import TextInput from '@/components/inputs/TextInput.vue'
-  import { Play } from 'lucide-vue-next'
-  import { ref, watchEffect } from 'vue'
-  import { useQuery } from '@vue/apollo-composable'
-  import { GET_DISIPLINES } from '@/graphql/disiplines.query'
-  import { GET_ALL_ATHLETES } from '@/graphql/athletes.query'
-  
-  // Reactieve variabelen
-  const disiplineOptions = ref<{ label: string; value: string }[]>([])
-  const athleteOptions = ref<{ label: string; value: string }[]>([])
-  
-  // Haal de landen op via GraphQL
-  const { result: resultDisiplines } = useQuery(GET_DISIPLINES)
-  const { result: resultAthlets } = useQuery(GET_ALL_ATHLETES)
-  
-  watchEffect(() => {
-    if (resultDisiplines.value && resultDisiplines.value.disiplines) {
-      // Vul de opties array met de landen uit het resultaat
-      disiplineOptions.value = resultDisiplines.value.disiplines.map(
-        (disipline: { id: string; name: string }) => ({
-          label: disipline.name,
-          value: disipline.id,
-        }),
-      )
+      </div>
+      <PrimaryButton textOnButton="Simulatie bewerken">
+        <template #icon>
+          <Play />
+        </template>
+      </PrimaryButton>
+    </form>
+    <!-- Errors -->
+    <div v-if="updateSimulationError" class="text-wa-red">
+      {{ updateSimulationError }} - Use the network tab for more info
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+import AppHeading from '@/components/generic/AppHeading.vue'
+import PrimaryButton from '@/components/generic/PrimaryButton.vue'
+import SelectInput from '@/components/inputs/SelectInput.vue'
+import TextInput from '@/components/inputs/TextInput.vue'
+import { Play } from 'lucide-vue-next'
+import { ref } from 'vue'
+import { useQuery, useMutation } from '@vue/apollo-composable'
+import { GET_DISIPLINES } from '@/graphql/disiplines.query'
+import { GET_ALL_ATHLETES } from '@/graphql/athletes.query'
+import { useRouter, useRoute } from 'vue-router'
+import { GET_SIMULATIONS } from '@/graphql/simulations.query'
+import { UPDATE_SIMULATION } from '@/graphql/simulations.mutation'
+import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
+
+const { push } = useRouter()
+
+const route = useRoute()
+
+const simulationId = route.params.slug
+const {
+  result: simulationResult,
+  onResult: onSimulationResult,
+} = useQuery(GET_SIMULATION_BY_ID, {
+  id: String(simulationId),
+})
+
+const { mutate: updateSimulation, error: updateSimulationError } = useMutation(
+  UPDATE_SIMULATION,
+  {
+    refetchQueries: [
+      {
+        query: GET_SIMULATIONS,
+        variables: { searchString: '' },
+      },
+    ],
+  },
+)
+
+const simulationInput = ref({
+  id: '',
+  name: '',
+  disipline: '',
+})
+
+const athletesInput = ref([
+  {
+    athlete: '',
+    time: '',
+  },
+])
+
+onSimulationResult(() => {
+  if (simulationResult.value && simulationResult.value.simulation) {
+    console.log(simulationResult.value.simulation)
+    const simulation = simulationResult.value.simulation
+    simulationInput.value = {
+      id: simulation.id,
+      name: simulation.name,
+      disipline: simulation.disipline.id,
     }
-    if (resultAthlets.value && resultAthlets.value.athletes) {
-      // Vul de opties array met de landen uit het resultaat
-      athleteOptions.value = resultAthlets.value.athletes.map(
-        (athlete: { id: string; name: string; surname: string }) => ({
-          label: athlete.name + ' ' + athlete.surname,
-          value: athlete.id,
-        }),
-      )
-    }
+    console.log(simulation.athletes)
+    athletesInput.value = simulation.athletes.map((athlete: { athlete: { id: string }; time: string }) => ({
+      athlete: athlete.athleteId,
+      time: athlete.time,
+    }))
+    athletesInput.value.push({ athlete: '', time: '' })
+  }
+})
+
+// Reactieve variabelen
+const disiplineOptions = ref<{ label: string; value: string }[]>([])
+const athleteOptions = ref<{ label: string; value: string }[]>([])
+
+// Haal de landen op via GraphQL
+const { result: disiplineResult, onResult: onDisiplinesResult } =
+  useQuery(GET_DISIPLINES)
+const { result: athleteResult, onResult: onAthletesResult } =
+  useQuery(GET_ALL_ATHLETES)
+
+onDisiplinesResult(() => {
+  if (disiplineResult.value && disiplineResult.value.disiplines) {
+    disiplines(disiplineResult.value.disiplines)
+  }
+})
+
+const disiplines = (fetchedDisiplines: { name: string; id: string }[]) => {
+  disiplineOptions.value = fetchedDisiplines.map(disipline => ({
+    label: disipline.name,
+    value: disipline.id,
+  }))
+}
+
+onAthletesResult(() => {
+  if (athleteResult.value && athleteResult.value.athletes) {
+    athletes(athleteResult.value.athletes)
+  }
+})
+
+const athletes = (fetchedAthletes: { name: string; surname: string; id: string }[]) => {
+  const aviabelAthletes = []
+
+  for (const athlete of fetchedAthletes) {
+    const diabled = athletesInput.value.some(
+      athleteInput => athleteInput.athlete === athlete.id,
+    )
+    aviabelAthletes.push({
+      label: athlete.name + ' ' + athlete.surname,
+      value: athlete.id,
+      disabled: diabled,
+    })
+  }
+  athleteOptions.value = aviabelAthletes
+}
+
+const handleSubmit = () => {
+  // verwijder de laatste atleet als deze niet volledig is ingevuld
+  if (!athletesInput.value[athletesInput.value.length - 1].athlete) {
+    athletesInput.value.pop()
+  }
+
+  const athletes = athletesInput.value.map(athlete => ({
+    athleteId: athlete.athlete,
+    time: parseFloat(athlete.time),
+  }))
+
+  const simulation = {
+    id: simulationInput.value.id,
+    name: simulationInput.value.name,
+    disiplineId: simulationInput.value.disipline,
+    athletes: athletes,
+  }
+
+  console.log(simulation)
+
+  updateSimulation({ 
+    simulationInput: simulation 
+  }).then(() => {
+    push({ name: 'simulations' })
   })
-  </script>
-  
+}
+
+// Functies voor het toevoegen van nieuwe atleet velden
+const handleAthleteChange = () => {
+  athletes(athleteResult.value?.athletes ?? [])
+  addNewRecordField()
+}
+
+const addNewRecordField = () => {
+  const lastRecord = athletesInput.value[athletesInput.value.length - 1]
+  // Controleer of het laatste veld volledig is ingevuld
+  if (lastRecord.athlete) {
+    athletesInput.value.push({ athlete: '', time: '' })
+  }
+}
+</script>

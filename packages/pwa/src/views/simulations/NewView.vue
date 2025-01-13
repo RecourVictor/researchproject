@@ -112,7 +112,7 @@ onAthletesResult(() => {
   }
 })
 
-const athletes = (fetchedAthletes: { name: string; id: string }[]) => {
+const athletes = (fetchedAthletes: { name: string; surname: string; id: string }[]) => {
   const aviabelAthletes = []
 
   for (const athlete of fetchedAthletes) {
@@ -120,7 +120,7 @@ const athletes = (fetchedAthletes: { name: string; id: string }[]) => {
       athleteInput => athleteInput.athlete === athlete.id,
     )
     aviabelAthletes.push({
-      label: athlete.name,
+      label: athlete.name + ' ' + athlete.surname,
       value: athlete.id,
       disabled: diabled,
     })

@@ -16,3 +16,20 @@ export const CREATE_SIMULATION = gql`
     }
   }
 `
+
+export const UPDATE_SIMULATION = gql`
+  mutation simulations($simulationInput: UpdateSimulationInput!) {
+    updateSimulation(updateSimulationInput: $simulationInput) {
+      id
+      name
+      disipline {
+        name
+      }
+      athletes {
+        time
+        athleteId
+      }
+      __typename
+    }
+  }
+`
