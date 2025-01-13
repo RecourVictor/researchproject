@@ -29,7 +29,7 @@
   
   const updateModelValue = (event: Event) => {
     const target = event.target as HTMLInputElement
-    const value = target.value == null ? 0 : parseFloat(target.value)
+    const value = target.value
     emits('update:modelValue', value)
   }
   

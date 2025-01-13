@@ -99,6 +99,8 @@ export class AthletesService {
           }
           newRecord.disiplineId = new ObjectId(disipline.id)
           newRecord.PB = record.PB
+
+          records.push(newRecord)
         }
         athlete.records = records
 
