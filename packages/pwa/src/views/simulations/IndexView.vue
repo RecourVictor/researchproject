@@ -48,8 +48,6 @@ const {
   searchString: searchQuery.value,
 }))
 
-console.log(searchResult)
-
 const router = useRouter()
 
 const createAthlete = () => {

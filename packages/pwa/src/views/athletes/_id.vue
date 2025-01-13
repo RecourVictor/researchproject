@@ -1,5 +1,6 @@
 <template>
   <section class="space-y-6">
+    <GoBackButton />
     <AppHeading :level="1">Atleet bewerken</AppHeading>
     <form
       v-if="athleteResult?.athlete"
@@ -61,9 +62,9 @@
       </PrimaryButton>
     </form>
     <!-- Errors -->
-    <!-- <div v-if="addAthleteError" class="text-wa-red">
-      {{ addAthleteError }} - Use the network tab for more info
-    </div> -->
+    <div v-if="updatethleteError" class="text-wa-red">
+      {{ updatethleteError }} - Use the network tab for more info
+    </div>
   </section>
 </template>
 
@@ -76,29 +77,40 @@ import SelectInput from '@/components/inputs/SelectInput.vue'
 import TextInput from '@/components/inputs/TextInput.vue'
 import { UserRound } from 'lucide-vue-next'
 import { ref } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
+import { useQuery, useMutation } from '@vue/apollo-composable'
 import { GET_DISIPLINES } from '@/graphql/disiplines.query'
 import { GET_ATHLETE_BY_ID } from '@/graphql/athletes.query'
 import NumberInput from '@/components/inputs/NumberInput.vue'
-// import { GET_ATHLETES } from '@/graphql/athletes.query'
-// import { CREATE_ATHLETE } from '@/graphql/athletes.mutation'
+import { GET_ATHLETES } from '@/graphql/athletes.query'
+import { UPDATE_ATHLETE } from '@/graphql/athletes.mutation'
 import { useRouter, useRoute } from 'vue-router'
+import GoBackButton from '@/components/generic/GoBackButton.vue'
 
-// const { push } = useRouter()
+const { push } = useRouter()
 
 const route = useRoute()
-const router = useRouter()
+
 const athleteId = route.params.slug
 const {
   result: athleteResult,
   onResult: onAthleteResult,
-  error,
-  loading,
 } = useQuery(GET_ATHLETE_BY_ID, {
   id: String(athleteId),
 })
+const { mutate: updateAthlete, error: updatethleteError } = useMutation(
+  UPDATE_ATHLETE,
+  {
+    refetchQueries: [
+      {
+        query: GET_ATHLETES,
+        variables: { searchString: '' },
+      },
+    ],
+  },
+)
 
 const athleteInput = ref({
+  id : '',
   firstName: '',
   lastName: '',
   birthDate: '',
@@ -114,6 +126,7 @@ const recordInput = ref([
 
 onAthleteResult(() => {
   if (athleteResult.value?.athlete) {
+    athleteInput.value.id = athleteResult.value.athlete.id
     athleteInput.value.firstName = athleteResult.value.athlete.name
     athleteInput.value.lastName = athleteResult.value.athlete.surname
     athleteInput.value.birthDate = formatToDateInput(
@@ -192,6 +205,7 @@ const handleSubmit = () => {
   })
 
   const athlete = {
+    id: athleteInput.value.id,
     name: athleteInput.value.firstName,
     surname: athleteInput.value.lastName,
     birthDate: new Date(athleteInput.value.birthDate).toISOString(),
@@ -201,6 +215,12 @@ const handleSubmit = () => {
   }
 
   console.log(athlete)
+
+  updateAthlete({
+    athleteInput: athlete,
+  }).then(() => {
+    push({ name: 'athletes' })
+  })
 }
 
 // Functies voor het toevoegen van nieuwe record velden

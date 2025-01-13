@@ -99,6 +99,8 @@ export class AthletesService {
           }
           newRecord.disiplineId = new ObjectId(disipline.id)
           newRecord.PB = record.PB
+
+          records.push(newRecord)
         }
         athlete.records = records
 
@@ -119,6 +121,8 @@ export class AthletesService {
     }
 
     await this.athleteRepository.remove(athlete)
+
+    // Return the removed athlete
     return athlete
   }
 

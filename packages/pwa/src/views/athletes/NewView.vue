@@ -1,5 +1,6 @@
 <template>
   <section class="space-y-6">
+    <GoBackButton />
     <AppHeading :level="1">Atleet toevoegen</AppHeading>
     <form @submit.prevent="handleSubmit" class="space-y-5">
       <AppHeading :level="2">Algemene info</AppHeading>
@@ -78,6 +79,7 @@ import NumberInput from '@/components/inputs/NumberInput.vue'
 import { GET_ATHLETES } from '@/graphql/athletes.query'
 import { CREATE_ATHLETE } from '@/graphql/athletes.mutation'
 import { useRouter } from 'vue-router'
+import GoBackButton from '@/components/generic/GoBackButton.vue'
 
 const { push } = useRouter()
 
