@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { shallowRef, watchEffect } from 'vue'
+import { computed, shallowRef, watchEffect } from 'vue'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
@@ -37,24 +37,47 @@ const athletRef = shallowRef() // Maak een ref voor de atleet
 
 const { onLoop } = useRenderLoop()
 
-onLoop(({ elapsed }) => {
-  if (athletRef.value) {
-    const a = 35 // Semi-major axis
-    const b = 20 // Semi-minor axis
-    const speed = 0.5
+const ellipse = {
+  a: 18.5, // Grote straal
+  b: 9.4, // Kleine straal
+  segments: 100, // Aantal punten langs de ellips
+}
 
-    // Bereken de nieuwe posities
-    const x = a * Math.cos(-speed * elapsed)
-    const z = b * Math.sin(-speed * elapsed)
-
-    // Stel de positie in
-    athletRef.value.position.x = x
-    athletRef.value.position.z = z
-
-    // Stel de rotatie in (looprichting)
+const path = computed(() => {
+  const points = []
+  for (let i = 0; i < ellipse.segments; i++) {
+    const angle = (2 * Math.PI * i) / ellipse.segments
+    const x = ellipse.a * Math.cos(angle)
+    const z = ellipse.b * Math.sin(angle)
+    points.push({ x, z })
   }
+  return points
 })
 
+
+onLoop(({ elapsed }) => {
+  if (athletRef.value && path.value.length > 0) {
+    const pathDuration = 10 // Tijd in seconden om het volledige pad te volgen
+    const pathLength = path.value.length
+    const timePerSegment = pathDuration / pathLength
+
+    const currentSegment = Math.floor((elapsed % pathDuration) / timePerSegment)
+    const segmentProgress = (elapsed % timePerSegment) / timePerSegment
+
+    const start = path.value[currentSegment]
+    const end = path.value[(currentSegment + 1) % pathLength]
+
+    // Positie-interpolatie
+    athletRef.value.position.x = start.x + (end.x - start.x) * segmentProgress
+    athletRef.value.position.z = start.z + (end.z - start.z) * segmentProgress
+
+    // Rotatie berekenen
+    const deltaX = end.x - start.x
+    const deltaZ = end.z - start.z
+    const angle = Math.atan2(deltaZ, deltaX)
+    athletRef.value.rotation.y = -angle
+  }
+})
 
 // Controleer of het model geladen is en log het resultaat
 watchEffect(() => {
