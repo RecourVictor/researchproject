@@ -5,7 +5,7 @@
       <GLTFModel path="/models/piste/scene.gltf" draco />
     </Suspense>
     <TresDirectionalLight :intensity="2.5" :position="[5, 10, 5]" />
-    <OrbitControls :min-polar-angle="0" :max-polar-angle="Math.PI / 2" />
+    <OrbitControls :min-polar-angle="0" :max-polar-angle="Math.PI / 2" :max-distance="75" />
   </TresCanvas>
 </template>
 
