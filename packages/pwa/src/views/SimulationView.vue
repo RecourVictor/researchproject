@@ -1,11 +1,11 @@
 <template>
   <TresCanvas clear-color="#82DBC5" window-size>
-    <TresPerspectiveCamera :position="[3, 3, 3]" :look-at="[0, 0, 0]" />
-    <TresAmbientLight :intensity="1" />
+    <TresPerspectiveCamera :position="[-15, 25, 30]" />
     <Suspense>
       <GLTFModel path="/models/piste/scene.gltf" draco />
     </Suspense>
-    <OrbitControls />
+    <TresDirectionalLight :intensity="0.8" :position="[5, 10, 5]" />
+    <OrbitControls :min-polar-angle="0" :max-polar-angle="Math.PI / 2" />
   </TresCanvas>
 </template>
 
