@@ -2,7 +2,7 @@
   <button class="z-1000" @click="togglePause">
     {{ isPaused ? 'Hervatten' : 'Pauzeren' }}
   </button>
-  <AthleticsTrack :athletes="athletes" :rounds="5" :isPaused="isPaused" />
+  <AthleticsTrack :athletes="athletes" :rounds="2" :isPaused="isPaused" />
 </template>
 
 <script setup lang="ts">
@@ -18,7 +18,7 @@ const togglePause = () => {
 }
 
 const athletes = [
-  { id: 1, name: 'Usain Bolt', roundTime: 9.5 },
-  { id: 2, name: 'Mo Farah', roundTime: 12.3 },
+  { id: 1, name: 'Usain Bolt', roundTime: 30.55 },
+  { id: 2, name: 'Mo Farah', roundTime: 50.30 },
 ]
 </script>

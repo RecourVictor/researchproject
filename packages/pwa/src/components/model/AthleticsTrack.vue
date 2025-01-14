@@ -33,12 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
-// Props
 interface Athlete {
   id: number
   name: string
@@ -48,11 +47,10 @@ interface Athlete {
 const props = defineProps<{
   athletes: Athlete[]
   rounds: number
-  isPaused: boolean // Nieuwe prop toegevoegd voor pauzeren/hervatten
+  isPaused: boolean
 }>()
 
 const path = computed(() => {
-  // Definieer je eigen punten handmatig
   const points = [
     { x: 10.5, z: 8 },
     { x: 11.5, z: 7.7 },
@@ -140,55 +138,71 @@ const path = computed(() => {
     { x: 9, z: 8 },
     { x: 10, z: 8 },
   ]
-
   return points
 })
 
 // Reactieve referenties voor atleten
 const athleteRefs = reactive(new Map<number, THREE.Object3D>())
-
-// Reactieve objecten om het aantal afgelegde rondes bij te houden
-const athleteRounds = reactive(new Map<number, number>())
+const remainingRoundsMap = reactive(new Map<number, number>())
 
 // Gebruik Render Loop
 const { onLoop } = useRenderLoop()
 
-onLoop(({ elapsed }) => {
-  // Stop alle bewegingen als isPaused true is
-  if (props.isPaused) return
+// Timer, maak een timer en houd de verstreken tijd bij in seconden en bv 45.44s, wanneeer pauzeer wordt de timer gestopt
+const timer = ref(0)
+onLoop(() => {
+  if (!props.isPaused) {
+    timer.value += 1 / 60
+  }
+})
+
+// Functie voor het bijhouden van resterende rondes voor een atleet op basis van de timer
+const updateRemainingRounds = (athlete: Athlete) => {
+  const huidigeRonde = Math.floor(timer.value / athlete.roundTime)
+  const resterendeRondes = props.rounds - huidigeRonde
+  remainingRoundsMap.set(athlete.id, resterendeRondes)
+}
+
+// Functie die de beweging van de atleten en het bijhouden van de rondes verzorgt
+onLoop(() => {
+  if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
+
+  //   console.log(timer)
 
   props.athletes.forEach(athlete => {
     const athleteRef = athleteRefs.get(athlete.id)
     if (athleteRef && path.value.length > 0) {
-      const totalDuration = athlete.roundTime // Rondetijd in seconden
-      const normalizedTime = (elapsed % totalDuration) / totalDuration
+      const roundTime = athlete.roundTime
+      const totalRounds = props.rounds
+      const totalDuration = roundTime * totalRounds // Totale tijd voor alle rondes
 
+      // Normaliseer de tijd over de totale duur van de rondes
+      const normalizedTime = (timer.value % totalDuration) / totalDuration
+
+      // Bereken de indexen van de wegsegmenten op basis van de genormaliseerde tijd
       const pathIndex = Math.floor(normalizedTime * path.value.length)
       const nextIndex = (pathIndex + 1) % path.value.length
 
       const start = path.value[pathIndex]
       const end = path.value[nextIndex]
-      const segmentProgress = (normalizedTime * path.value.length) % 1 // Fractie van huidige segment
+      const segmentProgress = (normalizedTime * path.value.length) % 1
 
-      // Controleer of de atleet het maximum aantal rondes heeft bereikt
-      const completedRounds = athleteRounds.get(athlete.id) || 0
-      if (completedRounds >= props.rounds) {
-        return
-      }
+      // Stop de beweging als de atleet de finish heeft bereikt
+      const remaining = remainingRoundsMap.get(athlete.id)
+      console.log(remaining)
+      if (remaining !== undefined && remaining >= 0) {
+                // Beweeg de atleet over het pad
+                athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
+        athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
 
-      // Interpoleren van positie
-      athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
-      athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
+        // Bereken de rotatie van de atleet
+        const angle = Math.atan2(end.z - start.z, end.x - start.x)
+        athleteRef.rotation.y = angle
 
-      // Rotatie berekenen
-      const deltaX = end.x - start.x
-      const deltaZ = end.z - start.z
-      const angle = Math.atan2(deltaZ, deltaX)
-      athleteRef.rotation.y = -angle
+        updateRemainingRounds(athlete)
+      } else {
+        console.log('finish')
 
-      // Update rondes wanneer een volledige ronde is voltooid
-      if (normalizedTime >= 0.99) {
-        athleteRounds.set(athlete.id, completedRounds + 1)
       }
     }
   })
