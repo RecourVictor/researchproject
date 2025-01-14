@@ -1,17 +1,17 @@
 <template>
   <TresCanvas clear-color="#82DBC5" window-size>
     <TresPerspectiveCamera :position="[3, 3, 3]" :look-at="[0, 0, 0]" />
-    <TresMesh>
-      <TresTorusGeometry :args="[1, 0.5, 16, 32]" />
-      <TresMeshBasicMaterial color="orange" />
-    </TresMesh>
     <TresAmbientLight :intensity="1" />
+    <Suspense>
+      <GLTFModel path="/models/piste/scene.gltf" draco />
+    </Suspense>
     <OrbitControls />
   </TresCanvas>
 </template>
 
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
+// import { OrbitControls } from '@tresjs/cientos'
+import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
 </script>
