@@ -167,17 +167,13 @@ const updateRemainingRounds = (athlete: Athlete) => {
 onLoop(() => {
   if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
 
-  //   console.log(timer)
-
   props.athletes.forEach(athlete => {
     const athleteRef = athleteRefs.get(athlete.id)
     if (athleteRef && path.value.length > 0) {
       const roundTime = athlete.roundTime
-      const totalRounds = props.rounds
-      const totalDuration = roundTime * totalRounds // Totale tijd voor alle rondes
 
       // Normaliseer de tijd over de totale duur van de rondes
-      const normalizedTime = (timer.value % totalDuration) / totalDuration
+      const normalizedTime = (timer.value % roundTime) / roundTime
 
       // Bereken de indexen van de wegsegmenten op basis van de genormaliseerde tijd
       const pathIndex = Math.floor(normalizedTime * path.value.length)
@@ -189,7 +185,7 @@ onLoop(() => {
 
       // Stop de beweging als de atleet de finish heeft bereikt
       const remaining = remainingRoundsMap.get(athlete.id)
-      if (remaining !== undefined && remaining >= 0) {
+      if (remaining === undefined || remaining > 0) {
         // Beweeg de atleet over het pad
         athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
@@ -197,9 +193,8 @@ onLoop(() => {
         // Bereken de rotatie van de atleet
         const angle = Math.atan2(end.z - start.z, end.x - start.x)
         athleteRef.rotation.y = angle
-
-        updateRemainingRounds(athlete)
       }
+      updateRemainingRounds(athlete)
     }
   })
 })
