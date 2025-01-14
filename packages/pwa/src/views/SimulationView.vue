@@ -37,17 +37,24 @@ const athletRef = shallowRef() // Maak een ref voor de atleet
 
 const { onLoop } = useRenderLoop()
 
-// Kijken of het atletenmodel geladen is, en animeren zodra het beschikbaar is
-onLoop(({ delta, elapsed }) => {
+onLoop(({ elapsed }) => {
   if (athletRef.value) {
-    // Het model is geladen, dus we kunnen ermee werken
-    athletRef.value.rotation.y += delta // Rotatie van de atleet
-    const radius = 10
+    const a = 35 // Semi-major axis
+    const b = 20 // Semi-minor axis
     const speed = 0.5
-    athletRef.value.position.x = radius * Math.cos(speed * elapsed)
-    athletRef.value.position.z = radius * Math.sin(speed * elapsed)
+
+    // Bereken de nieuwe posities
+    const x = a * Math.cos(-speed * elapsed)
+    const z = b * Math.sin(-speed * elapsed)
+
+    // Stel de positie in
+    athletRef.value.position.x = x
+    athletRef.value.position.z = z
+
+    // Stel de rotatie in (looprichting)
   }
 })
+
 
 // Controleer of het model geladen is en log het resultaat
 watchEffect(() => {
