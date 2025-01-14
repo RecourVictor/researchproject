@@ -1,5 +1,5 @@
 <template>
-  <TresCanvas clear-color="#82DBC5" window-size>
+  <TresCanvas clear-color="#82DBC5" class="w-auto max-h-screen">
     <!-- Camera -->
     <TresPerspectiveCamera :position="[-30, 30, 30]" :look-at="[0, 0, 0]" />
 
@@ -10,7 +10,11 @@
 
     <!-- Atleten -->
     <Suspense v-for="athlete in athletes" :key="athlete.id">
-      <TresMesh ref="el => athleteRefs.value.set(athlete.id, el)">
+      <TresMesh
+        :ref="
+          el => athleteRefs.set(athlete.id, el as unknown as THREE.Object3D)
+        "
+      >
         <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
       </TresMesh>
     </Suspense>
@@ -29,62 +33,150 @@
 </template>
 
 <script setup lang="ts">
-import { computed, shallowRef, watchEffect } from 'vue'
+import { computed, reactive } from 'vue'
+import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
 // Props
 interface Athlete {
-  id: number;
-  name: string;
-  roundTime: number;
+  id: number
+  name: string
+  roundTime: number
 }
 
 const props = defineProps<{
-  athletes: Athlete[];
-  rounds: number;
+  athletes: Athlete[]
+  rounds: number
+  isPaused: boolean // Nieuwe prop toegevoegd voor pauzeren/hervatten
 }>()
 
-// Ellipse path parameters
-const ellipse = {
-  a: 18.5, // Grote straal
-  b: 9.4, // Kleine straal
-  segments: 100, // Aantal punten langs de ellips
-}
-
-// Bereken de ellipsvormige route
 const path = computed(() => {
-  const points = []
-  for (let i = 0; i < ellipse.segments; i++) {
-    const angle = (2 * Math.PI * i) / ellipse.segments
-    const x = ellipse.a * Math.cos(angle)
-    const z = ellipse.b * Math.sin(angle)
-    points.push({ x, z })
-  }
+  // Definieer je eigen punten handmatig
+  const points = [
+    { x: 10.5, z: 8 },
+    { x: 11.5, z: 7.7 },
+    { x: 12.5, z: 7.2 },
+    { x: 13.5, z: 6.7 },
+    { x: 14.5, z: 6 },
+    { x: 15.5, z: 5 },
+    { x: 16.3, z: 4 },
+    { x: 16.8, z: 3 },
+    { x: 17.2, z: 2 },
+    { x: 17.4, z: 1 },
+    { x: 17.4, z: 0 },
+    { x: 17.2, z: -1 },
+    { x: 17.2, z: -2 },
+    { x: 16.8, z: -3 },
+    { x: 16.3, z: -4 },
+    { x: 15.5, z: -5 },
+    { x: 14.5, z: -6 },
+    { x: 13.5, z: -7 },
+    { x: 12.5, z: -7.5 },
+    { x: 11.5, z: -8 },
+    { x: 10.5, z: -8 },
+    { x: 9.5, z: -8 },
+    { x: 8.5, z: -8 },
+    { x: 7.5, z: -8 },
+    { x: 6.5, z: -8 },
+    { x: 5.5, z: -8 },
+    { x: 4.5, z: -8 },
+    { x: 3.5, z: -8 },
+    { x: 2.5, z: -8 },
+    { x: 1.5, z: -8 },
+    { x: 0.5, z: -8 },
+    { x: -0.5, z: -8 },
+    { x: -1.5, z: -8 },
+    { x: -2.5, z: -8 },
+    { x: -3.5, z: -8 },
+    { x: -4.5, z: -8 },
+    { x: -5.5, z: -8 },
+    { x: -6.5, z: -8 },
+    { x: -7.5, z: -8 },
+    { x: -8.5, z: -8 },
+    { x: -9.5, z: -8 },
+    { x: -10.5, z: -8 },
+    { x: -11.5, z: -7.8 },
+    { x: -12.5, z: -7.4 },
+    { x: -13.5, z: -7 },
+    { x: -14.5, z: -6.3 },
+    { x: -15.5, z: -5.4 },
+    { x: -16, z: -5 },
+    { x: -16.5, z: -4 },
+    { x: -17, z: -3 },
+    { x: -17.3, z: -2 },
+    { x: -17.5, z: -1 },
+    { x: -17.5, z: 0 },
+    { x: -17.3, z: 1 },
+    { x: -17.1, z: 2 },
+    { x: -16.8, z: 3 },
+    { x: -16.5, z: 4 },
+    { x: -16, z: 5 },
+    { x: -15, z: 6 },
+    { x: -14.7, z: 6.5 },
+    { x: -13.5, z: 7 },
+    { x: -13, z: 7.5 },
+    { x: -12, z: 8 },
+    { x: -11, z: 8 },
+    { x: -10, z: 8 },
+    { x: -9, z: 8 },
+    { x: -8, z: 8 },
+    { x: -7, z: 8 },
+    { x: -6, z: 8 },
+    { x: -5, z: 8 },
+    { x: -4, z: 8 },
+    { x: -3, z: 8 },
+    { x: -2, z: 8 },
+    { x: -1, z: 8 },
+    { x: 0, z: 8 },
+    { x: 1, z: 8 },
+    { x: 2, z: 8 },
+    { x: 3, z: 8 },
+    { x: 4, z: 8 },
+    { x: 5, z: 8 },
+    { x: 6, z: 8 },
+    { x: 7, z: 8 },
+    { x: 8, z: 8 },
+    { x: 9, z: 8 },
+    { x: 10, z: 8 },
+  ]
+
   return points
 })
 
-// Refs voor atleten
-const athleteRefs = shallowRef(new Map())
+// Reactieve referenties voor atleten
+const athleteRefs = reactive(new Map<number, THREE.Object3D>())
+
+// Reactieve objecten om het aantal afgelegde rondes bij te houden
+const athleteRounds = reactive(new Map<number, number>())
+
+// Gebruik Render Loop
 const { onLoop } = useRenderLoop()
 
-// Beweeg elke atleet over het pad
 onLoop(({ elapsed }) => {
+  // Stop alle bewegingen als isPaused true is
+  if (props.isPaused) return
+
   props.athletes.forEach(athlete => {
-    const athleteRef = athleteRefs.value.get(athlete.id)
+    const athleteRef = athleteRefs.get(athlete.id)
     if (athleteRef && path.value.length > 0) {
-      const totalDuration = athlete.roundTime * props.rounds
-      const totalDistance = path.value.length * props.rounds
-      const currentProgress = (elapsed % totalDuration) / totalDuration
-      const totalSegments = Math.floor(currentProgress * totalDistance)
+      const totalDuration = athlete.roundTime // Rondetijd in seconden
+      const normalizedTime = (elapsed % totalDuration) / totalDuration
 
-      const segmentIndex = totalSegments % path.value.length
-      const segmentProgress = currentProgress * totalDistance - segmentIndex
+      const pathIndex = Math.floor(normalizedTime * path.value.length)
+      const nextIndex = (pathIndex + 1) % path.value.length
 
-      const start = path.value[segmentIndex]
-      const end = path.value[(segmentIndex + 1) % path.value.length]
+      const start = path.value[pathIndex]
+      const end = path.value[nextIndex]
+      const segmentProgress = (normalizedTime * path.value.length) % 1 // Fractie van huidige segment
 
-      // Positie interpoleren
+      // Controleer of de atleet het maximum aantal rondes heeft bereikt
+      const completedRounds = athleteRounds.get(athlete.id) || 0
+      if (completedRounds >= props.rounds) {
+        return
+      }
+
+      // Interpoleren van positie
       athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
       athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
 
@@ -93,18 +185,11 @@ onLoop(({ elapsed }) => {
       const deltaZ = end.z - start.z
       const angle = Math.atan2(deltaZ, deltaX)
       athleteRef.rotation.y = -angle
-    }
-  })
-})
 
-// Controleer of alle atleten geladen zijn
-watchEffect(() => {
-  props.athletes.forEach(athlete => {
-    const athleteRef = athleteRefs.value.get(athlete.id)
-    if (athleteRef) {
-      console.log(`${athlete.name} geladen:`, athleteRef)
-    } else {
-      console.log(`${athlete.name} nog niet geladen`)
+      // Update rondes wanneer een volledige ronde is voltooid
+      if (normalizedTime >= 0.99) {
+        athleteRounds.set(athlete.id, completedRounds + 1)
+      }
     }
   })
 })
