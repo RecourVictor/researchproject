@@ -10,12 +10,9 @@
 
     <!-- Atletenmodel toevoegen -->
     <Suspense>
-      <GLTFModel
-        path="/models/atleet/scene.gltf"
-        ref="athlete"
-        :position="[10, 0, 0]"
-        :scale="0.01"
-      />
+      <TresMesh ref="athletRef">
+        <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
+      </TresMesh>
     </Suspense>
 
     <!-- Verlichting toevoegen -->
@@ -32,9 +29,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { TresCanvas } from '@tresjs/core'
+import { shallowRef, watchEffect } from 'vue'
+import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
-const athlete = ref(null) // Ref voor de atleet
+const athletRef = shallowRef() // Maak een ref voor de atleet
+
+const { onLoop } = useRenderLoop()
+
+// Kijken of het atletenmodel geladen is, en animeren zodra het beschikbaar is
+onLoop(({ delta, elapsed }) => {
+  if (athletRef.value) {
+    // Het model is geladen, dus we kunnen ermee werken
+    athletRef.value.rotation.y += delta // Rotatie van de atleet
+    const radius = 10
+    const speed = 0.5
+    athletRef.value.position.x = radius * Math.cos(speed * elapsed)
+    athletRef.value.position.z = radius * Math.sin(speed * elapsed)
+  }
+})
+
+// Controleer of het model geladen is en log het resultaat
+watchEffect(() => {
+  if (athletRef.value) {
+    console.log('Atleet geladen:', athletRef.value)
+  } else {
+    console.log('Atleet nog niet geladen')
+  }
+})
 </script>
