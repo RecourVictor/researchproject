@@ -189,10 +189,9 @@ onLoop(() => {
 
       // Stop de beweging als de atleet de finish heeft bereikt
       const remaining = remainingRoundsMap.get(athlete.id)
-      console.log(remaining)
       if (remaining !== undefined && remaining >= 0) {
-                // Beweeg de atleet over het pad
-                athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
+        // Beweeg de atleet over het pad
+        athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
 
         // Bereken de rotatie van de atleet
@@ -200,9 +199,6 @@ onLoop(() => {
         athleteRef.rotation.y = angle
 
         updateRemainingRounds(athlete)
-      } else {
-        console.log('finish')
-
       }
     }
   })
