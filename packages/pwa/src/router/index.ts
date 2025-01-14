@@ -10,6 +10,12 @@ const router = createRouter({
       meta: { title: 'Home' }
     },
     {
+      path: '/:slug',
+      name: 'simulatie',
+      component: () => import('../views/SimulationView.vue'),
+      meta: { title: 'Simulation' }
+    },
+    {
       path: '/settings',
       component: () => import('../components/wrappers/PageWrapper.vue'),
       children: [
@@ -35,7 +41,7 @@ const router = createRouter({
           path: ':slug',
           name: 'athlete',
           component: () => import('../views/athletes/_id.vue'),
-          meta: { title: 'Atleet' }
+          meta: { title: 'Atleet bewerken' }
         },
         {
           path: 'create',
@@ -59,7 +65,7 @@ const router = createRouter({
           path: ':slug',
           name: 'simulation',
           component: () => import('../views/simulations/_id.vue'),
-          meta: { title: 'Simulatie' }
+          meta: { title: 'Simulatie bewerken' }
         },
         {
           path: 'create',
@@ -75,9 +81,8 @@ const router = createRouter({
 router.beforeEach(async (to
 ) => {
   const { title } = to.meta
-  const defaultTitle = 'Simurace'
 
-  document.title = ((title as string) || defaultTitle) + ' | ' + defaultTitle
+  document.title = ((title as string)) + ' | ' + "'Simurace"
 })
 
 export default router
