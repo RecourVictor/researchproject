@@ -51,8 +51,8 @@ onSimulationResult(() => {
     console.log('Rounds:', rounds)
 
     athletes.value = simulationResult.value.simulation.athletes.map(
-      (athlete: { athleteId: string; time: number }) => ({
-        id: athlete.athleteId,
+      (athlete: { athlete: { id: string }; time: number }) => ({
+        id: athlete.athlete.id,
         roundTime: athlete.time / rounds,
       }),
     )
