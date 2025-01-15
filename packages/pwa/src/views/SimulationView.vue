@@ -7,7 +7,7 @@
     <button class="z-1000" @click="togglePause">
       {{ isPaused ? 'Hervatten' : 'Pauzeren' }}
     </button>
-    <AthleticsTrack :athletes="athletes" :rounds="2" :isPaused="isPaused" />
+    <AthleticsTrack :athletes="athletes" :rounds="simulationResult.simulation.disipline.rounds" :isPaused="isPaused" />
   </main>
 </template>
 
