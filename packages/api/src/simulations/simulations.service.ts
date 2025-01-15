@@ -7,6 +7,7 @@ import { MongoRepository } from 'typeorm'
 import { ObjectId } from 'mongodb'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
 import { AthletesService } from 'src/athletes/athletes.service'
+import { AthletePerformance } from './entities/athleteperformance.entity'
 
 @Injectable()
 export class SimulationsService {
@@ -41,10 +42,11 @@ export class SimulationsService {
       }
 
       // Voeg het AthletePerformance object toe aan de athletes array
-      simulation.athletes.push({
-        athleteId: new ObjectId(athlete.id),
-        time: athleteInput.time ?? 0, // Default tijd als geen tijd wordt meegegeven
-      })
+      const performance = new AthletePerformance();
+      performance.athleteId = new ObjectId(athlete.id)
+      performance.time = athleteInput.time ?? 0
+
+      simulation.athletes.push(performance)
     }
 
     return this.simulationsRepository.save(simulation)
@@ -122,10 +124,11 @@ export class SimulationsService {
             )
           }
 
-          simulation.athletes.push({
-            athleteId: new ObjectId(athlete.id),
-            time: athleteInput.time ?? 0, // Default tijd als geen tijd wordt opgegeven
-          })
+          const performance = new AthletePerformance();
+          performance.athleteId = new ObjectId(athlete.id)
+          performance.time = athleteInput.time ?? 0
+    
+          simulation.athletes.push(performance)
         }
 
         return this.simulationsRepository.save(simulation)
