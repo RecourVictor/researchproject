@@ -17,6 +17,7 @@ import * as disiplines from './data/disiplines.json' // set  "resolveJsonModule"
 import * as settings from './data/settings.json' // set  "resolveJsonModule": true in tsconfig.json
 import * as simulations from './data/simulations.json' // set  "resolveJsonModule": true in tsconfig.json
 import { ObjectId } from 'mongodb'
+import { AthletePerformance } from 'src/simulations/entities/athleteperformance.entity'
 
 @Injectable()
 export class SeedService {
@@ -135,10 +136,10 @@ export class SeedService {
           )
         }
 
-        s.athletes.push({
-          athleteId: new ObjectId(a.id),
-          time: athlete.time ?? 0, // Tijd koppelen aan ID
-        })
+        const performance = new AthletePerformance()
+        performance.athleteId = new ObjectId(a.id)
+        performance.time = athlete.time ?? 0 // Tijd koppelen aan ID
+        s.athletes.push(performance)
       }
 
       // Koppel de discipline aan de simulatie

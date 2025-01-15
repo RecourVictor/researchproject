@@ -1,19 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsArray, IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
-
-@InputType()
-class CreateAthletePerformanceInput {
-  @Field() // GraphQL - atleet ID
-  @IsNotEmpty()
-  @IsString()
-  athleteId: string;
-
-  @Field() // GraphQL - tijd voor deze atleet
-  @IsNotEmpty()
-  @IsNumber()
-  time: number;
-}
+import { CreateAthletePerformanceInput } from './create-athleteperformance.input';
 
 @InputType()
 export class CreateSimulationInput {
@@ -22,10 +10,9 @@ export class CreateSimulationInput {
   @IsString()
   name: string;
 
-  @Field(() => [CreateAthletePerformanceInput]) // Lijst van prestaties per atleet
+  @Field(() => [CreateAthletePerformanceInput])
   @IsArray()
-  @ValidateNested({ each: true }) // Zorgt ervoor dat elke item in de array gevalideerd wordt
-  @Type(() => CreateAthletePerformanceInput) // Transformeert naar de juiste class
+  @Type(() => CreateAthletePerformanceInput)
   athletes: CreateAthletePerformanceInput[];
 
   @Field(() => String)

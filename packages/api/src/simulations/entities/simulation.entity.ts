@@ -1,6 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { ObjectId } from 'mongodb';
-import { Athlete } from 'src/athletes/entities/athlete.entity';
 import { Disipline } from 'src/disiplines/entities/disipline.entity';
 import {
   Column,
@@ -9,17 +8,7 @@ import {
   ObjectIdColumn,
   Entity,
 } from 'typeorm'
-
-@ObjectType()
-export class AthletePerformance {
-  @Field(() => ID) // GraphQL - ID van de atleet
-  @Column() // TypeORM - Opslag van atleet ID
-  athleteId: ObjectId;
-
-  @Field() // GraphQL - tijd voor deze atleet
-  @Column({ type: 'float' }) // TypeORM - tijd als float
-  time: number;
-}
+import { AthletePerformance } from './athleteperformance.entity';
 
 @Entity() // Database link - Typeorm
 @ObjectType() // GraphQL link - NestJS

@@ -15,6 +15,7 @@ import { Athlete } from 'src/athletes/entities/athlete.entity'
 import { AthletesService } from 'src/athletes/athletes.service'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
 import { Disipline } from 'src/disiplines/entities/disipline.entity'
+import { AthletePerformance } from './entities/athleteperformance.entity'
 
 @Resolver(() => Simulation)
 export class SimulationsResolver {
@@ -64,5 +65,13 @@ export class SimulationsResolver {
   @ResolveField()
   disipline(@Parent() simulation: Simulation): Promise<Disipline> {
     return this.disiplinesService.findOne(simulation.disiplineId.toString())
+  }
+
+  @ResolveField()
+  async athletes(@Parent() simulation: Simulation): Promise<AthletePerformance[]> {
+    for (const athlete of simulation.athletes) {
+      athlete.athlete = await this.athletesService.findOne(athlete.athleteId.toString())
+    }
+    return simulation.athletes
   }
 }

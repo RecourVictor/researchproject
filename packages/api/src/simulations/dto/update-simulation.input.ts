@@ -1,19 +1,7 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
-import { IsArray, IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-
-@InputType()
-class UpdateAthletePerformanceInput {
-  @Field()
-  @IsNotEmpty()
-  @IsString()
-  athleteId: string;
-
-  @Field()
-  @IsNotEmpty()
-  @IsNumber()
-  time: number;
-}
+import { UpdateAthletePerformanceInput } from './update-athleteperformance.input';
 
 @InputType()
 export class UpdateSimulationInput {
