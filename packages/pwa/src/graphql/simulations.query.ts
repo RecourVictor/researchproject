@@ -22,6 +22,7 @@ export const GET_SIMULATION_BY_ID = gql`
       name
       disipline {
         name
+        rounds
         __typename
         id
       }
