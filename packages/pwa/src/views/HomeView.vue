@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center gap-2">
         <img class="w-56" src="/logo.svg" alt="Logo Simurace" />
         <h1 class="text-5xl font-worldAthleticsHeading">Simurace</h1>
-        <p class="font-bold text-xl">Visualiseer, Analiseer, Win!</p>
+        <p class="font-bold text-xl">Visualiseer, Analyseer, Win!</p>
       </div>
       <div class="flex flex-row gap-4">
         <PrimaryButton
