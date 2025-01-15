@@ -7,7 +7,6 @@ export const GET_ATHLETES = gql`
       name
       surname
       gender
-      birthDate
       nationality {
         id
         countryCode
@@ -15,7 +14,10 @@ export const GET_ATHLETES = gql`
         __typename
       }
       records {
-        disiplineId
+        discipline {
+          id
+          name
+        }
         PB
       }
       __typename
@@ -37,7 +39,10 @@ export const GET_ALL_ATHLETES = gql`
         countryName
       }
       records {
-        disiplineId
+        discipline {
+          id
+          name
+        }
         PB
       }
     }
@@ -58,7 +63,10 @@ export const GET_ATHLETE_BY_ID = gql`
         countryName
       }
       records {
-        disiplineId
+        discipline {
+          id
+          name
+        }
         PB
       }
     }

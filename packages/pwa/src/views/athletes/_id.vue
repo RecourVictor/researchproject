@@ -136,8 +136,8 @@ onAthleteResult(() => {
     athleteInput.value.gender = athleteResult.value.athlete.gender
     // Vul de records array met de records van de atleet
     recordInput.value = athleteResult.value.athlete.records.map(
-      (record: { disipline: { id: string }; PB: number }) => ({
-        disipline: record.disiplineId,
+      (record: { discipline: { id: string }; PB: number }) => ({
+        disipline: record.discipline.id,
         pb: record.PB.toString(),
       }),
     )
