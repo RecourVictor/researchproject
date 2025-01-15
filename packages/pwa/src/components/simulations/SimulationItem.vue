@@ -38,17 +38,14 @@ import { useMutation } from '@vue/apollo-composable'
 import { DELETE_SIMULATION } from '@/graphql/simulations.mutation'
 import { GET_SIMULATIONS } from '@/graphql/simulations.query'
 
-const { mutate: removeSimulation } = useMutation(
-  DELETE_SIMULATION,
-  {
-    refetchQueries: [
-      {
-        query: GET_SIMULATIONS,
-        variables: { searchString: '' },
-      },
-    ],
-  },
-)
+const { mutate: removeSimulation } = useMutation(DELETE_SIMULATION, {
+  refetchQueries: [
+    {
+      query: GET_SIMULATIONS,
+      variables: { searchString: '' },
+    },
+  ],
+})
 
 const isPopupVisible = ref(false)
 const popupMessage = ref('')
@@ -79,15 +76,17 @@ const handleConfirmed = () => {
   if (simulatie) {
     removeSimulation({ id: simulatie.id })
   }
-};
+}
 
 const handleCancelled = () => {
   isPopupVisible.value = false
-};
+}
 
 const playSimulation = (id: string) => {
-  console.log('Play simulation with id: ' + id)
-  window.alert('Play simulation with id: ' + id)
-  window.alert('Not implemented yet')
+  // Navigeren naar de simulation pagina met de simulation id
+  router.push({
+    name: 'simulatie',
+    params: { slug: id },
+  })
 }
 </script>
