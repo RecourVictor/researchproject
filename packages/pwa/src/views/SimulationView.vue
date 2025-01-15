@@ -1,17 +1,24 @@
 <template>
-  <TresCanvas clear-color="#82DBC5" window-size>
-    <TresPerspectiveCamera :position="[-15, 25, 30]" />
-    <Suspense>
-      <GLTFModel path="/models/piste/scene.gltf" draco />
-    </Suspense>
-    <TresDirectionalLight :intensity="2.5" :position="[5, 10, 5]" />
-    <OrbitControls :min-polar-angle="0" :max-polar-angle="Math.PI / 2" :max-distance="75" />
-  </TresCanvas>
+  <button class="z-1000" @click="togglePause">
+    {{ isPaused ? 'Hervatten' : 'Pauzeren' }}
+  </button>
+  <AthleticsTrack :athletes="athletes" :rounds="2" :isPaused="isPaused" />
 </template>
 
 <script setup lang="ts">
-import { TresCanvas } from '@tresjs/core'
-// import { OrbitControls } from '@tresjs/cientos'
-import { OrbitControls, GLTFModel } from '@tresjs/cientos'
+import AthleticsTrack from '@/components/model/AthleticsTrack.vue'
+import { ref } from 'vue'
 
+// Reactieve boolean voor pauzeren/hervatten
+const isPaused = ref(false)
+
+// Functie om pauzeren/hervatten te schakelen
+const togglePause = () => {
+  isPaused.value = !isPaused.value
+}
+
+const athletes = [
+  { id: 1, name: 'Usain Bolt', roundTime: 30.55 },
+  { id: 2, name: 'Mo Farah', roundTime: 50.30 },
+]
 </script>
