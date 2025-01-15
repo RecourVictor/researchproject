@@ -99,7 +99,7 @@ export class SeedService {
       for (const record of athlete.disciplines) {
         const r = new Record()
         const disipline = await this.disiplineService.findByName(record.name)
-        r.disiplineId = new ObjectId(disipline.id)
+        r.disciplineId = new ObjectId(disipline.id)
         r.PB = record.personalBest
         a.records.push(r)
       }

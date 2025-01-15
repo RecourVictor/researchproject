@@ -32,7 +32,7 @@ export class AthletesService {
       if (!disipline) {
         throw new Error('Disipline not found')
       }
-      newRecord.disiplineId = new ObjectId(disipline.id)
+      newRecord.disciplineId = new ObjectId(disipline.id)
       newRecord.PB = record.PB
 
       records.push(newRecord)
@@ -97,7 +97,7 @@ export class AthletesService {
           if (!disipline) {
             throw new Error('Disipline not found')
           }
-          newRecord.disiplineId = new ObjectId(disipline.id)
+          newRecord.disciplineId = new ObjectId(disipline.id)
           newRecord.PB = record.PB
 
           records.push(newRecord)
