@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[28rem]">
+  <div class="w-[28rem] absolute bottom-6 left-6">
     <div
       class="rounded-t-md py-2 px-3 bg-gradient-to-r from-wa-orange_light via-wa-orange to-wa-red"
     >

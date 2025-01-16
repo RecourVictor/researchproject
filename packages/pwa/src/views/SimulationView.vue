@@ -2,17 +2,45 @@
   <main v-if="loading">
     <p>Loading...</p>
   </main>
-  <main v-else class="relative max-h-screen overflow-hidden">
-    <RoundButton :buttonFunction="togglePause">
-      <template #icon>
-        <Pause v-if="isPaused" />
-        <Play v-else />
-      </template>
-    </RoundButton>
-    <StartSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
-    <FinishSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
-    <SimulationOverlay :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" :rounds="simulationResult.simulation.disipline.rounds" />
-    <AthleticsTrack :athletes="athletes" :rounds="simulationResult.simulation.disipline.rounds" :isPaused="isPaused" />
+  <main v-else class="relative h-screen overflow-hidden">
+    <div class="absolute bottom-6 right-6 flex gap-2">
+      <RoundButton :buttonFunction="togglePause">
+        <template #icon>
+          <Pause v-if="isPaused" />
+          <Play v-else />
+        </template>
+      </RoundButton>
+      <RoundButton :buttonFunction="togglePause">
+        <template #icon>
+          <Pause v-if="isPaused" />
+          <Play v-else />
+        </template>
+      </RoundButton>
+      <RoundButton :buttonFunction="togglePause">
+        <template #icon>
+          <Pause v-if="isPaused" />
+          <Play v-else />
+        </template>
+      </RoundButton>
+    </div>
+    <StartSimulation
+      :athletes="simulationResult.simulation.athletes"
+      :simulationName="simulationResult.simulation.name"
+    />
+    <FinishSimulation
+      :athletes="simulationResult.simulation.athletes"
+      :simulationName="simulationResult.simulation.name"
+    />
+    <SimulationOverlay
+      :athletes="simulationResult.simulation.athletes"
+      :simulationName="simulationResult.simulation.name"
+      :rounds="simulationResult.simulation.disipline.rounds"
+    />
+    <AthleticsTrack
+      :athletes="athletes"
+      :rounds="simulationResult.simulation.disipline.rounds"
+      :isPaused="isPaused"
+    />
   </main>
 </template>
 
@@ -67,7 +95,6 @@ onSimulationResult(() => {
       }),
     )
     console.log('Updated athletes:', athletes.value)
-
   }
 })
 </script>
