@@ -6,20 +6,20 @@
     <div class="absolute bottom-6 right-6 flex gap-2">
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
-          <Pause v-if="isPaused" />
-          <Play v-else />
+          <Play v-if="isPaused" />
+          <Pause v-else />
         </template>
       </RoundButton>
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
-          <Pause v-if="isPaused" />
-          <Play v-else />
+          <Play v-if="isPaused" />
+          <Pause v-else />
         </template>
       </RoundButton>
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
-          <Pause v-if="isPaused" />
-          <Play v-else />
+          <Play v-if="isPaused" />
+          <Pause v-else />
         </template>
       </RoundButton>
     </div>

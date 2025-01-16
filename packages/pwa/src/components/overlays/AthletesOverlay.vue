@@ -7,7 +7,7 @@
         {{ props.simulationName }}
       </h1>
     </div>
-    <div class="bg-wa-blue py-3 px-5 text-white text-xl opacity-90 flex flex-col gap-2 rounded-b-xl">
+    <div class="bg-wa-blue py-3 px-5 text-white text-xl bg-opacity-90 flex flex-col gap-2 rounded-b-xl">
       <div
         class="flex algin-center justify-between"
         v-for="(athlete, index) in sortAthletes"

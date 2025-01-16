@@ -8,7 +8,7 @@
       </h1>
     </div>
     <div
-      class="bg-wa-blue py-2 px-3 text-white opacity-90 flex flex-col gap-2 rounded-br-md"
+      class="bg-wa-blue py-2 px-3 text-white bg-opacity-90 flex flex-col gap-2 rounded-br-md"
     >
       <div
         class="flex algin-center justify-between"
