@@ -3,12 +3,12 @@
     <p>Loading...</p>
   </main>
   <main v-else class="relative h-screen overflow-hidden">
-    <TimerOverlay
+    <TimerOverlay v-if="isStarted && !isFinished"
       :minutes="formattedTime.minutes"
       :seconds="formattedTime.seconds"
       :hundredths="formattedTime.hundredths"
     />
-    <div class="absolute bottom-6 right-6 flex gap-2">
+    <div v-if="isStarted && !isFinished" class="absolute bottom-6 right-6 flex gap-2">
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
           <Play v-if="isPaused" />
@@ -29,14 +29,17 @@
       </RoundButton>
     </div>
     <StartSimulation
+      v-if="!isStarted"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />
     <FinishSimulation
+      v-if="isFinished"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />
     <SimulationOverlay
+      v-if="isStarted && !isFinished"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
       :rounds="simulationResult.simulation.disipline.rounds"
@@ -64,10 +67,10 @@ import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
 
 // Reactieve variabelen
 const isPaused = ref(true)
+const isStarted = ref(false)
+const isFinished = ref(false)
 const timerValue = ref(0)
 let timerInterval: number | null = null
-
-console.log('Timer value:', timerValue.value)
 
 // Functie om pauzeren/hervatten te schakelen
 const togglePause = () => {
