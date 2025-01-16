@@ -32,6 +32,11 @@ export const GET_SIMULATION_BY_ID = gql`
           id
           name
           surname
+          nationality {
+            id
+            countryCode
+            countryName
+          }
         }
       }
       __typename

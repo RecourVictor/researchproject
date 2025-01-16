@@ -2,11 +2,11 @@
   <main v-if="loading">
     <p>Loading...</p>
   </main>
-
   <main v-else>
     <button class="z-1000" @click="togglePause">
       {{ isPaused ? 'Hervatten' : 'Pauzeren' }}
     </button>
+    <StartSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
     <AthleticsTrack :athletes="athletes" :rounds="simulationResult.simulation.disipline.rounds" :isPaused="isPaused" />
   </main>
 </template>
@@ -17,6 +17,7 @@ import { ref } from 'vue'
 import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
 import { useQuery } from '@vue/apollo-composable'
 import { useRoute } from 'vue-router'
+import StartSimulation from '@/components/overlays/StartSimulation.vue'
 
 // Reactieve boolean voor pauzeren/hervatten
 const isPaused = ref(true)
