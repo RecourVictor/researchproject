@@ -3,28 +3,46 @@
     <p>Loading...</p>
   </main>
   <main v-else class="relative h-screen overflow-hidden">
-    <TimerOverlay v-if="isStarted && !isFinished"
+    <TimerOverlay
+      v-if="isStarted && !isFinished"
       :minutes="formattedTime.minutes"
       :seconds="formattedTime.seconds"
       :hundredths="formattedTime.hundredths"
     />
-    <div v-if="isStarted && !isFinished" class="absolute bottom-6 right-6 flex gap-2">
+    <div
+      v-if="isStarted && !isFinished"
+      class="absolute bottom-6 right-6 flex gap-2"
+    >
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
           <Play v-if="isPaused" />
           <Pause v-else />
         </template>
       </RoundButton>
-      <RoundButton :buttonFunction="togglePause">
+      <RoundButton :buttonFunction="toggleStop">
         <template #icon>
-          <Play v-if="isPaused" />
-          <Pause v-else />
+          <svg
+            width="14"
+            height="18"
+            viewBox="0 0 14 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="1"
+              y="1"
+              width="12"
+              height="16"
+              rx="1"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
         </template>
       </RoundButton>
-      <RoundButton :buttonFunction="togglePause">
+      <RoundButton :buttonFunction="toggleRestart">
         <template #icon>
-          <Play v-if="isPaused" />
-          <Pause v-else />
+          <RotateCcw />
         </template>
       </RoundButton>
     </div>
@@ -64,7 +82,7 @@ import StartSimulation from '@/components/overlays/StartSimulation.vue'
 import FinishSimulation from '@/components/overlays/FinishSimulation.vue'
 import SimulationOverlay from '@/components/overlays/SimulationOverlay.vue'
 import RoundButton from '@/components/generic/RoundButton.vue'
-import { Pause, Play } from 'lucide-vue-next'
+import { Pause, Play, RotateCcw } from 'lucide-vue-next'
 import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
 
 // Reactieve variabelen
@@ -92,6 +110,17 @@ const togglePause = () => {
       timerInterval = null
     }
   }
+}
+
+// Functie om te herstarten
+const toggleRestart = () => {
+  console.log('Herstarten')
+}
+
+// Functie om te stoppen
+const toggleStop = () => {
+  isFinished.value = true
+  isPaused.value = true
 }
 
 // Timer
