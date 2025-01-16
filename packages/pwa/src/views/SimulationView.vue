@@ -3,6 +3,7 @@
     <p>Loading...</p>
   </main>
   <main v-else class="relative h-screen overflow-hidden">
+    <TimerOverlay />
     <div class="absolute bottom-6 right-6 flex gap-2">
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
@@ -55,6 +56,7 @@ import FinishSimulation from '@/components/overlays/FinishSimulation.vue'
 import SimulationOverlay from '@/components/overlays/SimulationOverlay.vue'
 import RoundButton from '@/components/generic/RoundButton.vue'
 import { Pause, Play } from 'lucide-vue-next'
+import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
 
 // Reactieve boolean voor pauzeren/hervatten
 const isPaused = ref(true)
