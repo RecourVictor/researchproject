@@ -1,10 +1,15 @@
 <template>
-  <main class="bg-gray-200 h-screen flex justify-center items-center">
-    <div class="flex flex-col gap-20 text-wa-blue bg-white p-8 rounded-xl shadow-xl">
+  <div class="relative h-screen overflow-hidden">
+    <AthleticsTrack class="" :athletes="[]" :rounds="0" :isPaused="true" />
+  </div>
+  <main class="absolute top-0 left-0 backdrop-blur w-screen h-screen flex justify-center items-center">
+    <div
+      class="flex flex-col gap-20 text-wa-blue bg-white p-8 rounded-xl shadow-xl"
+    >
       <div class="flex flex-col items-center gap-2">
         <img class="w-56" src="/logo.svg" alt="Logo Simurace" />
         <h1 class="text-5xl font-worldAthleticsHeading">Simurace</h1>
-        <p class="font-bold text-xl">Visualiseer, Analiseer, Win!</p>
+        <p class="font-bold text-xl">Visualiseer, Analyseer, Win!</p>
       </div>
       <div class="flex flex-row gap-4">
         <PrimaryButton
@@ -31,6 +36,7 @@
 
 <script setup lang="ts">
 import PrimaryButton from '@/components/generic/PrimaryButton.vue'
+import AthleticsTrack from '@/components/model/AthleticsTrack.vue'
 import { Play, UserRound, Settings } from 'lucide-vue-next'
 
 import { useRouter } from 'vue-router'

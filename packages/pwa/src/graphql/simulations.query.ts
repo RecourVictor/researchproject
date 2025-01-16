@@ -28,7 +28,16 @@ export const GET_SIMULATION_BY_ID = gql`
       }
       athletes {
         time
-        athleteId
+        athlete {
+          id
+          name
+          surname
+          nationality {
+            id
+            countryCode
+            countryName
+          }
+        }
       }
       __typename
     }

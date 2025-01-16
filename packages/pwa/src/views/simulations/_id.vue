@@ -111,16 +111,14 @@ const athletesInput = ref([
 
 onSimulationResult(() => {
   if (simulationResult.value && simulationResult.value.simulation) {
-    console.log(simulationResult.value.simulation)
     const simulation = simulationResult.value.simulation
     simulationInput.value = {
       id: simulation.id,
       name: simulation.name,
       disipline: simulation.disipline.id,
     }
-    console.log(simulation.athletes)
     athletesInput.value = simulation.athletes.map((athlete: { athlete: { id: string }; time: string }) => ({
-      athlete: athlete.athleteId,
+      athlete: athlete.athlete.id,
       time: athlete.time,
     }))
     athletesInput.value.push({ athlete: '', time: '' })

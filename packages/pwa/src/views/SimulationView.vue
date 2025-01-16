@@ -2,12 +2,46 @@
   <main v-if="loading">
     <p>Loading...</p>
   </main>
-
-  <main v-else>
-    <button class="z-1000" @click="togglePause">
-      {{ isPaused ? 'Hervatten' : 'Pauzeren' }}
-    </button>
-    <AthleticsTrack :athletes="athletes" :rounds="simulationResult.simulation.disipline.rounds" :isPaused="isPaused" />
+  <main v-else class="relative h-screen overflow-hidden">
+    <TimerOverlay />
+    <div class="absolute bottom-6 right-6 flex gap-2">
+      <RoundButton :buttonFunction="togglePause">
+        <template #icon>
+          <Play v-if="isPaused" />
+          <Pause v-else />
+        </template>
+      </RoundButton>
+      <RoundButton :buttonFunction="togglePause">
+        <template #icon>
+          <Play v-if="isPaused" />
+          <Pause v-else />
+        </template>
+      </RoundButton>
+      <RoundButton :buttonFunction="togglePause">
+        <template #icon>
+          <Play v-if="isPaused" />
+          <Pause v-else />
+        </template>
+      </RoundButton>
+    </div>
+    <StartSimulation
+      :athletes="simulationResult.simulation.athletes"
+      :simulationName="simulationResult.simulation.name"
+    />
+    <FinishSimulation
+      :athletes="simulationResult.simulation.athletes"
+      :simulationName="simulationResult.simulation.name"
+    />
+    <SimulationOverlay
+      :athletes="simulationResult.simulation.athletes"
+      :simulationName="simulationResult.simulation.name"
+      :rounds="simulationResult.simulation.disipline.rounds"
+    />
+    <AthleticsTrack
+      :athletes="athletes"
+      :rounds="simulationResult.simulation.disipline.rounds"
+      :isPaused="isPaused"
+    />
   </main>
 </template>
 
@@ -17,6 +51,12 @@ import { ref } from 'vue'
 import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
 import { useQuery } from '@vue/apollo-composable'
 import { useRoute } from 'vue-router'
+import StartSimulation from '@/components/overlays/StartSimulation.vue'
+import FinishSimulation from '@/components/overlays/FinishSimulation.vue'
+import SimulationOverlay from '@/components/overlays/SimulationOverlay.vue'
+import RoundButton from '@/components/generic/RoundButton.vue'
+import { Pause, Play } from 'lucide-vue-next'
+import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
 
 // Reactieve boolean voor pauzeren/hervatten
 const isPaused = ref(true)
@@ -51,13 +91,12 @@ onSimulationResult(() => {
     console.log('Rounds:', rounds)
 
     athletes.value = simulationResult.value.simulation.athletes.map(
-      (athlete: { athleteId: string; time: number }) => ({
-        id: athlete.athleteId,
+      (athlete: { athlete: { id: string }; time: number }) => ({
+        id: athlete.athlete.id,
         roundTime: athlete.time / rounds,
       }),
     )
     console.log('Updated athletes:', athletes.value)
-
   }
 })
 </script>

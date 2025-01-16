@@ -1,7 +1,7 @@
 <template>
-  <TresCanvas clear-color="#82DBC5" class="w-auto max-h-screen">
+  <TresCanvas clear-color="#5CBAC8" :style="{ position: 'static' }" class="w-screen h-screen">
     <!-- Camera -->
-    <TresPerspectiveCamera :position="[-30, 30, 30]" :look-at="[0, 0, 0]" />
+    <TresPerspectiveCamera :position="[-30, 30, 40]" :look-at="[0, 0, 0]" :zoom="1.8" />
 
     <!-- Laad de atletiekpiste -->
     <Suspense>

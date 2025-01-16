@@ -14,7 +14,10 @@ export const CREATE_ATHLETE = gql`
         __typename
       }
       records {
-        disiplineId
+        discipline {
+          id
+          name
+        }
         PB
       }
       __typename
@@ -36,7 +39,10 @@ export const UPDATE_ATHLETE = gql`
         __typename
       }
       records {
-        disiplineId
+        discipline {
+          id
+          name
+        }
         PB
       }
       __typename
@@ -46,7 +52,7 @@ export const UPDATE_ATHLETE = gql`
 
 export const DELETE_ATHLETE = gql`
   mutation athletes($id: String!) {
-    removeAthlete(id: $id){
+    removeAthlete(id: $id) {
       name
     }
   }

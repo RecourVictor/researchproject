@@ -10,7 +10,11 @@ export const CREATE_SIMULATION = gql`
       }
       athletes {
         time
-        athleteId
+        athlete {
+          id
+          name
+          surname
+        }
       }
       __typename
     }
@@ -27,7 +31,11 @@ export const UPDATE_SIMULATION = gql`
       }
       athletes {
         time
-        athleteId
+        athlete {
+          id
+          name
+          surname
+        }
       }
       __typename
     }
