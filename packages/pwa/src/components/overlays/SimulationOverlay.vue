@@ -31,7 +31,7 @@
           <p>{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
         </div>
         <div class="flex align-center gap-4">
-          <p>33.3km/h</p>
+          <p>{{ calculateSpeed(athlete.time) }}km/h</p>
           <p>+1m</p>
         </div>
       </div>
@@ -54,4 +54,13 @@ const props = defineProps<{
 }>()
 
 const sortAthletes = [...props.athletes].sort((a, b) => a.time - b.time)
+console.log(props.athletes)
+console.log(props.rounds)
+
+const calculateSpeed = (totalTime: number) => {
+  const distance = 400 * props.rounds
+  return ((distance / totalTime) * 3.6).toFixed(1)
+}
+
+
 </script>
