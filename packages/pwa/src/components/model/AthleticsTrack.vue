@@ -1,5 +1,5 @@
 <template>
-  <TresCanvas clear-color="#82DBC5" class="w-auto max-h-screen">
+  <TresCanvas clear-color="#82DBC5" :style="{ position: 'static' }" class="maw-w-screen max-h-screen">
     <!-- Camera -->
     <TresPerspectiveCamera :position="[-30, 30, 30]" :look-at="[0, 0, 0]" />
 

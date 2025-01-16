@@ -2,7 +2,7 @@
   <main v-if="loading">
     <p>Loading...</p>
   </main>
-  <main v-else>
+  <main v-else class="relative max-h-screen overflow-hidden">
     <RoundButton :buttonFunction="togglePause">
       <template #icon>
         <Pause v-if="isPaused" />
