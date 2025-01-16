@@ -3,7 +3,11 @@
     <p>Loading...</p>
   </main>
   <main v-else class="relative h-screen overflow-hidden">
-    <TimerOverlay />
+    <TimerOverlay
+      :minutes="formattedTime.minutes"
+      :seconds="formattedTime.seconds"
+      :hundredths="formattedTime.hundredths"
+    />
     <div class="absolute bottom-6 right-6 flex gap-2">
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
@@ -47,7 +51,7 @@
 
 <script setup lang="ts">
 import AthleticsTrack from '@/components/model/AthleticsTrack.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
 import { useQuery } from '@vue/apollo-composable'
 import { useRoute } from 'vue-router'
@@ -58,14 +62,47 @@ import RoundButton from '@/components/generic/RoundButton.vue'
 import { Pause, Play } from 'lucide-vue-next'
 import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
 
-// Reactieve boolean voor pauzeren/hervatten
+// Reactieve variabelen
 const isPaused = ref(true)
+const timerValue = ref(0)
+let timerInterval: number | null = null
+
+console.log('Timer value:', timerValue.value)
 
 // Functie om pauzeren/hervatten te schakelen
 const togglePause = () => {
   isPaused.value = !isPaused.value
+
+  if (!isPaused.value) {
+    // Start de timer
+    if (!timerInterval) {
+      timerInterval = setInterval(() => {
+        timerValue.value += 1
+      }, 10)
+    }
+  } else {
+    // Stop de timer
+    if (timerInterval) {
+      clearInterval(timerInterval)
+      timerInterval = null
+    }
+  }
 }
 
+// Timer
+const formattedTime = computed(() => {
+  const totalSeconds = Math.floor(timerValue.value / 100)
+  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0')
+  const seconds = String(totalSeconds % 60).padStart(2, '0')
+  const hundredths = String(timerValue.value % 100).padStart(2, '0')
+  return {
+    minutes,
+    seconds,
+    hundredths,
+  }
+})
+
+// Atleten
 // const athletes = [
 //   { id: 1, roundTime: 30.55 },
 //   { id: 2, roundTime: 50.30 },
