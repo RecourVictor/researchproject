@@ -8,6 +8,7 @@
     </button>
     <StartSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
     <FinishSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
+    <SimulationOverlay :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" :rounds="simulationResult.simulation.disipline.rounds" />
     <AthleticsTrack :athletes="athletes" :rounds="simulationResult.simulation.disipline.rounds" :isPaused="isPaused" />
   </main>
 </template>
@@ -20,6 +21,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { useRoute } from 'vue-router'
 import StartSimulation from '@/components/overlays/StartSimulation.vue'
 import FinishSimulation from '@/components/overlays/FinishSimulation.vue'
+import SimulationOverlay from '@/components/overlays/SimulationOverlay.vue'
 
 // Reactieve boolean voor pauzeren/hervatten
 const isPaused = ref(true)
