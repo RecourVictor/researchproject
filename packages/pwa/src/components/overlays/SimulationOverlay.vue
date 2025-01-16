@@ -32,7 +32,7 @@
         </div>
         <div class="flex align-center gap-4">
           <p>{{ calculateSpeed(athlete.time) }}km/h</p>
-          <p>+1m</p>
+          <p>{{ calculateDistance(athlete.time)}}</p>
         </div>
       </div>
     </div>
@@ -62,5 +62,16 @@ const calculateSpeed = (totalTime: number) => {
   return ((distance / totalTime) * 3.6).toFixed(1)
 }
 
+const calculateDistance = (totalTime: number) => {
+  const firstAthleteTime = sortAthletes[0].time
 
+  // Bereken de achterstand van de huidige loper tot op de eerste loper in meters
+  if (firstAthleteTime === totalTime) {
+    return ""
+  } else {
+    const timeDifference = firstAthleteTime - totalTime
+    const speed = 400 * props.rounds / totalTime
+    return (timeDifference * speed).toFixed(0) + "m"
+  }
+}
 </script>
