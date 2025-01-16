@@ -3,9 +3,12 @@
     <p>Loading...</p>
   </main>
   <main v-else>
-    <button class="z-1000" @click="togglePause">
-      {{ isPaused ? 'Hervatten' : 'Pauzeren' }}
-    </button>
+    <RoundButton :buttonFunction="togglePause">
+      <template #icon>
+        <Pause v-if="isPaused" />
+        <Play v-else />
+      </template>
+    </RoundButton>
     <StartSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
     <FinishSimulation :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" />
     <SimulationOverlay :athletes="simulationResult.simulation.athletes" :simulationName="simulationResult.simulation.name" :rounds="simulationResult.simulation.disipline.rounds" />
@@ -22,6 +25,8 @@ import { useRoute } from 'vue-router'
 import StartSimulation from '@/components/overlays/StartSimulation.vue'
 import FinishSimulation from '@/components/overlays/FinishSimulation.vue'
 import SimulationOverlay from '@/components/overlays/SimulationOverlay.vue'
+import RoundButton from '@/components/generic/RoundButton.vue'
+import { Pause, Play } from 'lucide-vue-next'
 
 // Reactieve boolean voor pauzeren/hervatten
 const isPaused = ref(true)

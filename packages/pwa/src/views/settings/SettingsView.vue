@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col gap-6">
     <AppHeading :level="1">Instellingen</AppHeading>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 text-xl">
       <label>
         <input
           type="checkbox"

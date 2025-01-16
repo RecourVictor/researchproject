@@ -1,13 +1,13 @@
 <template>
-  <div class="w-[50rem]">
+  <div class="w-[45rem]">
     <div
-      class="rounded-t-xl py-4 px-6 bg-gradient-to-r from-wa-orange_light via-wa-orange to-wa-red"
+      class="rounded-t-xl py-3 px-5 bg-gradient-to-r from-wa-orange_light via-wa-orange to-wa-red"
     >
       <h1 class="text-2xl font-bold text-wa-blue">
         {{ props.simulationName }}
       </h1>
     </div>
-    <div class="bg-wa-blue py-4 px-6 text-white text-2xl opacity-90 flex flex-col gap-2 rounded-b-xl">
+    <div class="bg-wa-blue py-3 px-5 text-white text-xl opacity-90 flex flex-col gap-2 rounded-b-xl">
       <div
         class="flex algin-center justify-between"
         v-for="(athlete, index) in sortAthletes"
