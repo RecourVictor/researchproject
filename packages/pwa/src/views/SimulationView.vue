@@ -30,11 +30,13 @@
     </div>
     <StartSimulation
       v-if="!isStarted"
+      @button-click="handleStart"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />
     <FinishSimulation
       v-if="isFinished"
+      @button-click="handleRestart"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />
@@ -104,6 +106,21 @@ const formattedTime = computed(() => {
     hundredths,
   }
 })
+
+// Herstarten
+const handleRestart = () => {
+  console.log('Herstarten')
+}
+
+// Starten
+const handleStart = () => {
+  isStarted.value = true
+  isFinished.value = false
+  // Wacht 3s en start simulatie
+  setTimeout(() => {
+    togglePause()
+  }, 3000)
+}
 
 // Atleten
 // const athletes = [
