@@ -7,13 +7,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue'),
-      meta: { title: 'Home' }
+      meta: { title: 'Home' },
     },
     {
-      path: '/:slug',
+      path: '/:slug([0-9a-fA-F]{24})',
       name: 'simulatie',
       component: () => import('../views/SimulationView.vue'),
-      meta: { title: 'Simulation' }
+      meta: { title: 'Simulation' },
     },
     {
       path: '/settings',
@@ -23,9 +23,9 @@ const router = createRouter({
           path: '',
           name: 'settings',
           component: () => import('../views/settings/SettingsView.vue'),
-          meta: { title: 'Instellingen' }
-        }
-      ]
+          meta: { title: 'Instellingen' },
+        },
+      ],
     },
     {
       path: '/athletes',
@@ -35,21 +35,21 @@ const router = createRouter({
           path: '',
           name: 'athletes',
           component: () => import('../views/athletes/IndexView.vue'),
-          meta: { title: 'Atleten' }
+          meta: { title: 'Atleten' },
         },
         {
-          path: ':slug',
+          path: ':slug([0-9a-fA-F]{24})',
           name: 'athlete',
           component: () => import('../views/athletes/_id.vue'),
-          meta: { title: 'Atleet bewerken' }
+          meta: { title: 'Atleet bewerken' },
         },
         {
           path: 'create',
           name: 'create-athlete',
           component: () => import('../views/athletes/NewView.vue'),
-          meta: { title: 'Atleet toevoegen' }
-        }
-      ]
+          meta: { title: 'Atleet toevoegen' },
+        },
+      ],
     },
     {
       path: '/simulations',
@@ -59,30 +59,35 @@ const router = createRouter({
           path: '',
           name: 'simulations',
           component: () => import('../views/simulations/IndexView.vue'),
-          meta: { title: 'Simulaties' }
+          meta: { title: 'Simulaties' },
         },
         {
-          path: ':slug',
+          path: ':slug([0-9a-fA-F]{24})',
           name: 'simulation',
           component: () => import('../views/simulations/_id.vue'),
-          meta: { title: 'Simulatie bewerken' }
+          meta: { title: 'Simulatie bewerken' },
         },
         {
           path: 'create',
           name: 'create-simulation',
           component: () => import('../views/simulations/NewView.vue'),
-          meta: { title: 'Simulatie toevoegen' }
-        }
-      ]
-    }
+          meta: { title: 'Simulatie toevoegen' },
+        },
+      ],
+    },
+    // 404 and other errors
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('@/views/NotFound.vue'),
+      meta: { title: 'Not found' },
+    },
   ],
 })
 
-router.beforeEach(async (to
-) => {
+router.beforeEach(async to => {
   const { title } = to.meta
 
-  document.title = ((title as string)) + ' | ' + "'Simurace"
+  document.title = (title as string) + ' | ' + "'Simurace"
 })
 
 export default router
