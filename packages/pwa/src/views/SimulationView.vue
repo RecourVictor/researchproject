@@ -1,7 +1,6 @@
 <template>
-  <main v-if="loading">
-    <p>Loading...</p>
-  </main>
+  <LoadingView v-if="loading" :isFullscreen="true" />
+
   <main v-else class="relative h-screen overflow-hidden">
     <TimerOverlay
       v-if="isStarted && !isFinished"
@@ -84,6 +83,7 @@ import SimulationOverlay from '@/components/overlays/SimulationOverlay.vue'
 import RoundButton from '@/components/generic/RoundButton.vue'
 import { Pause, Play, RotateCcw } from 'lucide-vue-next'
 import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
+import LoadingView from '@/components/generic/LoadingView.vue'
 
 // Reactieve variabelen
 const isPaused = ref(true)

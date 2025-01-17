@@ -80,7 +80,7 @@ import { ref } from 'vue'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { GET_DISIPLINES } from '@/graphql/disiplines.query'
 import NumberInput from '@/components/inputs/NumberInput.vue'
-import { GET_ATHLETES } from '@/graphql/athletes.query'
+import { GET_ALL_ATHLETES, GET_ATHLETES } from '@/graphql/athletes.query'
 import { CREATE_ATHLETE } from '@/graphql/athletes.mutation'
 import { useRouter } from 'vue-router'
 import GoBackButton from '@/components/generic/GoBackButton.vue'
@@ -95,6 +95,9 @@ const { mutate: createAthlete, error: addAthleteError } = useMutation(
         query: GET_ATHLETES,
         variables: { searchString: '' },
       },
+      {
+        query: GET_ALL_ATHLETES
+      }
     ],
   },
 )

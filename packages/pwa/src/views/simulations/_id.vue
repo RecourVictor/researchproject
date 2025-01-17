@@ -2,7 +2,11 @@
   <section class="space-y-6">
     <GoBackButton />
     <AppHeading :level="1">Simulatie bewerken</AppHeading>
-    <form @submit.prevent="handleSubmit" class="space-y-5">
+    <form
+      v-if="simulationResult?.simulation || !loading"
+      @submit.prevent="handleSubmit"
+      class="space-y-5"
+    >
       <AppHeading :level="2">Algemene info</AppHeading>
       <div class="space-y-4">
         <TextInput
@@ -36,7 +40,7 @@
             @change="handleAthleteChange()"
             firstOption="Kies een atleet"
           />
-          <TextInput
+          <NumberInput
             v-model="athleteInput.time"
             class="col-span-2 md:col-span-1"
             placeholder="Tijd"
@@ -49,6 +53,7 @@
         </template>
       </PrimaryButton>
     </form>
+    <LoadingView v-else />
     <!-- Errors -->
     <div v-if="updateSimulationError" class="text-wa-red">
       {{ updateSimulationError }} - Use the network tab for more info
@@ -71,13 +76,15 @@ import { GET_SIMULATIONS } from '@/graphql/simulations.query'
 import { UPDATE_SIMULATION } from '@/graphql/simulations.mutation'
 import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
 import GoBackButton from '@/components/generic/GoBackButton.vue'
+import NumberInput from '@/components/inputs/NumberInput.vue'
+import LoadingView from '@/components/generic/LoadingView.vue'
 
 const { push } = useRouter()
 
 const route = useRoute()
 
 const simulationId = route.params.slug
-const { result: simulationResult, onResult: onSimulationResult } = useQuery(
+const { result: simulationResult, loading, onResult: onSimulationResult } = useQuery(
   GET_SIMULATION_BY_ID,
   {
     id: String(simulationId),

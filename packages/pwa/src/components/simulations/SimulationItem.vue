@@ -8,14 +8,23 @@
     </div>
     <div class="justify-self-end col-span-2 sm:col-span-1">
       <div class="flex gap-2">
-        <button @click="playSimulation(simulatie.id)">
-          <Play class="text-wa-orange" />
+        <button
+          class="text-wa-orange hover:text-wa-orange_light transition-all duration-200"
+          @click="playSimulation(simulatie.id)"
+        >
+          <Play />
         </button>
-        <button @click="editSimulation(simulatie.id)">
-          <Pencil class="text-wa-blue" />
+        <button
+          class="text-wa-blue hover:text-wa-orange_light transition-all duration-200"
+          @click="editSimulation(simulatie.id)"
+        >
+          <Pencil />
         </button>
-        <button @click="deleteSimulation()">
-          <Trash class="text-wa-red" />
+        <button
+          class="text-wa-red hover:text-wa-orange_light transition-all duration-200"
+          @click="deleteSimulation()"
+        >
+          <Trash />
         </button>
       </div>
     </div>

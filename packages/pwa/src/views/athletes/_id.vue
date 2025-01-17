@@ -3,7 +3,7 @@
     <GoBackButton />
     <AppHeading :level="1">Atleet bewerken</AppHeading>
     <form
-      v-if="athleteResult?.athlete"
+      v-if="athleteResult?.athlete || !loading"
       @submit.prevent="handleSubmit"
       class="space-y-5"
     >
@@ -66,6 +66,7 @@
         </template>
       </PrimaryButton>
     </form>
+    <LoadingView v-else />
     <!-- Errors -->
     <div v-if="updatethleteError" class="text-wa-red">
       {{ updatethleteError }} - Use the network tab for more info
@@ -84,19 +85,20 @@ import { UserRound } from 'lucide-vue-next'
 import { ref } from 'vue'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import { GET_DISIPLINES } from '@/graphql/disiplines.query'
-import { GET_ATHLETE_BY_ID } from '@/graphql/athletes.query'
+import { GET_ALL_ATHLETES, GET_ATHLETE_BY_ID } from '@/graphql/athletes.query'
 import NumberInput from '@/components/inputs/NumberInput.vue'
 import { GET_ATHLETES } from '@/graphql/athletes.query'
 import { UPDATE_ATHLETE } from '@/graphql/athletes.mutation'
 import { useRouter, useRoute } from 'vue-router'
 import GoBackButton from '@/components/generic/GoBackButton.vue'
+import LoadingView from '@/components/generic/LoadingView.vue'
 
 const { push } = useRouter()
 
 const route = useRoute()
 
 const athleteId = route.params.slug
-const { result: athleteResult, onResult: onAthleteResult } = useQuery(
+const { result: athleteResult, loading, onResult: onAthleteResult } = useQuery(
   GET_ATHLETE_BY_ID,
   {
     id: String(athleteId),
@@ -110,6 +112,9 @@ const { mutate: updateAthlete, error: updatethleteError } = useMutation(
         query: GET_ATHLETES,
         variables: { searchString: '' },
       },
+      {
+        query: GET_ALL_ATHLETES
+      }
     ],
   },
 )
