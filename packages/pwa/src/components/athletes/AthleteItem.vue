@@ -1,6 +1,6 @@
 <template>
   <div v-if="athlete" class="text-xl grid grid-cols-5 gap-4">
-    <div class="flex items-center">
+    <div class="flex items-center sm:col-span-2 lg:col-span-1">
       <div class="w-12">
         <img
           class="h-5 w-auto m-auto"
@@ -12,13 +12,13 @@
           alt="Flag"
         />
       </div>
-      <p>{{ athlete.nationality.countryName }}</p>
+      <p class="hidden sm:block">{{ athlete.nationality.countryName }}</p>
     </div>
-    <div class="text-center">
+    <div class="text-center hidden lg:block">
       <p v-if="athlete.gender === 'MALE'">M</p>
       <p v-else>F</p>
     </div>
-    <div class="col-span-2">
+    <div class="col-span-3 sm:col-span-2">
       <p>{{ athlete.name }} {{ athlete.surname }}</p>
     </div>
     <div class="justify-self-end">
