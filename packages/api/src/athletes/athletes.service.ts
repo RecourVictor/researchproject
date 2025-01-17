@@ -62,7 +62,7 @@ export class AthletesService {
     }
 
     const searchStrings = terms.map(term => {
-      return { name: { $regex: term, $options: 'i' } }
+      return { $or: [{ name: { $regex: term, $options: 'i' } }, { surname: { $regex: term, $options: 'i' } }] }
     })
 
     return this.athleteRepository.find({ $or: searchStrings })
