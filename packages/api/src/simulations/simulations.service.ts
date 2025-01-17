@@ -86,8 +86,6 @@ export class SimulationsService {
   }
 
   async update(updateSimulationInput: UpdateSimulationInput): Promise<Simulation> {
-    console.log('Received Update Input:', updateSimulationInput);
-  
     // Controleer of het meegegeven ID geldig is
     if (!ObjectId.isValid(updateSimulationInput.id)) {
       throw new Error('Invalid ID');
@@ -99,8 +97,6 @@ export class SimulationsService {
     const simulation = await this.simulationsRepository.findOneBy({
       _id: objId,
     });
-
-    console.log('Found Simulation:', simulation);
   
     if (!simulation) {
       throw new Error('Simulation not found');
@@ -145,9 +141,7 @@ export class SimulationsService {
   
     // Update de athletes array
     simulation.athletes = updatedAthletes;
-  
-    console.log(simulation);
-  
+    
     // Sla de wijzigingen op zonder een nieuw ID te genereren
     await this.simulationsRepository.updateOne({ _id: objId }, { $set: simulation });
     return simulation;
