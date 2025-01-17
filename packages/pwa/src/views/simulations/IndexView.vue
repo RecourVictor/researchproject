@@ -14,7 +14,7 @@
     <div>
       <SearchBar v-model="searchQuery" placeholder="Zoek Atleten..." />
     </div>
-    <div v-if="loading">Loading...</div>
+    <LoadingView v-if="loading" />
 
     <div v-else class="flex flex-col gap-4">
       <SimulationItem
@@ -37,6 +37,7 @@ import SecondaryButton from '@/components/generic/SecondaryButton.vue'
 import { Plus } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import SimulationItem from '@/components/simulations/SimulationItem.vue'
+import LoadingView from '@/components/generic/LoadingView.vue'
 
 const searchQuery = ref<string>('')
 

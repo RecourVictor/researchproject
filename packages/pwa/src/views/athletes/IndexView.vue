@@ -14,7 +14,7 @@
     <div>
       <SearchBar v-model="searchQuery" placeholder="Zoek Atleten..." />
     </div>
-    <div v-if="loading">Loading...</div>
+    <LoadingView v-if="loading" />
 
     <div v-else class="flex flex-col gap-4">
       <AthleteItem
@@ -37,6 +37,7 @@ import AthleteItem from '@/components/athletes/AthleteItem.vue'
 import SecondaryButton from '@/components/generic/SecondaryButton.vue'
 import { Plus } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
+import LoadingView from '@/components/generic/LoadingView.vue'
 
 const searchQuery = ref<string>('')
 
@@ -53,7 +54,7 @@ console.log(searchResult)
 const router = useRouter()
 
 const createAthlete = () => {
-    router.push({
+  router.push({
     name: 'create-athlete',
   })
 }
