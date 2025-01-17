@@ -7,7 +7,7 @@
         :id="label"
         :value="modelValue"
         @change="updateValue"
-        class="rounded-full border border-wa-blue text-wa-blue px-4 py-3 w-full"
+        class="rounded-full border h-full border-wa-blue text-wa-blue px-4 py-3 w-full"
       >
         <option v-if="firstOption" disabled value="">
           {{ firstOption }}

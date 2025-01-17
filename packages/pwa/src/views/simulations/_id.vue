@@ -19,28 +19,28 @@
         />
       </div>
       <AppHeading :level="2">Atleten</AppHeading>
-      <div class="space-y-4">
-        <div class="grid grid-cols-4 gap-x-4">
-          <p class="col-span-3 text-xl">Atleet</p>
-          <p class="text-xl">Te lopen tijd</p>
-          <div
-            v-for="(athleteInput, index) in athletesInput"
-            :key="index"
-            class="grid grid-cols-4 gap-x-4 col-span-4"
-          >
-            <SelectInput
-              class="col-span-3 mt-4"
-              v-model="athleteInput.athlete"
-              :options="athleteOptions"
-              @change="handleAthleteChange()"
-              firstOption="Kies een atleet"
-            />
-            <TextInput
-              v-model="athleteInput.time"
-              class="mt-4"
-              placeholder="Tijd"
-            />
-          </div>
+      <div>
+        <div class="grid grid-cols-4 gap-x-2 md:gap-x-4 mb-4">
+          <p class="col-span-2 md:col-span-3 text-xl">Atleet</p>
+          <p class="text-xl col-span-2 md:col-span-1">Te lopen tijd</p>
+        </div>
+        <div
+          v-for="(athleteInput, index) in athletesInput"
+          :key="index"
+          class="grid grid-cols-4 mt-2 gap-x-2 md:gap-x-4 col-span-4"
+        >
+          <SelectInput
+            class="col-span-2 md:col-span-3"
+            v-model="athleteInput.athlete"
+            :options="athleteOptions"
+            @change="handleAthleteChange()"
+            firstOption="Kies een atleet"
+          />
+          <TextInput
+            v-model="athleteInput.time"
+            class="col-span-2 md:col-span-1"
+            placeholder="Tijd"
+          />
         </div>
       </div>
       <PrimaryButton textOnButton="Simulatie bewerken">
@@ -77,12 +77,12 @@ const { push } = useRouter()
 const route = useRoute()
 
 const simulationId = route.params.slug
-const {
-  result: simulationResult,
-  onResult: onSimulationResult,
-} = useQuery(GET_SIMULATION_BY_ID, {
-  id: String(simulationId),
-})
+const { result: simulationResult, onResult: onSimulationResult } = useQuery(
+  GET_SIMULATION_BY_ID,
+  {
+    id: String(simulationId),
+  },
+)
 
 const { mutate: updateSimulation, error: updateSimulationError } = useMutation(
   UPDATE_SIMULATION,
@@ -117,10 +117,12 @@ onSimulationResult(() => {
       name: simulation.name,
       disipline: simulation.disipline.id,
     }
-    athletesInput.value = simulation.athletes.map((athlete: { athlete: { id: string }; time: string }) => ({
-      athlete: athlete.athlete.id,
-      time: athlete.time,
-    }))
+    athletesInput.value = simulation.athletes.map(
+      (athlete: { athlete: { id: string }; time: string }) => ({
+        athlete: athlete.athlete.id,
+        time: athlete.time,
+      }),
+    )
     athletesInput.value.push({ athlete: '', time: '' })
   }
 })
@@ -154,7 +156,9 @@ onAthletesResult(() => {
   }
 })
 
-const athletes = (fetchedAthletes: { name: string; surname: string; id: string }[]) => {
+const athletes = (
+  fetchedAthletes: { name: string; surname: string; id: string }[],
+) => {
   const aviabelAthletes = []
 
   for (const athlete of fetchedAthletes) {
@@ -190,8 +194,8 @@ const handleSubmit = () => {
 
   console.log(simulation)
 
-  updateSimulation({ 
-    simulationInput: simulation 
+  updateSimulation({
+    simulationInput: simulation,
   }).then(() => {
     push({ name: 'simulations' })
   })
