@@ -19,28 +19,28 @@
         />
       </div>
       <AppHeading :level="2">Atleten</AppHeading>
-      <div class="space-y-4">
-        <div class="grid grid-cols-4 gap-x-4">
-          <p class="col-span-3 text-xl">Atleet</p>
-          <p class="text-xl">Te lopen tijd</p>
-          <div
-            v-for="(athleteInput, index) in athletesInput"
-            :key="index"
-            class="grid grid-cols-4 gap-x-4 col-span-4"
-          >
-            <SelectInput
-              class="col-span-3 mt-4"
-              v-model="athleteInput.athlete"
-              :options="athleteOptions"
-              @change="handleAthleteChange()"
-              firstOption="Kies een atleet"
-            />
-            <TextInput
-              v-model="athleteInput.time"
-              class="mt-4"
-              placeholder="Tijd"
-            />
-          </div>
+      <div>
+        <div class="grid grid-cols-4 gap-x-2 md:gap-x-4 mb-4">
+          <p class="col-span-2 md:col-span-3 text-xl">Atleet</p>
+          <p class="text-xl col-span-2 md:col-span-1">Te lopen tijd</p>
+        </div>
+        <div
+          v-for="(athleteInput, index) in athletesInput"
+          :key="index"
+          class="grid grid-cols-4 mt-2 gap-x-2 md:gap-x-4 col-span-4"
+        >
+          <SelectInput
+            class="col-span-2 md:col-span-3"
+            v-model="athleteInput.athlete"
+            :options="athleteOptions"
+            @change="handleAthleteChange()"
+            firstOption="Kies een atleet"
+          />
+          <TextInput
+            v-model="athleteInput.time"
+            class="col-span-2 md:col-span-1"
+            placeholder="Tijd"
+          />
         </div>
       </div>
       <PrimaryButton textOnButton="Simulatie toevoegen">
@@ -114,7 +114,9 @@ onAthletesResult(() => {
   }
 })
 
-const athletes = (fetchedAthletes: { name: string; surname: string; id: string }[]) => {
+const athletes = (
+  fetchedAthletes: { name: string; surname: string; id: string }[],
+) => {
   const aviabelAthletes = []
 
   for (const athlete of fetchedAthletes) {
@@ -161,8 +163,8 @@ const handleSubmit = () => {
 
   console.log(simulation)
 
-  createSimulations({ 
-    simulationInput: simulation 
+  createSimulations({
+    simulationInput: simulation,
   }).then(() => {
     push({ name: 'simulations' })
   })

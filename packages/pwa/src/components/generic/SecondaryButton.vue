@@ -1,14 +1,14 @@
 <template>
   <button
     @click="buttonFunction && buttonFunction()"
-    class="rounded-full border text-wa-blue border-wa-blue flex items-center gap-1 py-2 px-3 transition-all duration-200 hover:bg-wa-blue hover:text-white"
+    class="rounded-full border text-wa-blue border-wa-blue flex items-center gap-1 transition-all duration-200 hover:bg-wa-blue hover:text-white p-2 md:py-2 md:px-5 aspect-square md:aspect-auto"
   >
     <!-- Slot voor het icoon vóór de tekst -->
     <span class="flex items-center text-wa-orange">
       <slot name="icon" />
     </span>
     <!-- Tekst die wordt weergegeven op de knop -->
-    <span>
+    <span class="hidden md:block">
       {{ textOnButton }}
     </span>
   </button>

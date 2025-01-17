@@ -7,7 +7,7 @@
       :value="modelValue"
       :placeholder="placeholder"
       @input="updateModelValue($event)"
-      class="rounded-full border border-wa-blue text-wa-blue px-4 py-3 w-full"
+      class="rounded-full h-[3.125rem] border border-wa-blue text-wa-blue px-4 py-3 w-full"
     />
   </div>
 </template>
