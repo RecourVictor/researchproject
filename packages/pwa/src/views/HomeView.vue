@@ -11,11 +11,11 @@
         <h1 class="text-4xl sm:text-5xl font-worldAthleticsHeading">Simurace</h1>
         <p class="font-bold text-lg sm:text-xl">Visualiseer, Analyseer, Win!</p>
       </div>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="flex flex-row gap-4 justify-center">
         <PrimaryButton
           textOnButton="Simulaties"
           :buttonFunction="goToSimulations"
-          class="w-full sm:w-auto"
+          :hide-text-small="true"
         >
           <template #icon>
             <Play />
@@ -24,7 +24,7 @@
         <PrimaryButton
           textOnButton="Atleten"
           :buttonFunction="getToAthletes"
-          class="w-full sm:w-auto"
+          :hide-text-small="true"
         >
           <template #icon> 
             <UserRound /> 
@@ -33,7 +33,7 @@
         <PrimaryButton
           textOnButton="Instellingen"
           :buttonFunction="getToSettings"
-          class="w-full sm:w-auto"
+          :hide-text-small="true"
         >
           <template #icon> 
             <Settings /> 
