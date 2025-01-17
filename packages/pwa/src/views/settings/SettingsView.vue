@@ -2,62 +2,27 @@
   <section class="flex flex-col gap-6">
     <AppHeading :level="1">Instellingen</AppHeading>
     <div class="flex flex-col gap-2 text-xl">
-      <label>
-        <input
-          type="checkbox"
-          v-model="speed"
-          @change="updateSetting('speed', speed)"
-        />
-        Toon snelheid
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          v-model="distance"
-          @change="updateSetting('distance', distance)"
-        />
-        Toon afstand
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          v-model="country"
-          @change="updateSetting('country', country)"
-        />
-        Toon land
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          v-model="position"
-          @change="updateSetting('position', position)"
-        />
-        Toon positie
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          v-model="clock"
-          @change="updateSetting('clock', clock)"
-        />
-        Toon klok
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          v-model="lane"
-          @change="updateSetting('lane', lane)"
-        />
-        Toon baan
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          v-model="lap_time"
-          @change="updateSetting('lap_time', lap_time)"
-        />
-        Toon ronde tijd
-      </label>
+      <CheckboxInput v-model="speed" @update:modelValue="updateSetting('speed', speed)">
+        <template #default>Toon snelheid</template>
+      </CheckboxInput>
+      <CheckboxInput v-model="distance" @update:modelValue="updateSetting('distance', distance)">
+        <template #default>Toon afstand</template>
+      </CheckboxInput>
+      <CheckboxInput v-model="country" @update:modelValue="updateSetting('country', country)">
+        <template #default>Toon nationaliteit</template>
+      </CheckboxInput>
+      <CheckboxInput v-model="position" @update:modelValue="updateSetting('position', position)">
+        <template #default>Toon positie</template>
+      </CheckboxInput>
+      <CheckboxInput v-model="clock" @update:modelValue="updateSetting('clock', clock)">
+        <template #default>Toon timer</template>
+      </CheckboxInput>
+      <CheckboxInput v-model="lane" @update:modelValue="updateSetting('lane', lane)">
+        <template #default>Toon baan</template>
+      </CheckboxInput>
+      <CheckboxInput v-model="lap_time" @update:modelValue="updateSetting('lap_time', lap_time)">
+        <template #default>Toon ronde tijd</template>
+      </CheckboxInput>
     </div>
     <!-- Errors -->
     <div v-if="updateError" class="text-wa-red">
@@ -72,6 +37,7 @@ import { ref } from 'vue'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import { GET_SETTINGS } from '@/graphql/settings.query'
 import { UPDATE_SETTING } from '@/graphql/settings.mutation'
+import CheckboxInput from '@/components/inputs/CheckboxInput.vue'
 
 const speed = ref(false)
 const distance = ref(false)
