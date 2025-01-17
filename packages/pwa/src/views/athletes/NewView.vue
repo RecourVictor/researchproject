@@ -5,7 +5,7 @@
     <form @submit.prevent="handleSubmit" class="space-y-5">
       <AppHeading :level="2">Algemene info</AppHeading>
       <div class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4">
           <TextInput
             label="Voornaam"
             v-model="athleteInput.firstName"
@@ -31,24 +31,28 @@
         <NationalityInput v-model="athleteInput.country" />
       </div>
       <AppHeading :level="2">Persoonlijke records</AppHeading>
-      <div class="space-y-4">
-        <div class="grid grid-cols-4 gap-x-4">
-          <p class="col-span-3 text-xl">Disipline</p>
-          <p class="text-xl">PB</p>
-          <div
-            v-for="(record, index) in recordInput"
-            :key="index"
-            class="grid grid-cols-4 gap-x-4 col-span-4"
-          >
-            <SelectInput
-              class="col-span-3"
-              v-model="record.disipline"
-              :options="disiplineOptions"
-              @change="handleRecordChange()"
-              firstOption="Kies een disipline"
-            />
-            <NumberInput v-model="record.pb" placeholder="Persoonlijk record" />
-          </div>
+      <div>
+        <div class="grid grid-cols-4 gap-x-2 md:gap-x-4 mb-4">
+          <p class="col-span-2 md:col-span-3 text-xl">Disipline</p>
+          <p class="text-xl col-span-2 md:col-span-1">PB</p>
+        </div>
+        <div
+          v-for="(record, index) in recordInput"
+          :key="index"
+          class="grid grid-cols-4 mt-2 gap-x-2 md:gap-x-4 col-span-4"
+        >
+          <SelectInput
+            class="col-span-2 md:col-span-3"
+            v-model="record.disipline"
+            :options="disiplineOptions"
+            @change="handleRecordChange()"
+            firstOption="Kies een disipline"
+          />
+          <NumberInput
+            v-model="record.pb"
+            placeholder="Persoonlijk record"
+            class="col-span-2 md:col-span-1"
+          />
         </div>
       </div>
       <PrimaryButton textOnButton="Atleet toevoegen">
@@ -107,7 +111,7 @@ const disiplineOptions = ref<{ label: string; value: string }[]>([])
 const { result, onResult: onInputResult } = useQuery(GET_DISIPLINES)
 
 onInputResult(() => {
-  if (result.value?.disiplines){
+  if (result.value?.disiplines) {
     disiplines(result.value.disiplines)
   }
 })
