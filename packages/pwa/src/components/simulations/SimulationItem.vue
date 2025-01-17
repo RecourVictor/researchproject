@@ -1,12 +1,12 @@
 <template>
-  <div v-if="simulatie" class="text-xl grid grid-cols-5 gap-4">
-    <div class="col-span-3">
+  <div v-if="simulatie" class="text-xl grid grid-cols-5 gap-x-4">
+    <div class="col-span-5 sm:col-span-3">
       <p>{{ simulatie.name }}</p>
     </div>
-    <div>
+    <div class="col-span-3 sm:col-span-1 opacity-50 sm:opacity-100">
       <p>{{ simulatie.disipline.name }}</p>
     </div>
-    <div class="justify-self-end">
+    <div class="justify-self-end col-span-2 sm:col-span-1">
       <div class="flex gap-2">
         <button @click="playSimulation(simulatie.id)">
           <Play class="text-wa-orange" />
