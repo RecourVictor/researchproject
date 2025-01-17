@@ -42,7 +42,7 @@ export class SimulationsService {
       }
 
       // Voeg het AthletePerformance object toe aan de athletes array
-      const performance = new AthletePerformance();
+      const performance = new AthletePerformance()
       performance.athleteId = new ObjectId(athlete.id)
       performance.time = athleteInput.time ?? 0
 
@@ -85,54 +85,66 @@ export class SimulationsService {
     return this.simulationsRepository.find({ $or: searchStrings })
   }
 
-  update(updateSimulationInput: UpdateSimulationInput) {
+  async update(updateSimulationInput: UpdateSimulationInput): Promise<Simulation> {
+    // Controleer of het meegegeven ID geldig is
     if (!ObjectId.isValid(updateSimulationInput.id)) {
-      throw new Error('Invalid ID')
+      throw new Error('Invalid ID');
     }
-
-    const objId = new ObjectId(updateSimulationInput.id)
-
-    return this.simulationsRepository
-      .findOneBy({ _id: objId })
-      .then(async simulation => {
-        if (!simulation) {
-          throw new Error('Simulation not found')
-        }
-
-        simulation.name = updateSimulationInput.name
-
-        // Check of de discipline bestaat
-        const disipline = await this.disiplineService.findOne(
-          updateSimulationInput.disiplineId,
-        )
-        if (!disipline) {
-          throw new Error('Disipline not found')
-        }
-        simulation.disiplineId = new ObjectId(disipline.id)
-
-        // Update de athletes array
-        simulation.athletes = []
-
-        // Controleer of de atleten bestaan en voeg ze toe met een eventuele tijd
-        for (const athleteInput of updateSimulationInput.athletes) {
-          const athlete = await this.athletesService.findOne(
-            athleteInput.athleteId,
-          )
-          if (!athlete) {
-            throw new Error(
-              `Athlete with ID ${athleteInput.athleteId} not found`,
-            )
-          }
-
-          const performance = new AthletePerformance();
-          performance.athleteId = new ObjectId(athlete.id)
-          performance.time = athleteInput.time ?? 0
+  
+    const objId = new ObjectId(updateSimulationInput.id);
+  
+    // Zoek de bestaande simulatie
+    const simulation = await this.simulationsRepository.findOneBy({
+      _id: objId,
+    });
+  
+    if (!simulation) {
+      throw new Error('Simulation not found');
+    }
+  
+    // Update velden
+    simulation.name = updateSimulationInput.name;
+  
+    // Update discipline
+    const disipline = await this.disiplineService.findOne(updateSimulationInput.disiplineId);
+    if (!disipline) {
+      throw new Error('Disipline not found');
+    }
+    simulation.disiplineId = new ObjectId(disipline.id);
+  
+    // Update athletes array (indien nodig)
+    const updatedAthletes: AthletePerformance[] = [];
+  
+    for (const athleteInput of updateSimulationInput.athletes) {
+      const athlete = await this.athletesService.findOne(athleteInput.athleteId);
+      if (!athlete) {
+        throw new Error(`Athlete with ID ${athleteInput.athleteId} not found`);
+      }
+  
+      // Controleer of de atleet al in de lijst staat en werk de tijd bij
+      const existingPerformance = simulation.athletes.find(
+        (performance) => performance.athleteId.toHexString() === athlete.id
+      );
+  
+      if (existingPerformance) {
+        // Als de atleet al bestaat, werk de tijd bij
+        existingPerformance.time = athleteInput.time ?? 0;
+        updatedAthletes.push(existingPerformance);
+      } else {
+        // Anders maak een nieuw AthletePerformance object aan
+        const performance = new AthletePerformance();
+        performance.athleteId = new ObjectId(athlete.id);
+        performance.time = athleteInput.time ?? 0;
+        updatedAthletes.push(performance);
+      }
+    }
+  
+    // Update de athletes array
+    simulation.athletes = updatedAthletes;
     
-          simulation.athletes.push(performance)
-        }
-
-        return this.simulationsRepository.save(simulation)
-      })
+    // Sla de wijzigingen op zonder een nieuw ID te genereren
+    await this.simulationsRepository.updateOne({ _id: objId }, { $set: simulation });
+    return simulation;
   }
 
   async remove(id: string) {

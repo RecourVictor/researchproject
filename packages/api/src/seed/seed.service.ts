@@ -122,7 +122,7 @@ export class SeedService {
     for (const simulation of simulations) {
       const s = new Simulation()
       s.name = simulation.name
-      s.athletes = [] // Gebruik het nieuwe 'athletes' veld met gekoppelde objecten en tijden
+      s.athletes = []
 
       // Voeg atleten toe met gekoppelde ID's en tijden
       for (const athlete of simulation.athletes) {

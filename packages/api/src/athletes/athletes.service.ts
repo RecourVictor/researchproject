@@ -8,6 +8,7 @@ import { Record } from './entities/record.entity'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
 import { ObjectId } from 'mongodb'
 import { Disipline } from 'src/disiplines/entities/disipline.entity'
+import { Simulation } from 'src/simulations/entities/simulation.entity'
 
 @Injectable()
 export class AthletesService {
@@ -15,6 +16,8 @@ export class AthletesService {
     @InjectRepository(Athlete)
     private readonly athleteRepository: MongoRepository<Athlete>,
     private readonly disiplineService: DisiplinesService,
+    @InjectRepository(Simulation)
+    private readonly simulationRepository: MongoRepository<Simulation>
   ) {}
 
   async create(createAthleteInput: CreateAthleteInput) {
@@ -62,7 +65,12 @@ export class AthletesService {
     }
 
     const searchStrings = terms.map(term => {
-      return { name: { $regex: term, $options: 'i' } }
+      return {
+        $or: [
+          { name: { $regex: term, $options: 'i' } },
+          { surname: { $regex: term, $options: 'i' } },
+        ],
+      }
     })
 
     return this.athleteRepository.find({ $or: searchStrings })
@@ -118,6 +126,23 @@ export class AthletesService {
 
     if (!athlete) {
       throw new Error('Athlete not found')
+    }
+
+    // Verwijder de atleet uit alle simulaties waarin zijn id zit
+    const simulations = await this.simulationRepository.find();
+
+    for (const simulation of simulations) {
+      const initialAthletesCount = simulation.athletes.length;
+
+      // Filter de atleet uit de lijst van prestaties
+      simulation.athletes = simulation.athletes.filter(
+        (performance) => !performance.athleteId.equals(objId),
+      );
+    
+      // Controleer of er een wijziging is
+      if (simulation.athletes.length !== initialAthletesCount) {
+        await this.simulationRepository.save(simulation); 
+      }
     }
 
     await this.athleteRepository.remove(athlete)
