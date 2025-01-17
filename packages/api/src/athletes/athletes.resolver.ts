@@ -68,7 +68,6 @@ export class AthletesResolver {
 
   @ResolveField()
   async records(@Parent() athlete: Athlete): Promise<Record[]> {
-    console.log('athlete', athlete)
     for (const record of athlete.records) {
       record.discipline = await this.disciplineService.findOne(record.disciplineId.toString())
     }
