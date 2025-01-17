@@ -84,7 +84,7 @@ import { UserRound } from 'lucide-vue-next'
 import { ref } from 'vue'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import { GET_DISIPLINES } from '@/graphql/disiplines.query'
-import { GET_ATHLETE_BY_ID } from '@/graphql/athletes.query'
+import { GET_ALL_ATHLETES, GET_ATHLETE_BY_ID } from '@/graphql/athletes.query'
 import NumberInput from '@/components/inputs/NumberInput.vue'
 import { GET_ATHLETES } from '@/graphql/athletes.query'
 import { UPDATE_ATHLETE } from '@/graphql/athletes.mutation'
@@ -110,6 +110,9 @@ const { mutate: updateAthlete, error: updatethleteError } = useMutation(
         query: GET_ATHLETES,
         variables: { searchString: '' },
       },
+      {
+        query: GET_ALL_ATHLETES
+      }
     ],
   },
 )

@@ -36,7 +36,7 @@
             @change="handleAthleteChange()"
             firstOption="Kies een atleet"
           />
-          <TextInput
+          <NumberInput
             v-model="athleteInput.time"
             class="col-span-2 md:col-span-1"
             placeholder="Tijd"
@@ -71,6 +71,7 @@ import { GET_SIMULATIONS } from '@/graphql/simulations.query'
 import { UPDATE_SIMULATION } from '@/graphql/simulations.mutation'
 import { GET_SIMULATION_BY_ID } from '@/graphql/simulations.query'
 import GoBackButton from '@/components/generic/GoBackButton.vue'
+import NumberInput from '@/components/inputs/NumberInput.vue'
 
 const { push } = useRouter()
 
