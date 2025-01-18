@@ -39,8 +39,7 @@ import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
 interface Athlete {
-  id: number
-  name: string
+  id: string
   roundTime: number
 }
 
@@ -146,8 +145,8 @@ const path = computed(() => {
 })
 
 // Reactieve referenties voor atleten
-const athleteRefs = reactive(new Map<number, THREE.Object3D>())
-const remainingRoundsMap = reactive(new Map<number, number>())
+const athleteRefs = reactive(new Map<string, THREE.Object3D>())
+const remainingRoundsMap = reactive(new Map<string, number>())
 
 // Gebruik Render Loop
 const { onLoop } = useRenderLoop()
