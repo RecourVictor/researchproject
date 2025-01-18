@@ -49,10 +49,11 @@ import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 interface Athlete {
   id: string
   totalTime: number
+  remainingRounds: boolean
 }
 
 const props = defineProps<{
-  athletes: Athlete[]
+  athletes: { id: string; totalTime: number }[]
   rounds: number
   isPaused: boolean
   timer: number
@@ -153,61 +154,62 @@ const path = computed(() => {
   return points
 })
 
-// Reactieve referenties voor atleten
 const athleteRefs = reactive(new Map<string, THREE.Object3D>())
-const remainingRoundsMap = reactive(new Map<string, number>())
+
+const initializedAthletes = computed(() =>
+  props.athletes.map(athlete => ({
+    ...athlete,
+    remainingRounds: true,
+  }))
+)
 
 // Gebruik Render Loop
 const { onLoop } = useRenderLoop()
 
-// Functie voor het bijhouden van resterende rondes voor een atleet op basis van de timer
 const updateRemainingRounds = (athlete: Athlete) => {
-  const huidigeRonde = Math.floor(props.timer / athlete.totalTime)
-  const resterendeRondes = props.rounds - huidigeRonde
-  remainingRoundsMap.set(athlete.id, resterendeRondes)
+  if (props.timer >= athlete.totalTime) {
+    athlete.remainingRounds = false
+  } else {
+    athlete.remainingRounds = true
+  }
 }
 
 onLoop(() => {
-  if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
+  if (props.isPaused) return; // Stop de simulatie als deze gepauzeerd is
 
-  let allFinished = true // Voor status van alle atleten
+  let allFinished = true; // Voor status van alle atleten
 
-  props.athletes.forEach(athlete => {
-    const athleteRef = athleteRefs.get(athlete.id)
+  initializedAthletes.value.forEach(athlete => {
+    const athleteRef = athleteRefs.get(athlete.id);
     if (athleteRef && path.value.length > 0) {
-      const totalTime = athlete.totalTime // Dit is 119.5 seconden volgens je voorbeeld
-      
+      const totalTime = athlete.totalTime;
+
       // Zorg ervoor dat de timer in synch is met de totale tijd
-      const normalizedTime = (props.timer % totalTime) / totalTime // Genormaliseerde tijd tussen 0 en 1
+      const normalizedTime =
+        ((props.timer % totalTime) / totalTime) * props.rounds;
 
-      console.log(
-        `Timer: ${props.timer.toFixed(2)}, Total Time: ${totalTime}, Normalized Time: ${normalizedTime}`,
-      )
+      const pathIndex = Math.floor(normalizedTime * path.value.length) % path.value.length; // Cyclisch pad
+      const nextIndex = (pathIndex + 1) % path.value.length; // Volgend segment cyclisch bepalen
 
-      // Bereken de indexen van de wegsegmenten op basis van de genormaliseerde tijd
-      const pathIndex = Math.floor(normalizedTime * path.value.length)
-      const nextIndex = (pathIndex + 1) % path.value.length
+      const start = path.value[pathIndex];
+      const end = path.value[nextIndex];
+      const segmentProgress = (normalizedTime * path.value.length) % 1;
 
-      const start = path.value[pathIndex]
-      const end = path.value[nextIndex]
-      const segmentProgress = (normalizedTime * path.value.length) % 1
+      if (athlete.remainingRounds) {
+        allFinished = false;
 
-      // Stop de beweging als de atleet de finish heeft bereikt
-      const remaining = remainingRoundsMap.get(athlete.id)
-      if (remaining === undefined || remaining > 0) {
-        allFinished = false // Niet alle atleten zijn klaar
+        // Beweeg de atleet als er nog resterende rondes zijn
+        athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress;
+        athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress;
 
-        // Beweeg de atleet over het pad
-        athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
-        athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
+        updateRemainingRounds(athlete);
       }
-      updateRemainingRounds(athlete)
     }
-  })
+  });
 
-  // Emit een `true` als alle atleten klaar zijn
+  // Emit een true als alle atleten klaar zijn
   if (allFinished) {
-    emit('finished', true)
+    emit('finished', true);
   }
-})
+});
 </script>
