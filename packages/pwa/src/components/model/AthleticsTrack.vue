@@ -50,6 +50,10 @@ const props = defineProps<{
   isPaused: boolean
 }>()
 
+const emit = defineEmits<{
+  (event: 'finished', status: boolean): void
+}>()
+
 const path = computed(() => {
   const points = [
     { x: 10.5, z: 8 },
@@ -167,6 +171,8 @@ const updateRemainingRounds = (athlete: Athlete) => {
 onLoop(() => {
   if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
 
+  let allFinished = true // Voor status van alle atleten
+
   props.athletes.forEach(athlete => {
     const athleteRef = athleteRefs.get(athlete.id)
     if (athleteRef && path.value.length > 0) {
@@ -186,6 +192,9 @@ onLoop(() => {
       // Stop de beweging als de atleet de finish heeft bereikt
       const remaining = remainingRoundsMap.get(athlete.id)
       if (remaining === undefined || remaining > 0) {
+
+        allFinished = false // Niet alle atleten zijn klaar
+
         // Beweeg de atleet over het pad
         athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
@@ -197,5 +206,10 @@ onLoop(() => {
       updateRemainingRounds(athlete)
     }
   })
+
+  // Emit een `true` als alle atleten klaar zijn
+  if (allFinished) {
+    emit('finished', true)
+  }
 })
 </script>

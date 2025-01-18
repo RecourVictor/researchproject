@@ -67,6 +67,7 @@
       :athletes="athletes"
       :rounds="simulationResult.simulation.disipline.rounds"
       :isPaused="isPaused"
+      @finished="onFinished"
     />
   </main>
 </template>
@@ -91,6 +92,16 @@ const isStarted = ref(false)
 const isFinished = ref(false)
 const timerValue = ref(0)
 let timerInterval: number | null = null
+
+const onFinished = (status: boolean) => {
+  if (status) {
+    togglePause()
+    // zet na 3s de isFinished op true
+    setTimeout(() => {
+      isFinished.value = true
+    }, 3000)
+  }
+}
 
 // Functie om pauzeren/hervatten te schakelen
 const togglePause = () => {
@@ -120,7 +131,7 @@ const toggleRestart = () => {
 // Functie om te stoppen
 const toggleStop = () => {
   isFinished.value = true
-  isPaused.value = true
+  togglePause()
 }
 
 // Timer
