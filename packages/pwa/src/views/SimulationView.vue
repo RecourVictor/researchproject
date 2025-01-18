@@ -67,6 +67,7 @@
       :athletes="athletes"
       :rounds="simulationResult.simulation.disipline.rounds"
       :isPaused="isPaused"
+      :timer="timerValue / 100"
       @finished="onFinished"
     />
   </main>

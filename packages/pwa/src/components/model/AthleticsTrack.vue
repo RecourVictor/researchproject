@@ -1,7 +1,15 @@
 <template>
-  <TresCanvas clear-color="#5CBAC8" :style="{ position: 'static' }" class="w-screen h-screen">
+  <TresCanvas
+    clear-color="#5CBAC8"
+    :style="{ position: 'static' }"
+    class="w-screen h-screen"
+  >
     <!-- Camera -->
-    <TresPerspectiveCamera :position="[-30, 30, 40]" :look-at="[0, 0, 0]" :zoom="1.8" />
+    <TresPerspectiveCamera
+      :position="[-30, 30, 40]"
+      :look-at="[0, 0, 0]"
+      :zoom="1.8"
+    />
 
     <!-- Laad de atletiekpiste -->
     <Suspense>
@@ -33,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive } from 'vue'
 import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
@@ -47,6 +55,7 @@ const props = defineProps<{
   athletes: Athlete[]
   rounds: number
   isPaused: boolean
+  timer: number
 }>()
 
 const emit = defineEmits<{
@@ -153,19 +162,13 @@ const { onLoop } = useRenderLoop()
 
 // Functie voor het bijhouden van resterende rondes voor een atleet op basis van de timer
 const updateRemainingRounds = (athlete: Athlete) => {
-  const huidigeRonde = Math.floor(timer.value / athlete.totalTime)
+  const huidigeRonde = Math.floor(props.timer / athlete.totalTime)
   const resterendeRondes = props.rounds - huidigeRonde
   remainingRoundsMap.set(athlete.id, resterendeRondes)
 }
-const timer = ref(0)
 
-// Functie die de beweging van de atleten en het bijhouden van de rondes verzorgt
 onLoop(() => {
   if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
-
-  if (!props.isPaused) {
-    timer.value += 1 / 60
-  }
 
   let allFinished = true // Voor status van alle atleten
 
@@ -175,8 +178,12 @@ onLoop(() => {
       const totalTime = athlete.totalTime // Dit is 119.5 seconden volgens je voorbeeld
       
       // Zorg ervoor dat de timer in synch is met de totale tijd
-      const normalizedTime = (timer.value % totalTime) / totalTime // Genormaliseerde tijd tussen 0 en 1
-      
+      const normalizedTime = (props.timer % totalTime) / totalTime // Genormaliseerde tijd tussen 0 en 1
+
+      console.log(
+        `Timer: ${props.timer.toFixed(2)}, Total Time: ${totalTime}, Normalized Time: ${normalizedTime}`,
+      )
+
       // Bereken de indexen van de wegsegmenten op basis van de genormaliseerde tijd
       const pathIndex = Math.floor(normalizedTime * path.value.length)
       const nextIndex = (pathIndex + 1) % path.value.length
@@ -188,14 +195,11 @@ onLoop(() => {
       // Stop de beweging als de atleet de finish heeft bereikt
       const remaining = remainingRoundsMap.get(athlete.id)
       if (remaining === undefined || remaining > 0) {
-
         allFinished = false // Niet alle atleten zijn klaar
 
         // Beweeg de atleet over het pad
         athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
-
-        // Draai de atleet in de richting van het volgende segment
       }
       updateRemainingRounds(athlete)
     }
