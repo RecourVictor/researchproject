@@ -132,6 +132,7 @@ export class AthletesService {
     const simulations = await this.simulationRepository.find();
 
     for (const simulation of simulations) {
+      const simulationId = new ObjectId(simulation.id);
       const initialAthletesCount = simulation.athletes.length;
 
       // Filter de atleet uit de lijst van prestaties
@@ -141,7 +142,7 @@ export class AthletesService {
     
       // Controleer of er een wijziging is
       if (simulation.athletes.length !== initialAthletesCount) {
-        await this.simulationRepository.save(simulation); 
+        await this.simulationRepository.updateOne({ _id: simulationId }, { $set: simulation });
       }
     }
 
