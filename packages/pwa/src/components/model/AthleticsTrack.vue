@@ -40,7 +40,7 @@ import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
 interface Athlete {
   id: string
-  roundTime: number
+  totalTime: number
 }
 
 const props = defineProps<{
@@ -151,35 +151,32 @@ const remainingRoundsMap = reactive(new Map<string, number>())
 // Gebruik Render Loop
 const { onLoop } = useRenderLoop()
 
-// Timer, maak een timer en houd de verstreken tijd bij in seconden en bv 45.44s, wanneeer pauzeer wordt de timer gestopt
-const timer = ref(0)
-onLoop(() => {
-  if (!props.isPaused) {
-    timer.value += 1 / 60
-  }
-})
-
 // Functie voor het bijhouden van resterende rondes voor een atleet op basis van de timer
 const updateRemainingRounds = (athlete: Athlete) => {
-  const huidigeRonde = Math.floor(timer.value / athlete.roundTime)
+  const huidigeRonde = Math.floor(timer.value / athlete.totalTime)
   const resterendeRondes = props.rounds - huidigeRonde
   remainingRoundsMap.set(athlete.id, resterendeRondes)
 }
+const timer = ref(0)
 
 // Functie die de beweging van de atleten en het bijhouden van de rondes verzorgt
 onLoop(() => {
   if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
+
+  if (!props.isPaused) {
+    timer.value += 1 / 60
+  }
 
   let allFinished = true // Voor status van alle atleten
 
   props.athletes.forEach(athlete => {
     const athleteRef = athleteRefs.get(athlete.id)
     if (athleteRef && path.value.length > 0) {
-      const roundTime = athlete.roundTime
-
-      // Normaliseer de tijd over de totale duur van de rondes
-      const normalizedTime = (timer.value % roundTime) / roundTime
-
+      const totalTime = athlete.totalTime // Dit is 119.5 seconden volgens je voorbeeld
+      
+      // Zorg ervoor dat de timer in synch is met de totale tijd
+      const normalizedTime = (timer.value % totalTime) / totalTime // Genormaliseerde tijd tussen 0 en 1
+      
       // Bereken de indexen van de wegsegmenten op basis van de genormaliseerde tijd
       const pathIndex = Math.floor(normalizedTime * path.value.length)
       const nextIndex = (pathIndex + 1) % path.value.length
@@ -198,9 +195,7 @@ onLoop(() => {
         athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
 
-        // Bereken de rotatie van de atleet
-        const angle = Math.atan2(end.z - start.z, end.x - start.x)
-        athleteRef.rotation.y = angle
+        // Draai de atleet in de richting van het volgende segment
       }
       updateRemainingRounds(athlete)
     }

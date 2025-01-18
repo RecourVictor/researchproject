@@ -170,17 +170,10 @@ const handleStart = () => {
 }
 
 // Atleten
-// const athletes = [
-//   { id: 1, roundTime: 30.55 },
-//   { id: 2, roundTime: 50.30 },
-// ]
-// Definieer het type van een atleet
 type Athlete = {
   id: string
-  roundTime: number
+  totalTime: number
 }
-
-// Declareer athletes met het juiste type
 const athletes = ref<Athlete[]>([])
 
 const route = useRoute()
@@ -209,7 +202,7 @@ function updateAthletes(simulation: Simulation) {
     athletes.value = simulation.athletes.map(
       (athlete: { athlete: { id: string }; time: number }) => ({
         id: athlete.athlete.id,
-        roundTime: athlete.time / rounds,
+        totalTime: athlete.time,
       }),
     )
     console.log('Updated athletes:', athletes.value)
