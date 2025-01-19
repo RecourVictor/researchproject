@@ -1,9 +1,9 @@
 <template>
-  <div class="w-[28rem] absolute bottom-6 left-6">
+  <div class="w-screen px-2 sm:px-0 sm:w-[28rem] absolute bottom-6 sm:left-6">
     <div
       class="rounded-t-md py-2 px-3 bg-gradient-to-r from-wa-orange_light via-wa-orange to-wa-red"
     >
-      <h1 class="text-xl font-bold text-wa-blue">
+      <h1 class="text-base sm:text-xl font-bold text-wa-blue">
         {{ props.simulationName }}
       </h1>
     </div>
@@ -11,11 +11,11 @@
       class="bg-wa-blue py-2 px-3 text-white bg-opacity-90 flex flex-col gap-2 rounded-br-md"
     >
       <div
-        class="flex algin-center justify-between"
+        class="flex justify-between"
         v-for="(athlete, index) in sortAthletes"
         :key="athlete.id"
       >
-        <div class="flex align-center gap-4">
+        <div class="flex align-center gap-2 sm:gap-4">
           <p>{{ index + 1 }}</p>
           <div class="w-6 grid place-items-center">
             <img
@@ -28,11 +28,14 @@
               alt="Flag"
             />
           </div>
-          <p>{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
+          <p class="block sm:hidden">
+            {{ athlete.athlete.name.charAt(0) }}. {{ athlete.athlete.surname }}
+          </p>
+          <p class="hidden sm:block">{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
         </div>
-        <div class="flex align-center gap-4">
-          <p>{{ calculateSpeed(athlete.time) }}km/h</p>
-          <p>{{ calculateDistance(athlete.time) }}</p>
+        <div class="flex align-center gap-2 sm:gap-4 text-end">
+          <p>{{ calculateSpeed(athlete.time) }}<span class="text-xs	sm:text-base">km/h</span></p>
+          <p class="w-16">{{ calculateDistance(athlete.time) }}</p>
         </div>
       </div>
     </div>
@@ -78,7 +81,7 @@ const calculateDistance = (totalTime: number) => {
   } else {
     // Controleer of de eerste atleet al gefinisht is
     if (firstAthleteTime === totalTime) {
-      return ''
+      return '';
     } else {
       // Bereken de achterstand van de huidige loper
       const timeDifference = firstAthleteTime - totalTime;
@@ -95,7 +98,6 @@ const calculateDistance = (totalTime: number) => {
         const huidigeAchterstand = (totaleAchterstand / 100) * afgelegdPercentage;
         return huidigeAchterstand.toFixed(1) + 'm';
       }
-
     }
   }
 }
