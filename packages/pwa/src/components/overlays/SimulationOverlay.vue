@@ -55,9 +55,6 @@ const props = defineProps<{
 }>()
 
 const sortAthletes = [...props.athletes].sort((a, b) => a.time - b.time)
-console.log(props.athletes)
-console.log(props.rounds)
-console.log(props.timer)
 
 const calculateSpeed = (totalTime: number) => {
   if (totalTime <= props.timer) {
@@ -74,17 +71,31 @@ const calculateSpeed = (totalTime: number) => {
 
 const calculateDistance = (totalTime: number) => {
   const firstAthleteTime = sortAthletes[0].time
+  const currentTime = props.timer
 
   if (props.timer === 0) {
     return ''
   } else {
-    // Bereken de achterstand van de huidige loper tot op de eerste loper in meters
+    // Controleer of de eerste atleet al gefinisht is
     if (firstAthleteTime === totalTime) {
       return ''
     } else {
-      const timeDifference = firstAthleteTime - totalTime
-      const speed = (400 * props.rounds) / totalTime
-      return (timeDifference * speed).toFixed(0) + 'm'
+      // Bereken de achterstand van de huidige loper
+      const timeDifference = firstAthleteTime - totalTime;
+      const speed = (400 * props.rounds) / totalTime;
+
+      if (currentTime >= totalTime) {
+        // De atleet is gefinisht, totale achterstand is vast
+        const totaleAchterstand = timeDifference * speed;
+        return totaleAchterstand.toFixed(1) + 'm';
+      } else {
+        // De atleet loopt nog, bereken de huidige achterstand
+        const afgelegdPercentage = (currentTime / totalTime) * 100;
+        const totaleAchterstand = timeDifference * speed;
+        const huidigeAchterstand = (totaleAchterstand / 100) * afgelegdPercentage;
+        return huidigeAchterstand.toFixed(1) + 'm';
+      }
+
     }
   }
 }
