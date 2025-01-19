@@ -32,7 +32,7 @@
         </div>
         <div class="flex align-center gap-4">
           <p>{{ calculateSpeed(athlete.time) }}km/h</p>
-          <p>{{ calculateDistance(athlete.time)}}</p>
+          <p>{{ calculateDistance(athlete.time) }}</p>
         </div>
       </div>
     </div>
@@ -51,27 +51,41 @@ const props = defineProps<{
   athletes: AthletePerformance[]
   simulationName: string
   rounds: number
+  timer: number
 }>()
 
 const sortAthletes = [...props.athletes].sort((a, b) => a.time - b.time)
 console.log(props.athletes)
 console.log(props.rounds)
+console.log(props.timer)
 
 const calculateSpeed = (totalTime: number) => {
-  const distance = 400 * props.rounds
-  return ((distance / totalTime) * 3.6).toFixed(1)
+  if (totalTime <= props.timer) {
+    return '0'
+  } else {
+    if (props.timer > 0) {
+      const distance = 400 * props.rounds
+      return ((distance / totalTime) * 3.6).toFixed(1)
+    } else {
+      return '0'
+    }
+  }
 }
 
 const calculateDistance = (totalTime: number) => {
   const firstAthleteTime = sortAthletes[0].time
 
-  // Bereken de achterstand van de huidige loper tot op de eerste loper in meters
-  if (firstAthleteTime === totalTime) {
-    return ""
+  if (props.timer === 0) {
+    return ''
   } else {
-    const timeDifference = firstAthleteTime - totalTime
-    const speed = 400 * props.rounds / totalTime
-    return (timeDifference * speed).toFixed(0) + "m"
+    // Bereken de achterstand van de huidige loper tot op de eerste loper in meters
+    if (firstAthleteTime === totalTime) {
+      return ''
+    } else {
+      const timeDifference = firstAthleteTime - totalTime
+      const speed = (400 * props.rounds) / totalTime
+      return (timeDifference * speed).toFixed(0) + 'm'
+    }
   }
 }
 </script>

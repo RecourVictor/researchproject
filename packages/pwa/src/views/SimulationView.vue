@@ -62,6 +62,7 @@
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
       :rounds="simulationResult.simulation.disipline.rounds"
+      :timer="timerValue / 100"
     />
     <AthleticsTrack
       :athletes="athletes"
