@@ -1,7 +1,15 @@
 <template>
-  <TresCanvas clear-color="#5CBAC8" :style="{ position: 'static' }" class="w-screen h-screen">
+  <TresCanvas
+    clear-color="#5CBAC8"
+    :style="{ position: 'static' }"
+    class="w-screen h-screen"
+  >
     <!-- Camera -->
-    <TresPerspectiveCamera :position="[-30, 30, 40]" :look-at="[0, 0, 0]" :zoom="1.8" />
+    <TresPerspectiveCamera
+      :position="[-30, 30, 40]"
+      :look-at="[0, 0, 0]"
+      :zoom="1.8"
+    />
 
     <!-- Laad de atletiekpiste -->
     <Suspense>
@@ -33,21 +41,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive } from 'vue'
 import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
 
 interface Athlete {
-  id: number
-  name: string
-  roundTime: number
+  id: string
+  totalTime: number
+  remainingRounds: boolean
 }
 
 const props = defineProps<{
-  athletes: Athlete[]
+  athletes: { id: string; totalTime: number }[]
   rounds: number
   isPaused: boolean
+  timer: number
+}>()
+
+const emit = defineEmits<{
+  (event: 'finished', status: boolean): void
 }>()
 
 const path = computed(() => {
@@ -141,61 +154,62 @@ const path = computed(() => {
   return points
 })
 
-// Reactieve referenties voor atleten
-const athleteRefs = reactive(new Map<number, THREE.Object3D>())
-const remainingRoundsMap = reactive(new Map<number, number>())
+const athleteRefs = reactive(new Map<string, THREE.Object3D>())
+
+const initializedAthletes = computed(() =>
+  props.athletes.map(athlete => ({
+    ...athlete,
+    remainingRounds: true,
+  }))
+)
 
 // Gebruik Render Loop
 const { onLoop } = useRenderLoop()
 
-// Timer, maak een timer en houd de verstreken tijd bij in seconden en bv 45.44s, wanneeer pauzeer wordt de timer gestopt
-const timer = ref(0)
-onLoop(() => {
-  if (!props.isPaused) {
-    timer.value += 1 / 60
-  }
-})
-
-// Functie voor het bijhouden van resterende rondes voor een atleet op basis van de timer
 const updateRemainingRounds = (athlete: Athlete) => {
-  const huidigeRonde = Math.floor(timer.value / athlete.roundTime)
-  const resterendeRondes = props.rounds - huidigeRonde
-  remainingRoundsMap.set(athlete.id, resterendeRondes)
+  if (props.timer >= athlete.totalTime) {
+    athlete.remainingRounds = false
+  } else {
+    athlete.remainingRounds = true
+  }
 }
 
-// Functie die de beweging van de atleten en het bijhouden van de rondes verzorgt
 onLoop(() => {
-  if (props.isPaused) return // Stop de simulatie als deze gepauzeerd is
+  if (props.isPaused) return; // Stop de simulatie als deze gepauzeerd is
 
-  props.athletes.forEach(athlete => {
-    const athleteRef = athleteRefs.get(athlete.id)
+  let allFinished = true; // Voor status van alle atleten
+
+  initializedAthletes.value.forEach(athlete => {
+    const athleteRef = athleteRefs.get(athlete.id);
     if (athleteRef && path.value.length > 0) {
-      const roundTime = athlete.roundTime
+      const totalTime = athlete.totalTime;
 
-      // Normaliseer de tijd over de totale duur van de rondes
-      const normalizedTime = (timer.value % roundTime) / roundTime
+      // Zorg ervoor dat de timer in synch is met de totale tijd
+      const normalizedTime =
+        ((props.timer % totalTime) / totalTime) * props.rounds;
 
-      // Bereken de indexen van de wegsegmenten op basis van de genormaliseerde tijd
-      const pathIndex = Math.floor(normalizedTime * path.value.length)
-      const nextIndex = (pathIndex + 1) % path.value.length
+      const pathIndex = Math.floor(normalizedTime * path.value.length) % path.value.length; // Cyclisch pad
+      const nextIndex = (pathIndex + 1) % path.value.length; // Volgend segment cyclisch bepalen
 
-      const start = path.value[pathIndex]
-      const end = path.value[nextIndex]
-      const segmentProgress = (normalizedTime * path.value.length) % 1
+      const start = path.value[pathIndex];
+      const end = path.value[nextIndex];
+      const segmentProgress = (normalizedTime * path.value.length) % 1;
 
-      // Stop de beweging als de atleet de finish heeft bereikt
-      const remaining = remainingRoundsMap.get(athlete.id)
-      if (remaining === undefined || remaining > 0) {
-        // Beweeg de atleet over het pad
-        athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
-        athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
+      if (athlete.remainingRounds) {
+        allFinished = false;
 
-        // Bereken de rotatie van de atleet
-        const angle = Math.atan2(end.z - start.z, end.x - start.x)
-        athleteRef.rotation.y = angle
+        // Beweeg de atleet als er nog resterende rondes zijn
+        athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress;
+        athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress;
+
+        updateRemainingRounds(athlete);
       }
-      updateRemainingRounds(athlete)
     }
-  })
-})
+  });
+
+  // Emit een true als alle atleten klaar zijn
+  if (allFinished) {
+    emit('finished', true);
+  }
+});
 </script>

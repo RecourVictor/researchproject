@@ -67,6 +67,8 @@
       :athletes="athletes"
       :rounds="simulationResult.simulation.disipline.rounds"
       :isPaused="isPaused"
+      :timer="timerValue / 100"
+      @finished="onFinished"
     />
   </main>
 </template>
@@ -84,6 +86,7 @@ import RoundButton from '@/components/generic/RoundButton.vue'
 import { Pause, Play, RotateCcw } from 'lucide-vue-next'
 import TimerOverlay from '@/components/overlays/TimerOverlay.vue'
 import LoadingView from '@/components/generic/LoadingView.vue'
+import type { Simulation } from '@/interfaces/simulation.interface'
 
 // Reactieve variabelen
 const isPaused = ref(true)
@@ -91,6 +94,16 @@ const isStarted = ref(false)
 const isFinished = ref(false)
 const timerValue = ref(0)
 let timerInterval: number | null = null
+
+const onFinished = (status: boolean) => {
+  if (status) {
+    togglePause()
+    // zet na 3s de isFinished op true
+    setTimeout(() => {
+      isFinished.value = true
+    }, 3000)
+  }
+}
 
 // Functie om pauzeren/hervatten te schakelen
 const togglePause = () => {
@@ -106,7 +119,7 @@ const togglePause = () => {
   } else {
     // Stop de timer
     if (timerInterval) {
-      clearInterval(timerInterval)
+      clearInterval(timerInterval as number)
       timerInterval = null
     }
   }
@@ -115,12 +128,18 @@ const togglePause = () => {
 // Functie om te herstarten
 const toggleRestart = () => {
   console.log('Herstarten')
+  clearInterval(timerInterval as number)
+  timerValue.value = 0
+  isStarted.value = false
+  isFinished.value = false
+  togglePause()
+  // TODO: Reset de atleten hun positie terug naar de start
 }
 
 // Functie om te stoppen
 const toggleStop = () => {
   isFinished.value = true
-  isPaused.value = true
+  togglePause()
 }
 
 // Timer
@@ -152,11 +171,11 @@ const handleStart = () => {
 }
 
 // Atleten
-// const athletes = [
-//   { id: 1, roundTime: 30.55 },
-//   { id: 2, roundTime: 50.30 },
-// ]
-const athletes = ref([])
+type Athlete = {
+  id: string
+  totalTime: number
+}
+const athletes = ref<Athlete[]>([])
 
 const route = useRoute()
 
@@ -171,18 +190,22 @@ const {
 
 onSimulationResult(() => {
   if (simulationResult.value && simulationResult.value.simulation) {
-    console.log(simulationResult.value.simulation)
+    updateAthletes(simulationResult.value.simulation)
+  }
+})
 
-    const rounds = simulationResult.value.simulation.disipline.rounds
+function updateAthletes(simulation: Simulation) {
+    console.log(simulation)
+
+    const rounds = simulation.disipline.rounds
     console.log('Rounds:', rounds)
 
-    athletes.value = simulationResult.value.simulation.athletes.map(
+    athletes.value = simulation.athletes.map(
       (athlete: { athlete: { id: string }; time: number }) => ({
         id: athlete.athlete.id,
-        roundTime: athlete.time / rounds,
+        totalTime: athlete.time,
       }),
     )
     console.log('Updated athletes:', athletes.value)
-  }
-})
+}
 </script>
