@@ -10,7 +10,7 @@
     />
     <div
       v-if="isStarted && !isFinished"
-      class="absolute bottom-6 right-6 flex gap-2"
+      class="absolute top-3 right-3 sm:top-auto sm:bottom-6 sm:right-6 flex flex-col-reverse sm:flex-row gap-2"
     >
       <RoundButton :buttonFunction="togglePause">
         <template #icon>
