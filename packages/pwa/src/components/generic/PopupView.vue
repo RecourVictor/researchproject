@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import Heading from '@/components/generic/AppHeading.vue'
 import { Trash, X } from 'lucide-vue-next'
 import SecondaryButton from './SecondaryButton.vue'
