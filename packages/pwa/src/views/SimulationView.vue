@@ -53,7 +53,7 @@
     />
     <FinishSimulation
       v-if="isFinished"
-      @button-click="handleRestart"
+      @button-click="toggleRestart"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />
@@ -62,6 +62,7 @@
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
       :rounds="simulationResult.simulation.disipline.rounds"
+      :timer="timerValue / 100"
     />
     <AthleticsTrack
       :athletes="athletes"
@@ -126,14 +127,23 @@ const togglePause = () => {
 }
 
 // Functie om te herstarten
+const resetAthletesPosition = () => {
+  athletes.value = athletes.value.map(athlete => ({
+    ...athlete,
+  }))
+}
+
 const toggleRestart = () => {
   console.log('Herstarten')
   clearInterval(timerInterval as number)
   timerValue.value = 0
   isStarted.value = false
   isFinished.value = false
-  togglePause()
+  if (!isPaused.value) {
+    togglePause()
+  }
   // TODO: Reset de atleten hun positie terug naar de start
+  resetAthletesPosition()
 }
 
 // Functie om te stoppen
@@ -154,11 +164,6 @@ const formattedTime = computed(() => {
     hundredths,
   }
 })
-
-// Herstarten
-const handleRestart = () => {
-  console.log('Herstarten')
-}
 
 // Starten
 const handleStart = () => {

@@ -28,7 +28,7 @@
           </div>
           <p>{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
         </div>
-        <p>{{ athlete.time }}s</p>
+        <p>{{ formatTime(athlete.time) }}s</p>
       </div>
     </div>
   </div>
@@ -43,4 +43,20 @@ const props = defineProps<{
 }>()
 
 const sortAthletes = [...props.athletes].sort((a, b) => a.time - b.time)
+
+const formatTime = (time: number) => {
+  const slicedTime = time.toString().split('.')
+  let milliseconds = '00'
+
+  if (slicedTime.length === 2) {
+    milliseconds = slicedTime[1].padEnd(2, '0')
+  }
+  const minutes = Math.floor(Number(slicedTime[0]) / 60)
+  const seconds = Number(slicedTime[0]) % 60
+  if (minutes > 0) {
+    return `${minutes}:${seconds.toString().padStart(2, '0')}:${milliseconds}`
+  } else {
+    return `${seconds}:${milliseconds}`
+  }
+}
 </script>

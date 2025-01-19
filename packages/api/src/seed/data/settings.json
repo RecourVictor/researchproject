@@ -18,13 +18,5 @@
     {
         "name": "position",
         "value": false
-    },
-    {
-        "name": "lane",
-        "value": false
-    },
-    {
-        "name": "lap_time",
-        "value": false
     }
 ]

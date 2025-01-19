@@ -17,12 +17,6 @@
       <CheckboxInput v-model="clock" @update:modelValue="updateSetting('clock', clock)">
         <template #default>Toon timer</template>
       </CheckboxInput>
-      <CheckboxInput v-model="lane" @update:modelValue="updateSetting('lane', lane)">
-        <template #default>Toon baan</template>
-      </CheckboxInput>
-      <CheckboxInput v-model="lap_time" @update:modelValue="updateSetting('lap_time', lap_time)">
-        <template #default>Toon ronde tijd</template>
-      </CheckboxInput>
     </div>
     <!-- Errors -->
     <div v-if="updateError" class="text-wa-red">
@@ -44,8 +38,6 @@ const distance = ref(false)
 const country = ref(false)
 const position = ref(false)
 const clock = ref(false)
-const lane = ref(false)
-const lap_time = ref(false)
 
 const { result, onResult: onSettingsResult } = useQuery(
   GET_SETTINGS,
@@ -67,10 +59,6 @@ onSettingsResult(() => {
         position.value = setting.value
       } else if (setting.name === 'clock') {
         clock.value = setting.value
-      } else if (setting.name === 'lane') {
-        lane.value = setting.value
-      } else if (setting.name === 'lap_time') {
-        lap_time.value = setting.value
       }
     }
   }
