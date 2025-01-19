@@ -1,23 +1,25 @@
 <template>
-  <div class="w-[45rem]">
+  <div class="w-screen px-2 sm:px-8 md:px-0 md:w-[45rem] mx-auto">
     <div
       class="rounded-t-xl py-3 px-5 bg-gradient-to-r from-wa-orange_light via-wa-orange to-wa-red"
     >
-      <h1 class="text-2xl font-bold text-wa-blue">
+      <h1 class="text-xl md:text-2xl font-bold text-wa-blue">
         {{ props.simulationName }}
       </h1>
     </div>
-    <div class="bg-wa-blue py-3 px-5 text-white text-xl bg-opacity-90 flex flex-col gap-2 rounded-b-xl">
+    <div
+      class="bg-wa-blue py-3 px-5 text-white sm:text-lg md:text-xl bg-opacity-90 flex flex-col gap-2 rounded-b-xl"
+    >
       <div
         class="flex algin-center justify-between"
         v-for="(athlete, index) in sortAthletes"
         :key="athlete.id"
       >
-        <div class="flex align-center gap-4">
+        <div class="flex align-center gap-2 sm:gap-3 md:gap-4">
           <p>{{ index + 1 }}</p>
-          <div class="w-12 grid place-items-center">
+          <div class="w-6 md:w-12 grid place-items-center">
             <img
-              class="h-5 w-auto m-auto"
+              class="h2 md:h-5 w-auto m-auto"
               :src="
                 'https://flagcdn.com/' +
                 athlete.athlete.nationality.countryCode.toLowerCase() +
@@ -26,7 +28,10 @@
               alt="Flag"
             />
           </div>
-          <p>{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
+          <p class="block sm:hidden">
+            {{ athlete.athlete.name.charAt(0) }}. {{ athlete.athlete.surname }}
+          </p>
+          <p class="hidden sm:block">{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
         </div>
         <p>{{ formatTime(athlete.time) }}s</p>
       </div>
@@ -35,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import type { AthletePerformance } from '@/interfaces/athleteperformance.interface';
+import type { AthletePerformance } from '@/interfaces/athleteperformance.interface'
 
 const props = defineProps<{
   athletes: AthletePerformance[]
