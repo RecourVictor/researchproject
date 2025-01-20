@@ -69,6 +69,7 @@
       :rounds="simulationResult.simulation.disipline.rounds"
       :isPaused="isPaused"
       :timer="timerValue / 100"
+      :startIndex="pathStart()"
       @finished="onFinished"
     />
   </main>
@@ -212,5 +213,18 @@ function updateAthletes(simulation: Simulation) {
       }),
     )
     console.log('Updated athletes:', athletes.value)
+}
+
+const pathStart = () => {
+  const rounds = simulationResult.value?.simulation.disipline.rounds
+  const roundsSplit = rounds && String(rounds).includes('.') ? parseInt(String(rounds).split('.')[1]) : 0
+  const percentage = roundsSplit / 100
+
+  if (percentage === 1) {
+    return 0
+  } else {
+    const startindex = 85 * (1 - percentage)
+    return Math.floor(startindex)
+  }
 }
 </script>
