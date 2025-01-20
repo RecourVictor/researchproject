@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-8 items-center w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-    <AthletesOverlay :athletes="athletes" :simulationName="simulationName" />
+    <AthletesOverlay :disciplineId="disciplineId" :athletes="athletes" :simulationName="simulationName" />
     <OrangeButton @click="$emit('button-click')" textOnButton="Simulatie starten">
       <template #icon>
         <Play />
@@ -18,6 +18,7 @@ import OrangeButton from '../generic/OrangeButton.vue';
 defineProps<{
   athletes: AthletePerformance[]
   simulationName: string
+  disciplineId: string
 }>()
 
 defineEmits<{

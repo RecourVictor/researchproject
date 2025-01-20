@@ -48,12 +48,14 @@
     <StartSimulation
       v-if="!isStarted"
       @button-click="handleStart"
+      :disciplineId="simulationResult.simulation.disipline.id"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />
     <FinishSimulation
       v-if="isFinished"
       @button-click="toggleRestart"
+      :disciplineId="simulationResult.simulation.disipline.id"
       :athletes="simulationResult.simulation.athletes"
       :simulationName="simulationResult.simulation.name"
     />

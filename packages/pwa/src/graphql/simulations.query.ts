@@ -32,6 +32,13 @@ export const GET_SIMULATION_BY_ID = gql`
           id
           name
           surname
+          records {
+            discipline {
+              id
+              name
+            }
+            PB
+          }
           nationality {
             id
             countryCode
