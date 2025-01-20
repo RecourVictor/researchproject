@@ -17,6 +17,10 @@
     },
     {
         "name": "position",
-        "value": false
+        "value": true
+    },
+    {
+        "name": "rounds",
+        "value": true
     }
 ]
