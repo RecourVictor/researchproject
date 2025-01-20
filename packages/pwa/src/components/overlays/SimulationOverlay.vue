@@ -49,6 +49,38 @@
 
 <script setup lang="ts">
 import type { AthletePerformance } from '@/interfaces/athleteperformance.interface'
+import { ref } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { GET_SETTINGS } from '@/graphql/settings.query'
+
+const speed = ref(false)
+const distance = ref(false)
+const country = ref(false)
+const position = ref(false)
+const clock = ref(false)
+
+const { result, onResult: onSettingsResult } = useQuery(
+  GET_SETTINGS,
+  () => ({}),
+)
+
+onSettingsResult(() => {
+  if (result.value?.settings) {
+    for (const setting of result.value.settings) {
+      if (setting.name === 'speed') {
+        speed.value = setting.value
+      } else if (setting.name === 'distance') {
+        distance.value = setting.value
+      } else if (setting.name === 'country') {
+        country.value = setting.value
+      } else if (setting.name === 'position') {
+        position.value = setting.value
+      } else if (setting.name === 'clock') {
+        clock.value = setting.value
+      }
+    }
+  }
+})
 
 const props = defineProps<{
   athletes: AthletePerformance[]
