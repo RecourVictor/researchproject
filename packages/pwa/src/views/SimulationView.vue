@@ -223,7 +223,7 @@ const pathStart = () => {
   if (percentage === 1) {
     return 0
   } else {
-    const startindex = 85 * (1 - percentage)
+    const startindex = 85 * (1 - (percentage < 0.1 ? percentage * 10 : percentage))
     return Math.floor(startindex)
   }
 }
