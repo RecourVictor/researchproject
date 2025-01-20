@@ -16,8 +16,8 @@
         :key="athlete.id"
       >
         <div class="flex align-center gap-2 sm:gap-3 md:gap-4">
-          <p>{{ index + 1 }}</p>
-          <div class="w-6 md:w-12 grid place-items-center">
+          <p v-if="position" >{{ index + 1 }}</p>
+          <div v-if="country" class="w-6 md:w-12 grid place-items-center">
             <img
               class="h2 md:h-5 w-auto m-auto"
               :src="
@@ -41,6 +41,35 @@
 
 <script setup lang="ts">
 import type { AthletePerformance } from '@/interfaces/athleteperformance.interface'
+import { ref } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { GET_SETTINGS } from '@/graphql/settings.query'
+
+const country = ref(false)
+const position = ref(false)
+
+const { result, onResult: onSettingsResult } = useQuery(
+  GET_SETTINGS,
+  () => ({}),
+)
+
+onSettingsResult(() => {
+  const settings = result.value?.settings
+  if (settings) {
+    const countrySetting = settings.find(
+      (setting: { name: string }) => setting.name === 'country',
+    )
+    if (countrySetting) {
+      country.value = countrySetting.value === true
+    }
+    const positionSetting = settings.find(
+      (setting: { name: string }) => setting.name === 'position',
+    )
+    if (positionSetting) {
+      position.value = positionSetting.value === true
+    }
+  }
+})
 
 const props = defineProps<{
   athletes: AthletePerformance[]
