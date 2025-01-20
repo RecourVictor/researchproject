@@ -22,6 +22,7 @@
         :ref="
           el => athleteRefs.set(athlete.id, el as unknown as THREE.Object3D)
         "
+            :position="[getStartPosition().x, 0, getStartPosition().z]" 
       >
         <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
       </TresMesh>
@@ -213,4 +214,9 @@ onLoop(() => {
     emit('finished', true)
   }
 })
+
+const getStartPosition = () => {
+  const pathIndex = props.startIndex % path.length
+  return path[pathIndex]
+}
 </script>
