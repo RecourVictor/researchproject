@@ -8,7 +8,7 @@
     <TresPerspectiveCamera
       :position="[-30, 30, 40]"
       :look-at="[0, 0, 0]"
-      :zoom="1.8"
+      :zoom="zoomLevel"
     />
 
     <!-- Laad de atletiekpiste -->
@@ -22,7 +22,7 @@
         :ref="
           el => athleteRefs.set(athlete.id, el as unknown as THREE.Object3D)
         "
-            :position="[getStartPosition().x, 0, getStartPosition().z]" 
+        :position="[getStartPosition().x, 0, getStartPosition().z]"
       >
         <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
       </TresMesh>
@@ -36,7 +36,7 @@
     <OrbitControls
       :min-polar-angle="0"
       :max-polar-angle="Math.PI / 2"
-      :max-distance="75"
+      :max-distance="maxDistance"
     />
   </TresCanvas>
 </template>
@@ -46,6 +46,52 @@ import { computed, reactive } from 'vue'
 import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel } from '@tresjs/cientos'
+import { ref, watchEffect } from 'vue'
+
+// Breakpoints detecteren
+const screenSize = ref('default')
+
+// Camera en OrbitControl instellingen
+const zoomLevel = ref(1.8)
+const maxDistance = ref(75)
+
+const updateScreenSize = () => {
+  if (window.matchMedia('(min-width: 1280px)').matches) {
+    screenSize.value = 'xl'
+  } else if (window.matchMedia('(min-width: 1024px)').matches) {
+    screenSize.value = 'lg'
+  } else if (window.matchMedia('(min-width: 768px)').matches) {
+    screenSize.value = 'md'
+  } else if (window.matchMedia('(min-width: 640px)').matches) {
+    screenSize.value = 'sm'
+  } else {
+    screenSize.value = 'xs'
+  }
+}
+
+// Update screenSize bij laden en resize
+window.addEventListener('resize', updateScreenSize)
+updateScreenSize()
+
+// Reactief aanpassen van instellingen
+watchEffect(() => {
+  if (screenSize.value === 'xl') {
+    zoomLevel.value = 1.8
+    maxDistance.value = 70
+  } else if (screenSize.value === 'lg') {
+    zoomLevel.value = 1.3
+    maxDistance.value = 60
+  } else if (screenSize.value === 'md') {
+    zoomLevel.value = 0.8
+    maxDistance.value = 45
+  } else if (screenSize.value === 'sm') {
+    zoomLevel.value = 0.6
+    maxDistance.value = 50
+  } else if (screenSize.value === 'xs') {
+    zoomLevel.value = 0.4
+    maxDistance.value = 55
+  }
+})
 
 interface Athlete {
   id: string
