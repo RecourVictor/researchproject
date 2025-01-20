@@ -7,7 +7,7 @@
       @submit.prevent="handleSubmit"
       class="space-y-5"
     >
-      <AppHeading :level="2">Algemene info</AppHeading>
+    <AppHeading :level="2">Algemene info</AppHeading>
       <div class="space-y-4">
         <div class="grid sm:grid-cols-2 gap-4">
           <TextInput
@@ -20,19 +20,34 @@
             v-model="athleteInput.lastName"
             placeholder="Achternaam"
           />
+          <p v-if="errors.firstName" class="text-wa-red text-sm">
+            {{ errors.firstName }}
+          </p>
+          <p v-if="errors.lastName" class="text-wa-red text-sm">
+            {{ errors.lastName }}
+          </p>
         </div>
         <DateInput
           label="Geboortedatum"
           v-model="athleteInput.birthDate"
           placeholder="Geboortedatum"
         />
+        <p v-if="errors.birthDate" class="text-wa-red text-sm">
+          {{ errors.birthDate }}
+        </p>
         <SelectInput
           label="Geslacht"
           v-model="athleteInput.gender"
           :options="genderOptions"
           firstOption="Kies een geslacht"
         />
+        <p v-if="errors.gender" class="text-wa-red text-sm">
+          {{ errors.gender }}
+        </p>
         <NationalityInput v-model="athleteInput.country" />
+        <p v-if="errors.country" class="text-wa-red text-sm">
+          {{ errors.country }}
+        </p>
       </div>
       <AppHeading :level="2">Persoonlijke records</AppHeading>
       <div>
@@ -40,7 +55,6 @@
           <p class="col-span-2 md:col-span-3 text-xl">Disipline</p>
           <p class="text-xl col-span-2 md:col-span-1">PB</p>
         </div>
-
         <div
           v-for="(record, index) in recordInput"
           :key="index"
@@ -59,6 +73,12 @@
             class="col-span-2 md:col-span-1"
           />
         </div>
+        <p v-if="errors.disipline" class="text-wa-red text-sm">
+          {{ errors.disipline }}
+        </p>
+        <p v-if="errors.pb" class="text-wa-red text-sm">
+          {{ errors.pb }}
+        </p>
       </div>
       <PrimaryButton textOnButton="Atleet bewerken">
         <template #icon>
@@ -201,7 +221,73 @@ const disiplines = (fetchedDisiplines: Disipline[]) => {
   disiplineOptions.value = aviableDisiplines
 }
 
+const errors = ref({
+  firstName: '',
+  lastName: '',
+  birthDate: '',
+  country: '',
+  gender: '',
+  disipline: '',
+  pb: '',
+})
+
+const validateAthlete = () => {
+  let isValid = true
+
+  if (!athleteInput.value.firstName) {
+    errors.value.firstName = 'Voornaam is verplicht'
+    isValid = false
+  } else {
+    errors.value.firstName = ''
+  }
+
+  if (!athleteInput.value.lastName) {
+    errors.value.lastName = 'Achternaam is verplicht'
+    isValid = false
+  } else {
+    errors.value.lastName = ''
+  }
+
+  if (!athleteInput.value.gender) {
+    errors.value.gender = 'Geslacht is verplicht'
+    isValid = false
+  } else {
+    errors.value.gender = ''
+  }
+
+  if (!athleteInput.value.birthDate) {
+    errors.value.birthDate = 'Geboortedatum is verplicht'
+    isValid = false
+  } else {
+    errors.value.birthDate = ''
+  }
+
+  if (!athleteInput.value.country) {
+    errors.value.country = 'Land is verplicht'
+    isValid = false
+  } else {
+    errors.value.country = ''
+  }
+
+  for (let i = 0; i < recordInput.value.length - 1; i++) {
+    if (!recordInput.value[i].disipline || !recordInput.value[i].pb) {
+      errors.value.disipline = 'Vul alle disiplines in'
+      errors.value.pb = 'Vul alle PBs in'
+      isValid = false
+    } else {
+      errors.value.disipline = ''
+      errors.value.pb = ''
+    }
+  }
+
+  return isValid
+}
+
 const handleSubmit = () => {
+  if (!validateAthlete()) {
+    return
+  }
+
   // verwijder de laatste record als deze niet volledig is ingevuld
   if (!recordInput.value[recordInput.value.length - 1].disipline) {
     recordInput.value.pop()
