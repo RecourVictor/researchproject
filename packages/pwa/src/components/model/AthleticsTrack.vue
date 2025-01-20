@@ -181,6 +181,14 @@ onLoop(() => {
   initializedAthletes.value.forEach(athlete => {
     const athleteRef = athleteRefs.get(athlete.id)
     if (athleteRef && path.length > 0) {
+      if (!athlete.remainingRounds) {
+        // Als de atleet klaar is, zet hem op de finishpositie
+        const finishPosition = path[path.length - 1]
+        athleteRef.position.x = finishPosition.x
+        athleteRef.position.z = finishPosition.z
+        return // Geen verdere updates nodig
+      }
+
       const totalTime = athlete.totalTime
 
       // Zorg ervoor dat de timer in synch is met de totale tijd
