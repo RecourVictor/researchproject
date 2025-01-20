@@ -7,13 +7,16 @@
       @submit.prevent="handleSubmit"
       class="space-y-5"
     >
-      <AppHeading :level="2">Algemene info</AppHeading>
+    <AppHeading :level="2">Algemene info</AppHeading>
       <div class="space-y-4">
         <TextInput
           label="Wedstrijdnaam"
           v-model="simulationInput.name"
           placeholder="Wedsrijdnaam"
         />
+        <p v-if="errors.name" class="text-wa-red text-sm">
+          {{ errors.name }}
+        </p>
         <SelectInput
           class="col-span-3 mt-4"
           label="Disipline"
@@ -21,6 +24,9 @@
           :options="disiplineOptions"
           firstOption="Kies een disipline"
         />
+        <p v-if="errors.disipline" class="text-wa-red text-sm">
+          {{ errors.disipline }}
+        </p>
       </div>
       <AppHeading :level="2">Atleten</AppHeading>
       <div>
@@ -46,6 +52,12 @@
             placeholder="Tijd"
           />
         </div>
+        <p v-if="errors.athlete" class="text-wa-red text-sm">
+          {{ errors.athlete }}
+        </p>
+        <p v-if="errors.time" class="text-wa-red text-sm">
+          {{ errors.time }}
+        </p>
       </div>
       <PrimaryButton textOnButton="Simulatie bewerken">
         <template #icon>
@@ -181,7 +193,54 @@ const athletes = (
   athleteOptions.value = aviabelAthletes
 }
 
+const errors = ref({
+  name: '',
+  disipline: '',
+  athlete: '',
+  time: '',
+})
+
+const validateSimulation = () => {
+  let isValid = true
+
+  if (!simulationInput.value.name) {
+    errors.value.name = 'Wedstrijdnaam is verplicht'
+    isValid = false
+  } else {
+    errors.value.name = ''
+  }
+
+  if (!simulationInput.value.disipline) {
+    errors.value.disipline = 'Disipline is verplicht'
+    isValid = false
+  } else {
+    errors.value.disipline = ''
+  }
+
+  for (let i = 0; i < athletesInput.value.length - 1; i++) {
+    if (!athletesInput.value[i].athlete) {
+      errors.value.athlete = 'Atleet is verplicht'
+      isValid = false
+    } else {
+      errors.value.athlete = ''
+    }
+
+    if (!athletesInput.value[i].time) {
+      errors.value.time = 'Tijd is verplicht'
+      isValid = false
+    } else {
+      errors.value.time = ''
+    }
+  }
+
+  return isValid
+}
+
 const handleSubmit = () => {
+  if (!validateSimulation()) {
+    return
+  }
+  
   // verwijder de laatste atleet als deze niet volledig is ingevuld
   if (!athletesInput.value[athletesInput.value.length - 1].athlete) {
     athletesInput.value.pop()
