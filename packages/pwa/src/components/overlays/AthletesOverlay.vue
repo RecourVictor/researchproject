@@ -16,7 +16,7 @@
         :key="athlete.id"
       >
         <div class="flex align-center gap-2 sm:gap-3 md:gap-4">
-          <p v-if="position" >{{ index + 1 }}</p>
+          <p v-if="position">{{ index + 1 }}</p>
           <div v-if="country" class="w-6 md:w-12 grid place-items-center">
             <img
               class="h2 md:h-5 w-auto m-auto"
@@ -31,9 +31,14 @@
           <p class="block sm:hidden">
             {{ athlete.athlete.name.charAt(0) }}. {{ athlete.athlete.surname }}
           </p>
-          <p class="hidden sm:block">{{ athlete.athlete.name }} {{ athlete.athlete.surname }}</p>
+          <p class="hidden sm:block">
+            {{ athlete.athlete.name }} {{ athlete.athlete.surname }}
+          </p>
         </div>
-        <p>{{ formatTime(athlete.time) }}s</p>
+        <div class="flex gap-2 sm:gap-3 md:gap-4">
+          <p class="font-bold">{{ personalBest(athlete) }}</p>
+          <p>{{ formatTime(athlete.time) }}s</p>
+        </div>
       </div>
     </div>
   </div>
@@ -74,9 +79,26 @@ onSettingsResult(() => {
 const props = defineProps<{
   athletes: AthletePerformance[]
   simulationName: string
+  disciplineId: string
 }>()
 
 const sortAthletes = [...props.athletes].sort((a, b) => a.time - b.time)
+
+const personalBest = (athlete: AthletePerformance) => {
+  const records = athlete.athlete.records || []
+  const time = athlete.time
+  for (const record of Array.isArray(records) ? records : []) {
+    if (record.discipline.id === props.disciplineId) {
+      const personalBest = record.PB
+      if (time < personalBest) {
+        return 'PB'
+      } else if (time === personalBest) {
+        return 'SB'
+      }
+    }
+  }
+  return ''
+}
 
 const formatTime = (time: number) => {
   const slicedTime = time.toString().split('.')

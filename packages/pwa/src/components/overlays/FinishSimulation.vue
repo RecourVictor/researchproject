@@ -2,7 +2,7 @@
   <div
     class="flex flex-col gap-8 items-center w-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
   >
-    <AthletesOverlay :athletes="athletes" :simulationName="simulationName" />
+    <AthletesOverlay :disciplineId="disciplineId" :athletes="athletes" :simulationName="simulationName" />
     <div class="flex gap-4">
       <OrangeButton @click="$emit('button-click')" textOnButton="Herstarten">
         <template #icon>
@@ -28,6 +28,7 @@ import { useRouter } from 'vue-router'
 defineProps<{
   athletes: AthletePerformance[]
   simulationName: string
+  disciplineId: string
 }>()
 
 defineEmits<{

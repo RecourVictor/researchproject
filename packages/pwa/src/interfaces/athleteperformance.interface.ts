@@ -4,6 +4,13 @@ export interface AthletePerformance {
       id: string
       name: string
       surname: string
+      records: {
+        discipline: {
+          id: string
+          name: string
+        }
+        PB: number
+      }
       nationality: {
         countryCode: string
         countryName: string
