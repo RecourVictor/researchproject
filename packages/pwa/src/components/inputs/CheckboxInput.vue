@@ -12,7 +12,7 @@
     />
     <!-- Aangepaste checkbox -->
     <div
-      class="flex items-center justify-center w-3.5 h-3.5 border rounded-sm border-wa-blue peer-checked:border-wa-orange peer-checked:bg-wa-orange text-white"
+      class="flex items-center justify-center w-3.5 h-3.5 border rounded-sm border-wa-blue peer-checked:border-wa-orange peer-checked:bg-wa-orange text-white focus:outline-none focus-visible:ring focus-visible:ring-wa-blue focus-visible:ring-opacity-50"
       tabindex="0"
       @keydown.enter.prevent="toggleCheckbox"
     >

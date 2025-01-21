@@ -8,7 +8,7 @@
         :id="label"
         :value="modelValue"
         @change="updateValue"
-        class="rounded-full border h-[3.125rem] border-wa-blue text-wa-blue px-4 py-3 w-full pr-10 appearance-none"
+        class="rounded-full border h-[3.125rem] border-wa-blue text-wa-blue px-4 py-3 w-full pr-10 appearance-none focus:outline-none focus-visible:ring focus-visible:ring-wa-blue focus-visible:ring-opacity-50"
       >
         <option v-if="firstOption" disabled value="">
           {{ firstOption }}

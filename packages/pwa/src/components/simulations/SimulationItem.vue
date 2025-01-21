@@ -9,19 +9,19 @@
     <div class="justify-self-end col-span-2 sm:col-span-1">
       <div class="flex gap-2">
         <button
-          class="text-wa-orange hover:text-wa-orange_light transition-all duration-200"
+          class="text-wa-orange hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2"
           @click="playSimulation(simulatie.id)"
         >
           <Play />
         </button>
         <button
-          class="text-wa-blue hover:text-wa-orange_light transition-all duration-200"
+          class="text-wa-blue hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2"
           @click="editSimulation(simulatie.id)"
         >
           <Pencil />
         </button>
         <button
-          class="text-wa-red hover:text-wa-orange_light transition-all duration-200"
+          class="text-wa-red hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2"
           @click="deleteSimulation()"
         >
           <Trash />
