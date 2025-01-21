@@ -1,3 +1,178 @@
 [
-
+  {
+    "name": "Guldensporenmeeting - F - 100m",
+    "athletes": [
+      {
+        "name": "Nafi",
+        "surname": "Thiam",
+        "time": 13.5
+      },
+      {
+        "name": "Elaine",
+        "surname": "Thompson-Herah",
+        "time": 10.54
+      },{
+        "name": "Dafne",
+        "surname": "Schippers",
+        "time": 10.99
+      }, {
+        "name": "Sherone",
+        "surname": "Simpson",
+        "time": 10.95
+      }
+    ],
+    "disipline": "100m"
+  },
+  {
+    "name": "Guldensporenmeeting - F - 800m",
+    "athletes": [
+      {
+        "name": "Jenny",
+        "surname": "Meadows",
+        "time": 127.92
+      },
+      {
+        "name": "Nafi",
+        "surname": "Thiam",
+        "time": 135.54
+      }
+    ],
+    "disipline": "800m"
+  },
+  {
+    "name": "Guldensporenmeeting - M - 400m",
+    "athletes": [
+      {
+        "name": "Jonathan",
+        "surname": "Sacoor",
+        "time": 45.03
+      },
+      {
+        "name": "Steven",
+        "surname": "Gardiner",
+        "time": 45.54
+      },
+      {
+        "name": "Dylan",
+        "surname": "Borlée",
+        "time": 45.90
+      },
+      {
+        "name": "Alexander",
+        "surname": "Doom",
+        "time": 44.14
+      },
+      {
+        "name": "Victor",
+        "surname": "Recour",
+        "time": 59.95
+      }
+    ],
+    "disipline": "400m"
+  },
+  {
+    "name": "Guldensporenmeeting - M - 1500m",
+    "athletes": [
+      {
+        "name": "Jenny",
+        "surname": "Meadows",
+        "time": 262.87
+      },
+      {
+        "name": "Jakob",
+        "surname": "Ingebrigtsen",
+        "time": 207.55
+      }
+    ],
+    "disipline": "1500m"
+  },
+  {
+    "name": "Guldensporenmeeting - M - 200m",
+    "athletes": [
+      {
+        "name": "Jonathan",
+        "surname": "Sacoor",
+        "time": 20.99
+      },
+      {
+        "name": "Asafa",
+        "surname": "Powell",
+        "time": 19.99
+      },
+      {
+        "name": "Steven",
+        "surname": "Gardiner",
+        "time": 19.85
+      },
+      {
+        "name": "Michael",
+        "surname": "Frater",
+        "time": 20.88
+      },
+      {
+        "name": "Dylan",
+        "surname": "Borlée",
+        "time": 21
+      },
+      {
+        "name": "Alexander",
+        "surname": "Doom",
+        "time": 21.55
+      }
+    ],
+    "disipline": "200m"
+  },
+  {
+    "name": "Guldensporenmeeting - F - 200m",
+    "athletes": [
+      {
+        "name": "Nafi",
+        "surname": "Thiam",
+        "time": 25.12
+      },
+      {
+        "name": "Elaine",
+        "surname": "Thompson-Herah",
+        "time": 22.95
+      },
+      {
+        "name": "Dafne",
+        "surname": "Schippers",
+        "time": 21.87
+      },
+      {
+        "name": "Sherone",
+        "surname": "Simpson",
+        "time": 22.01
+      }
+    ],
+    "disipline": "200m"
+  },
+  {
+    "name": "Guldensporenmeeting - M - Steeple",
+    "athletes": [
+      {
+        "name": "Jakob",
+        "surname": "Ingebrigtsen",
+        "time": 506.81
+      }
+    ],
+    "disipline": "3000m Steeplechase"
+  },
+  {
+    "name": "Guldensporenmeeting - F - 100m Hurdles",
+    "athletes": [
+      {
+        "name": "Nafi",
+        "surname": "Thiam",
+        "time": 13.21
+      },
+      {
+        "name": "Dafne",
+        "surname": "Schippers",
+        "time": 13.01
+      }
+    ],
+    "disipline": "100m Hurdles"
+  }
 ]
