@@ -23,6 +23,7 @@
           el => athleteRefs.set(athlete.id, el as unknown as THREE.Object3D)
         "
         :position="[getStartPosition().x, 0, getStartPosition().z]"
+        :rotation="[0, getStartPosition().r * (Math.PI / 180) ,0]"
       >
         <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
       </TresMesh>
@@ -112,91 +113,91 @@ const emit = defineEmits<{
 }>()
 
 const path = [
-  { x: 10.5, z: 8 },
-  { x: 11.5, z: 7.7 },
-  { x: 12.5, z: 7.2 },
-  { x: 13.5, z: 6.7 },
-  { x: 14.5, z: 6 },
-  { x: 15.5, z: 5 },
-  { x: 16.3, z: 4 },
-  { x: 16.8, z: 3 },
-  { x: 17.2, z: 2 },
-  { x: 17.4, z: 1 },
-  { x: 17.4, z: 0 },
-  { x: 17.2, z: -1 },
-  { x: 17.2, z: -2 },
-  { x: 16.8, z: -3 },
-  { x: 16.3, z: -4 },
-  { x: 15.5, z: -5 },
-  { x: 14.5, z: -6 },
-  { x: 13.5, z: -7 },
-  { x: 12.5, z: -7.5 },
-  { x: 11.5, z: -8 },
-  { x: 10.5, z: -8 },
-  { x: 9.5, z: -8 },
-  { x: 8.5, z: -8 },
-  { x: 7.5, z: -8 },
-  { x: 6.5, z: -8 },
-  { x: 5.5, z: -8 },
-  { x: 4.5, z: -8 },
-  { x: 3.5, z: -8 },
-  { x: 2.5, z: -8 },
-  { x: 1.5, z: -8 },
-  { x: 0.5, z: -8 },
-  { x: -0.5, z: -8 },
-  { x: -1.5, z: -8 },
-  { x: -2.5, z: -8 },
-  { x: -3.5, z: -8 },
-  { x: -4.5, z: -8 },
-  { x: -5.5, z: -8 },
-  { x: -6.5, z: -8 },
-  { x: -7.5, z: -8 },
-  { x: -8.5, z: -8 },
-  { x: -9.5, z: -8 },
-  { x: -10.5, z: -8 },
-  { x: -11.5, z: -7.8 },
-  { x: -12.5, z: -7.4 },
-  { x: -13.5, z: -7 },
-  { x: -14.5, z: -6.3 },
-  { x: -15.5, z: -5.4 },
-  { x: -16, z: -5 },
-  { x: -16.5, z: -4 },
-  { x: -17, z: -3 },
-  { x: -17.3, z: -2 },
-  { x: -17.5, z: -1 },
-  { x: -17.5, z: 0 },
-  { x: -17.3, z: 1 },
-  { x: -17.1, z: 2 },
-  { x: -16.8, z: 3 },
-  { x: -16.5, z: 4 },
-  { x: -16, z: 5 },
-  { x: -15, z: 6 },
-  { x: -14.7, z: 6.5 },
-  { x: -13.5, z: 7 },
-  { x: -13, z: 7.5 },
-  { x: -12, z: 8 },
-  { x: -11, z: 8 },
-  { x: -10, z: 8 },
-  { x: -9, z: 8 },
-  { x: -8, z: 8 },
-  { x: -7, z: 8 },
-  { x: -6, z: 8 },
-  { x: -5, z: 8 },
-  { x: -4, z: 8 },
-  { x: -3, z: 8 },
-  { x: -2, z: 8 },
-  { x: -1, z: 8 },
-  { x: 0, z: 8 },
-  { x: 1, z: 8 },
-  { x: 2, z: 8 },
-  { x: 3, z: 8 },
-  { x: 4, z: 8 },
-  { x: 5, z: 8 },
-  { x: 6, z: 8 },
-  { x: 7, z: 8 },
-  { x: 8, z: 8 },
-  { x: 9, z: 8 },
-  { x: 10, z: 8 },
+  { x: 10.5, z: 8, r: 100 },
+  { x: 11.5, z: 7.7, r: 110 },
+  { x: 12.5, z: 7.2, r: 120 },
+  { x: 13.5, z: 6.7, r: 130 },
+  { x: 14.5, z: 6, r: 140 },
+  { x: 15.5, z: 5, r: 150 },
+  { x: 16.3, z: 4, r: 160 },
+  { x: 16.8, z: 3, r: 170 },
+  { x: 17.2, z: 2, r: 180 },
+  { x: 17.4, z: 1, r: 190 },
+  { x: 17.4, z: 0, r: 200 },
+  { x: 17.2, z: -1, r: 210 },
+  { x: 17.2, z: -2, r: 220 },
+  { x: 16.8, z: -3, r: 230 },
+  { x: 16.3, z: -4, r: 240 },
+  { x: 15.5, z: -5, r: 260 },
+  { x: 14.5, z: -6, r: 270 },
+  { x: 13.5, z: -7, r: 280 },
+  { x: 12.5, z: -7.5, r: -90 },
+  { x: 11.5, z: -8, r: -90 },
+  { x: 10.5, z: -8, r: -90 },
+  { x: 9.5, z: -8, r: -90 },
+  { x: 8.5, z: -8, r: -90 },
+  { x: 7.5, z: -8, r: -90 },
+  { x: 6.5, z: -8, r: -90 },
+  { x: 5.5, z: -8, r: -90 },
+  { x: 4.5, z: -8, r: -90 },
+  { x: 3.5, z: -8, r: -90 },
+  { x: 2.5, z: -8, r: -90 },
+  { x: 1.5, z: -8, r: -90 },
+  { x: 0.5, z: -8, r: -90 },
+  { x: -0.5, z: -8, r: -90 },
+  { x: -1.5, z: -8, r: -90 },
+  { x: -2.5, z: -8, r: -90 },
+  { x: -3.5, z: -8, r: -90 },
+  { x: -4.5, z: -8, r: -90 },
+  { x: -5.5, z: -8, r: -90 },
+  { x: -6.5, z: -8, r: -90 },
+  { x: -7.5, z: -8, r: -90 },
+  { x: -8.5, z: -8, r: -85 },
+  { x: -9.5, z: -8, r: -80 },
+  { x: -10.5, z: -8, r: -75 },
+  { x: -11.5, z: -7.8, r: -70 },
+  { x: -12.5, z: -7.4, r: -65 },
+  { x: -13.5, z: -7, r: -60 },
+  { x: -14.5, z: -6.3, r: -50 },
+  { x: -15.5, z: -5.4, r: -40 },
+  { x: -16, z: -5, r: -30 },
+  { x: -16.5, z: -4, r: -20 },
+  { x: -17, z: -3, r: -10 },
+  { x: -17.3, z: -2, r: 0 },
+  { x: -17.5, z: -1, r: 10 },
+  { x: -17.5, z: 0, r: 20 },
+  { x: -17.3, z: 1, r: 30 },
+  { x: -17.1, z: 2, r: 40 },
+  { x: -16.8, z: 3, r: 50 },
+  { x: -16.5, z: 4, r: 60 },
+  { x: -16, z: 5, r: 65 },
+  { x: -15, z: 6, r: 70 },
+  { x: -14.7, z: 6.5, r: 75 },
+  { x: -13.5, z: 7, r: 80 },
+  { x: -13, z: 7.5, r: 85 },
+  { x: -12, z: 8, r: 90 },
+  { x: -11, z: 8, r: 90 },
+  { x: -10, z: 8, r: 90 },
+  { x: -9, z: 8, r: 90 },
+  { x: -8, z: 8, r: 90 },
+  { x: -7, z: 8, r: 90 },
+  { x: -6, z: 8, r: 90 },
+  { x: -5, z: 8, r: 90 },
+  { x: -4, z: 8, r: 90 },
+  { x: -3, z: 8, r: 90 },
+  { x: -2, z: 8, r: 90 },
+  { x: -1, z: 8, r: 90 },
+  { x: 0, z: 8, r: 90 },
+  { x: 1, z: 8, r: 90 },
+  { x: 2, z: 8, r: 90 },
+  { x: 3, z: 8, r: 90 },
+  { x: 4, z: 8, r: 90 },
+  { x: 5, z: 8, r: 90 },
+  { x: 6, z: 8, r: 90 },
+  { x: 7, z: 8, r: 90 },
+  { x: 8, z: 8, r: 90 },
+  { x: 9, z: 8, r: 90 },
+  { x: 10, z: 8, r: 90 },
 ]
 
 const athleteRefs = reactive(new Map<string, THREE.Object3D>())
@@ -232,7 +233,8 @@ onLoop(() => {
         const finishPosition = path[path.length - 1]
         athleteRef.position.x = finishPosition.x
         athleteRef.position.z = finishPosition.z
-        return // Geen verdere updates nodig
+        athleteRef.rotation.y = finishPosition.r * (Math.PI / 180) // Laatste rotatie
+        return
       }
 
       const totalTime = athlete.totalTime
@@ -257,13 +259,30 @@ onLoop(() => {
         // Beweeg de atleet als er nog resterende rondes zijn
         athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
+        // Smooth interpolatie voor rotatie (lerp)
+        // Smooth interpolatie voor rotatie (lerp met normalisatie)
+        let startRotation = start.r * (Math.PI / 180)
+        let endRotation = end.r * (Math.PI / 180)
+
+        // Zorg ervoor dat de rotatie de kortste weg neemt
+        if (Math.abs(endRotation - startRotation) > Math.PI) {
+          if (endRotation > startRotation) {
+            startRotation += 2 * Math.PI
+          } else {
+            endRotation += 2 * Math.PI
+          }
+        }
+
+        // Interpoleer de rotatie
+        athleteRef.rotation.y =
+          startRotation + (endRotation - startRotation) * segmentProgress
 
         updateRemainingRounds(athlete)
       }
     }
   })
 
-  // Emit een true als alle atleten klaar zijn
+  // Controleer of alle atleten klaar zijn
   if (allFinished) {
     emit('finished', true)
   }
