@@ -1,7 +1,7 @@
 <template>
   <button
     @click="buttonFunction && buttonFunction()"
-    class="rounded-full w-14 h-14 text-wa-orange text-3xl transition-all duration-200 bg-wa-blue hover:text-white grid place-items-center"
+    class="rounded-full w-14 h-14 text-wa-orange text-3xl transition-all duration-200 bg-wa-blue hover:text-white grid place-items-center focus:outline-none focus-visible:ring focus-visible:ring-wa-blue focus-visible:ring-opacity-50"
   >
     <slot name="icon" />
   </button>

@@ -23,10 +23,10 @@
     </div>
     <div class="justify-self-end">
       <div class="flex gap-2">
-        <button class="text-wa-blue hover:text-wa-orange_light transition-all duration-200" @click="editAthlete(athlete.id)">
+        <button class="text-wa-blue hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2" @click="editAthlete(athlete.id)">
           <Pencil />
         </button>
-        <button class="text-wa-red hover:text-wa-orange_light transition-all duration-200" @click="deleteAthlete()">
+        <button class="text-wa-red hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2" @click="deleteAthlete()">
           <Trash />
         </button>
       </div>
