@@ -23,9 +23,9 @@
           el => athleteRefs.set(athlete.id, el as unknown as THREE.Object3D)
         "
         :position="[getStartPosition().x, 0, getStartPosition().z]"
-        :rotation="[0, getStartPosition().r * (Math.PI / 180) ,0]"
+        :rotation="[0, getStartPosition().r * (Math.PI / 180), 0]"
       >
-        <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
+        <FBXModel path="/models/test.fbx" :scale="0.01" />
       </TresMesh>
     </Suspense>
 
@@ -46,7 +46,7 @@
 import { computed, reactive } from 'vue'
 import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
-import { OrbitControls, GLTFModel } from '@tresjs/cientos'
+import { OrbitControls, GLTFModel, FBXModel } from '@tresjs/cientos'
 import { ref, watchEffect } from 'vue'
 
 // Breakpoints detecteren
@@ -201,6 +201,7 @@ const path = [
 ]
 
 const athleteRefs = reactive(new Map<string, THREE.Object3D>())
+const animationMixers = reactive(new Map<string, THREE.AnimationMixer>()) // Animatie mixers per atleet
 
 const initializedAthletes = computed(() =>
   props.athletes.map(athlete => ({
@@ -217,6 +218,36 @@ const updateRemainingRounds = (athlete: Athlete) => {
     athlete.remainingRounds = false
   } else {
     athlete.remainingRounds = true
+  }
+}
+
+const updateAthletesAnimation = (
+  athlete: Athlete,
+  athleteRef: THREE.Object3D,
+) => {
+  // Zorg ervoor dat we een mixer hebben voor de animatie van deze atleet
+  if (!animationMixers.has(athlete.id)) {
+    const mixer = new THREE.AnimationMixer(athleteRef) // Maak een nieuwe mixer
+    animationMixers.set(athlete.id, mixer)
+
+    // Hier ga je de animatie aan de mixer toevoegen als deze beschikbaar is
+    const animations = athleteRef.animations
+    if (animations.length > 0) {
+      const walkingAnimation = animations.find(
+        anim => anim.name.includes('Walking') || anim.name.includes('Run'),
+      )
+      if (walkingAnimation) {
+        mixer.clipAction(walkingAnimation).play() // Start de animatie
+      }
+    }
+  }
+
+  // Beweeg de atleet afhankelijk van de timer, zodat de animatie alleen speelt als de atleet in beweging is
+  if (athlete.remainingRounds) {
+    const mixer = animationMixers.get(athlete.id)
+    if (mixer) {
+      mixer.update(1 / 60) // Update de mixer (je kunt de tijdsplanning aanpassen voor de animaties)
+    }
   }
 }
 
@@ -276,6 +307,7 @@ onLoop(() => {
         // Interpoleer de rotatie
         athleteRef.rotation.y =
           startRotation + (endRotation - startRotation) * segmentProgress
+        updateAthletesAnimation(athlete, athleteRef)
 
         updateRemainingRounds(athlete)
       }
