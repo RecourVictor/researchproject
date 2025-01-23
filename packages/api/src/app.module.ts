@@ -19,12 +19,12 @@ import { SimulationsModule } from './simulations/simulations.module';
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://localhost:27027/api',
+      url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
       entities: [__dirname + '/**/*.entity.{js,ts}'],
-      synchronize: true, // Careful with this in production
+      synchronize: process.env.NODE_ENV == 'production' ? false : true,
       useNewUrlParser: true,
-      useUnifiedTopology: true, // Disable deprecated warnings
-    }),
+      useUnifiedTopology: true,
+    }),    
     AthletesModule,
     SeedModule,
     CountryModule,

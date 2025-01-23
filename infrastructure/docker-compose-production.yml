@@ -1,0 +1,46 @@
+name: 'researchproject-production'
+services:
+  mongodb:
+    image: mongo
+    restart: on-failure:5 # On error, try to restart for a maximum of 5 times
+    ports:
+      - 27027:27017
+    environment:
+      MONGO_INITDB_DATABASE: api
+    volumes:
+      - dbbusvolume:/data/db
+    networks:
+      - backend
+
+  api:
+    build:
+      context: ../.
+      dockerfile: packages/api/Dockerfile
+    env_file:
+      - ./../packages/api/.env.production.local
+    ports:
+      - 3000:3000
+    # command: tail -f /dev/null
+    networks:
+      - backend
+      - frontend
+
+
+  pwa:
+    build:
+      context: ../.
+      dockerfile: packages/pwa/Dockerfile
+    ports:
+      - 8083:80
+    env_file:
+      - ./../packages/pwa/.env.production.local
+    networks:
+      - frontend
+
+
+volumes:
+  dbbusvolume:
+
+networks:
+  backend:
+  frontend:
