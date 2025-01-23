@@ -16,16 +16,12 @@
 - [Instellingen wijzigen](#instellingen-wijzigen)
 - [De PWA installeren](#de-pwa-installeren)
 
----
-
 ## Simurace opstarten
 - **Dev omgeving starten**: `npm run dev`
 - **Demo omgeving starten**: `npm run start`
-- Surf naar `localhost:1234` om de applicatie te openen.  
-  [Afbeelding: Screenshot van het startscherm]  
+- Surf naar `localhost:5173` om de applicatie te openen.  
+  ![Startscherm](./assets/screenshots/startscherm.png)
   Hier zie je een overzichtsscherm met navigatie naar simulaties, atleten en instellingen.
-
----
 
 ## Atleten
 
@@ -54,8 +50,6 @@
 2. Klik op het **prullenbak-icoon** naast de atleet die je wilt verwijderen.  
    [Afbeelding: Bevestigingspopup voor het verwijderen van een atleet]
 3. Bevestig de verwijdering in de popup.
-
----
 
 ## Simulaties
 
@@ -92,14 +86,10 @@
 3. Pauzeer, hervat, herstart of stop de simulatie met de bijbehorende knoppen.  
    [Afbeelding: Knoppen voor pauzeren, hervatten, herstarten, stoppen]
 
----
-
 ## Instellingen wijzigen
 1. Klik op **‘Instellingen’** in de navigatie.  
    [Afbeelding: Instellingenpagina]
 2. Pas instellingen aan door opties aan of uit te vinken.
-
----
 
 ## De PWA installeren
 ### In Google Chrome
