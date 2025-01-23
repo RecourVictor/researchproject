@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Record } from './entities/record.entity'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
 import { ObjectId } from 'mongodb'
-import { Disipline } from 'src/disiplines/entities/disipline.entity'
 import { Simulation } from 'src/simulations/entities/simulation.entity'
 
 @Injectable()

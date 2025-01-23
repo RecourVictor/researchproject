@@ -1,7 +1,6 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { SettingsService } from './settings.service';
 import { Setting } from './entities/setting.entity';
-import { CreateSettingInput } from './dto/create-setting.input';
 import { UpdateSettingInput } from './dto/update-setting.input';
 
 @Resolver(() => Setting)

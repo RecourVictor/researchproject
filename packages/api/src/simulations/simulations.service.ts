@@ -55,7 +55,6 @@ export class SimulationsService {
   async findAll() {
     try {
       const simulations = await this.simulationsRepository.find()
-      console.log(simulations)
       return simulations
     } catch (error) {
       console.log(error)
