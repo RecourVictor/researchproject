@@ -1,14 +1,24 @@
 <template>
   <div class="relative h-screen overflow-hidden">
-    <AthleticsTrack :startIndex="0" :athletes="[]" :rounds="0" :isPaused="true" :timer="0" />
+    <AthleticsTrack
+      :startIndex="0"
+      :athletes="[]"
+      :rounds="0"
+      :isPaused="true"
+      :timer="0"
+    />
   </div>
-  <main class="absolute top-0 left-0 backdrop-blur w-screen h-screen flex justify-center items-center px-4">
+  <main
+    class="absolute top-0 left-0 backdrop-blur w-screen h-screen flex justify-center items-center px-4"
+  >
     <div
       class="flex flex-col gap-10 sm:gap-16 md:gap-20 text-wa-blue bg-white p-6 sm:p-8 rounded-xl shadow-xl w-full sm:w-auto"
     >
       <div class="flex flex-col items-center gap-4">
         <img class="w-36 sm:w-48 md:w-56" src="/logo.svg" alt="Logo Simurace" />
-        <h1 class="text-4xl sm:text-5xl font-worldAthleticsHeading">Simurace</h1>
+        <h1 class="text-4xl sm:text-5xl font-worldAthleticsHeading">
+          Simurace
+        </h1>
         <p class="font-bold text-lg sm:text-xl">Visualiseer, Analyseer, Win!</p>
       </div>
       <div class="flex flex-row gap-4 justify-center">
@@ -26,8 +36,8 @@
           :buttonFunction="getToAthletes"
           :hide-text-small="true"
         >
-          <template #icon> 
-            <UserRound /> 
+          <template #icon>
+            <UserRound />
           </template>
         </PrimaryButton>
         <PrimaryButton
@@ -35,15 +45,14 @@
           :buttonFunction="getToSettings"
           :hide-text-small="true"
         >
-          <template #icon> 
-            <Settings /> 
+          <template #icon>
+            <Settings />
           </template>
         </PrimaryButton>
       </div>
     </div>
   </main>
 </template>
-
 
 <script setup lang="ts">
 import PrimaryButton from '@/components/generic/PrimaryButton.vue'

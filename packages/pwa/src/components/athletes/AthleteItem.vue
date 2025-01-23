@@ -23,10 +23,16 @@
     </div>
     <div class="justify-self-end">
       <div class="flex gap-2">
-        <button class="text-wa-blue hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2" @click="editAthlete(athlete.id)">
+        <button
+          class="text-wa-blue hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2"
+          @click="editAthlete(athlete.id)"
+        >
           <Pencil />
         </button>
-        <button class="text-wa-red hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2" @click="deleteAthlete()">
+        <button
+          class="text-wa-red hover:text-wa-orange_light transition-all duration-200 focus:outline-none focus-visible:ring focus-visible:ring-wa-orange focus-visible:ring-offset-2"
+          @click="deleteAthlete()"
+        >
           <Trash />
         </button>
       </div>
@@ -50,17 +56,14 @@ import { useMutation } from '@vue/apollo-composable'
 import { DELETE_ATHLETE } from '@/graphql/athletes.mutation'
 import { GET_ATHLETES } from '@/graphql/athletes.query'
 
-const { mutate: removeAthlete } = useMutation(
-  DELETE_ATHLETE,
-  {
-    refetchQueries: [
-      {
-        query: GET_ATHLETES,
-        variables: { searchString: '' },
-      },
-    ],
-  },
-)
+const { mutate: removeAthlete } = useMutation(DELETE_ATHLETE, {
+  refetchQueries: [
+    {
+      query: GET_ATHLETES,
+      variables: { searchString: '' },
+    },
+  ],
+})
 
 const isPopupVisible = ref(false)
 const popupMessage = ref('')
@@ -81,7 +84,12 @@ const editAthlete = (id: string) => {
 
 const deleteAthlete = () => {
   if (athlete) {
-    popupMessage.value = 'Weet je zeker dat je ' + athlete.name + ' ' + athlete.surname + ' wilt verwijderen?'
+    popupMessage.value =
+      'Weet je zeker dat je ' +
+      athlete.name +
+      ' ' +
+      athlete.surname +
+      ' wilt verwijderen?'
   }
   isPopupVisible.value = true
 }
@@ -91,10 +99,9 @@ const handleConfirmed = () => {
   if (athlete) {
     removeAthlete({ id: athlete.id })
   }
-};
+}
 
 const handleCancelled = () => {
   isPopupVisible.value = false
-};
-
+}
 </script>

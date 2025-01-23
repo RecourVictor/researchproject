@@ -6,7 +6,7 @@
     <span class="text-xl flex items-center text-wa-orange">
       <slot name="icon" />
     </span>
-    <span class="hidden md:block">{{ props.label }}</span> 
+    <span class="hidden md:block">{{ props.label }}</span>
   </router-link>
 </template>
 

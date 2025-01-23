@@ -263,8 +263,6 @@ const handleSubmit = () => {
     records: records,
   }
 
-  console.log(athlete)
-
   createAthlete({
     athleteInput: athlete,
   }).then(() => {

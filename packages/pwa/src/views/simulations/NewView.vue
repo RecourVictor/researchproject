@@ -221,8 +221,6 @@ const handleSubmit = () => {
     athletes: athletes,
   }
 
-  console.log(simulation)
-
   createSimulations({
     simulationInput: simulation,
   }).then(() => {
