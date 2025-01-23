@@ -7,7 +7,7 @@
       @submit.prevent="handleSubmit"
       class="space-y-5"
     >
-    <AppHeading :level="2">Algemene info</AppHeading>
+      <AppHeading :level="2">Algemene info</AppHeading>
       <div class="space-y-4">
         <TextInput
           label="Wedstrijdnaam"
@@ -96,12 +96,13 @@ const { push } = useRouter()
 const route = useRoute()
 
 const simulationId = route.params.slug
-const { result: simulationResult, loading, onResult: onSimulationResult } = useQuery(
-  GET_SIMULATION_BY_ID,
-  {
-    id: String(simulationId),
-  },
-)
+const {
+  result: simulationResult,
+  loading,
+  onResult: onSimulationResult,
+} = useQuery(GET_SIMULATION_BY_ID, {
+  id: String(simulationId),
+})
 
 const { mutate: updateSimulation, error: updateSimulationError } = useMutation(
   UPDATE_SIMULATION,
@@ -240,7 +241,7 @@ const handleSubmit = () => {
   if (!validateSimulation()) {
     return
   }
-  
+
   // verwijder de laatste atleet als deze niet volledig is ingevuld
   if (!athletesInput.value[athletesInput.value.length - 1].athlete) {
     athletesInput.value.pop()
@@ -257,8 +258,6 @@ const handleSubmit = () => {
     disiplineId: simulationInput.value.disipline,
     athletes: athletes,
   }
-
-  console.log(simulation)
 
   updateSimulation({
     simulationInput: simulation,

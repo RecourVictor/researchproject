@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { CreateSettingInput } from './dto/create-setting.input'
 import { UpdateSettingInput } from './dto/update-setting.input'
 import { Setting } from './entities/setting.entity'
 import { MongoRepository } from 'typeorm'

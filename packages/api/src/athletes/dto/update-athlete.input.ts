@@ -1,6 +1,5 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
 import { Gender } from '../entities/athlete.entity';
-import { Record } from '../entities/record.entity';
 import {
   IsString,
   IsArray,

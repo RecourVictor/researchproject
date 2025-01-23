@@ -2,22 +2,40 @@
   <section class="flex flex-col gap-6">
     <AppHeading :level="1">Instellingen</AppHeading>
     <div class="flex flex-col gap-2 text-xl">
-      <CheckboxInput v-model="speed" @update:modelValue="updateSetting('speed', speed)">
+      <CheckboxInput
+        v-model="speed"
+        @update:modelValue="updateSetting('speed', speed)"
+      >
         <template #default>Toon snelheid</template>
       </CheckboxInput>
-      <CheckboxInput v-model="distance" @update:modelValue="updateSetting('distance', distance)">
+      <CheckboxInput
+        v-model="distance"
+        @update:modelValue="updateSetting('distance', distance)"
+      >
         <template #default>Toon afstand</template>
       </CheckboxInput>
-      <CheckboxInput v-model="country" @update:modelValue="updateSetting('country', country)">
+      <CheckboxInput
+        v-model="country"
+        @update:modelValue="updateSetting('country', country)"
+      >
         <template #default>Toon nationaliteit</template>
       </CheckboxInput>
-      <CheckboxInput v-model="position" @update:modelValue="updateSetting('position', position)">
+      <CheckboxInput
+        v-model="position"
+        @update:modelValue="updateSetting('position', position)"
+      >
         <template #default>Toon positie</template>
       </CheckboxInput>
-      <CheckboxInput v-model="clock" @update:modelValue="updateSetting('clock', clock)">
+      <CheckboxInput
+        v-model="clock"
+        @update:modelValue="updateSetting('clock', clock)"
+      >
         <template #default>Toon timer</template>
       </CheckboxInput>
-      <CheckboxInput v-model="rounds" @update:modelValue="updateSetting('rounds', rounds)">
+      <CheckboxInput
+        v-model="rounds"
+        @update:modelValue="updateSetting('rounds', rounds)"
+      >
         <template #default>Toon aantal ronden</template>
       </CheckboxInput>
     </div>

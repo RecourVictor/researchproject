@@ -1,7 +1,9 @@
 <template>
   <div
     :class="
-      isFullscreen ? 'grid items-center h-screen bg-[#5CBAC8]' : 'grid items-center h-56'
+      isFullscreen
+        ? 'grid items-center h-screen bg-[#5CBAC8]'
+        : 'grid items-center h-56'
     "
   >
     <div class="text-center">

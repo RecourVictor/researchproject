@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { CreateDisiplineInput } from './dto/create-disipline.input'
-import { UpdateDisiplineInput } from './dto/update-disipline.input'
 import { Disipline } from './entities/disipline.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'

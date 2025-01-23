@@ -14,7 +14,6 @@ import { Country } from 'src/country/entities/country.entity'
 import { CountryService } from 'src/country/country.service'
 import { Record } from './entities/record.entity'
 import { DisiplinesService } from 'src/disiplines/disiplines.service'
-import { Disipline } from 'src/disiplines/entities/disipline.entity'
 
 @Resolver(() => Athlete)
 export class AthletesResolver {

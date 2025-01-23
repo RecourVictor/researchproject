@@ -137,7 +137,6 @@ const resetAthletesPosition = () => {
 }
 
 const toggleRestart = () => {
-  console.log('Herstarten')
   clearInterval(timerInterval as number)
   timerValue.value = 0
   isStarted.value = false
@@ -203,29 +202,27 @@ onSimulationResult(() => {
 })
 
 function updateAthletes(simulation: Simulation) {
-    console.log(simulation)
-
-    const rounds = simulation.disipline.rounds
-    console.log('Rounds:', rounds)
-
-    athletes.value = simulation.athletes.map(
-      (athlete: { athlete: { id: string }; time: number }) => ({
-        id: athlete.athlete.id,
-        totalTime: athlete.time,
-      }),
-    )
-    console.log('Updated athletes:', athletes.value)
+  athletes.value = simulation.athletes.map(
+    (athlete: { athlete: { id: string }; time: number }) => ({
+      id: athlete.athlete.id,
+      totalTime: athlete.time,
+    }),
+  )
 }
 
 const pathStart = () => {
   const rounds = simulationResult.value?.simulation.disipline.rounds
-  const roundsSplit = rounds && String(rounds).includes('.') ? parseInt(String(rounds).split('.')[1]) : 0
+  const roundsSplit =
+    rounds && String(rounds).includes('.')
+      ? parseInt(String(rounds).split('.')[1])
+      : 0
   const percentage = roundsSplit / 100
 
   if (percentage === 1) {
     return 0
   } else {
-    const startindex = 85 * (1 - (percentage < 0.1 ? percentage * 10 : percentage))
+    const startindex =
+      85 * (1 - (percentage < 0.1 ? percentage * 10 : percentage))
     return Math.floor(startindex)
   }
 }

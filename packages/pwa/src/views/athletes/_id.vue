@@ -7,7 +7,7 @@
       @submit.prevent="handleSubmit"
       class="space-y-5"
     >
-    <AppHeading :level="2">Algemene info</AppHeading>
+      <AppHeading :level="2">Algemene info</AppHeading>
       <div class="space-y-4">
         <div class="grid sm:grid-cols-2 gap-4">
           <TextInput
@@ -118,12 +118,13 @@ const { push } = useRouter()
 const route = useRoute()
 
 const athleteId = route.params.slug
-const { result: athleteResult, loading, onResult: onAthleteResult } = useQuery(
-  GET_ATHLETE_BY_ID,
-  {
-    id: String(athleteId),
-  },
-)
+const {
+  result: athleteResult,
+  loading,
+  onResult: onAthleteResult,
+} = useQuery(GET_ATHLETE_BY_ID, {
+  id: String(athleteId),
+})
 const { mutate: updateAthlete, error: updatethleteError } = useMutation(
   UPDATE_ATHLETE,
   {
@@ -133,8 +134,8 @@ const { mutate: updateAthlete, error: updatethleteError } = useMutation(
         variables: { searchString: '' },
       },
       {
-        query: GET_ALL_ATHLETES
-      }
+        query: GET_ALL_ATHLETES,
+      },
     ],
   },
 )
@@ -309,8 +310,6 @@ const handleSubmit = () => {
     nationalityId: athleteInput.value.country,
     records: records,
   }
-
-  console.log(athlete)
 
   updateAthlete({
     athleteInput: athlete,

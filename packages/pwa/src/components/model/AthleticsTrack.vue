@@ -23,7 +23,7 @@
           el => athleteRefs.set(athlete.id, el as unknown as THREE.Object3D)
         "
         :position="[getStartPosition().x, 0, getStartPosition().z]"
-        :rotation="[0, getStartPosition().r * (Math.PI / 180) ,0]"
+        :rotation="[0, getStartPosition().r * (Math.PI / 180), 0]"
       >
         <GLTFModel path="/models/atleet/scene.gltf" :scale="0.01" />
       </TresMesh>
@@ -259,8 +259,7 @@ onLoop(() => {
         // Beweeg de atleet als er nog resterende rondes zijn
         athleteRef.position.x = start.x + (end.x - start.x) * segmentProgress
         athleteRef.position.z = start.z + (end.z - start.z) * segmentProgress
-        // Smooth interpolatie voor rotatie (lerp)
-        // Smooth interpolatie voor rotatie (lerp met normalisatie)
+
         let startRotation = start.r * (Math.PI / 180)
         let endRotation = end.r * (Math.PI / 180)
 

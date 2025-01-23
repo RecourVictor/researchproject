@@ -25,7 +25,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { GET_COUNTRIES } from '@/graphql/countries.query'
 
 // Reactieve variabelen
-const options = ref<{ label: string; value: string }[]>([]); 
+const options = ref<{ label: string; value: string }[]>([])
 
 // Haal de landen op via GraphQL
 const { result } = useQuery(GET_COUNTRIES)
@@ -33,29 +33,31 @@ const { result } = useQuery(GET_COUNTRIES)
 watchEffect(() => {
   if (result.value && result.value.countries) {
     // Vul de opties array met de landen uit het resultaat
-    options.value = result.value.countries.map((country: { countryName: string, id: string }) => ({
-      label: country.countryName,
-      value: country.id,
-    }));
+    options.value = result.value.countries.map(
+      (country: { countryName: string; id: string }) => ({
+        label: country.countryName,
+        value: country.id,
+      }),
+    )
   }
-});
+})
 
 defineProps({
   modelValue: {
     type: [String, Number],
     required: true,
   },
-});
+})
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue'])
 
 const updateValue = (event: Event) => {
-  const target = event.target as HTMLSelectElement;
-  const rawValue = target.value;
+  const target = event.target as HTMLSelectElement
+  const rawValue = target.value
 
   // Controleren of de waarde een getal is
-  const value = isNaN(Number(rawValue)) ? rawValue : Number(rawValue);
+  const value = isNaN(Number(rawValue)) ? rawValue : Number(rawValue)
 
-  emit('update:modelValue', value);
-};
+  emit('update:modelValue', value)
+}
 </script>

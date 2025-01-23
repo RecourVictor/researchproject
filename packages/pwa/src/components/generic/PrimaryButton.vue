@@ -2,14 +2,16 @@
   <button
     @click="buttonFunction && buttonFunction()"
     class="rounded-full text-wa-blue border text-xl border-wa-blue flex items-center gap-2 py-3 px-5 transition-all duration-200 hover:bg-wa-blue hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-wa-blue focus-visible:ring-opacity-50"
-    :class="{'p-3 md:py-3 md:px-5 aspect-square md:aspect-auto': hideTextSmall}"
+    :class="{
+      'p-3 md:py-3 md:px-5 aspect-square md:aspect-auto': hideTextSmall,
+    }"
   >
     <!-- Slot voor het icoon vóór de tekst -->
     <span class="text-xl flex items-center text-wa-orange">
       <slot name="icon" />
     </span>
     <!-- Tekst die wordt weergegeven op de knop -->
-    <span :class="{'hidden md:block': hideTextSmall}">
+    <span :class="{ 'hidden md:block': hideTextSmall }">
       {{ textOnButton }}
     </span>
   </button>
@@ -30,7 +32,7 @@ defineProps({
   hideTextSmall: {
     type: Boolean,
     required: false,
-    default: false
-  }
+    default: false,
+  },
 })
 </script>

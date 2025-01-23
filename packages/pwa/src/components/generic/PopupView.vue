@@ -14,7 +14,11 @@
           </template>
         </SecondaryButton>
         <!-- Akkoord-knop -->
-        <SecondaryButton class="border-wa-red text-wa-red hover:bg-wa-red" @click="confirm" textOnButton="Verwijderen">
+        <SecondaryButton
+          class="border-wa-red text-wa-red hover:bg-wa-red"
+          @click="confirm"
+          textOnButton="Verwijderen"
+        >
           <template #icon> <Trash /> </template
         ></SecondaryButton>
       </div>
