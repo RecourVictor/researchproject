@@ -17,7 +17,7 @@
 - [De PWA installeren](#de-pwa-installeren)
 
 ## Simurace opstarten
-- **Dev omgeving starten**: `npm run dev`
+- **Development omgeving starten**: `npm run dev`
 - **Demo omgeving starten**: `npm run start`
 - Surf naar `localhost:5173` om de applicatie te openen.  
   ![Startscherm](./assets/screenshots/startscherm.png)
@@ -27,16 +27,19 @@
 
 ### Alle atleten bekijken
 1. Klik bovenaan in de navigatie op **‘Atleten’**.  
-   [Afbeelding: Overzichtsscherm van atleten]
+   ![Overzicht atelten](./assets/screenshots/atleten.png)
 2. Je krijgt een overzicht van alle atleten.
 
 ### Een atleet aanmaken
 1. Ga naar het overzicht van atleten.
 2. Klik rechtsboven op de knop **‘Atleet toevoegen’**.  
-   [Afbeelding: Formulier voor het aanmaken van een atleet]
+   ![Atleet toeveogen](./assets/screenshots/atleet-toevoegenbtn.png)
 3. Vul gegevens in zoals naam, achternaam, geboortedatum, geslacht en nationaliteit.
+   ![Atleet toeveogen](./assets/screenshots/atleet-aanmaken.png)
 4. Optioneel: voeg persoonlijke records toe door een discipline te kiezen en een tijd in seconden in te voeren.
-5. Klik onderaan op **‘Atleet aanmaken’**.
+   ![Atleet toeveogen](./assets/screenshots/atleet-pbs.png)
+5. Klik onderaan op **‘Atleet toevoegen**.
+   ![Atleet toeveogen](./assets/screenshots/atleet-toevoegen.png)
 
 ### Een atleet bewerken
 1. Ga naar de overzichtspagina van atleten.
