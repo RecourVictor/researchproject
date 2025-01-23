@@ -2,6 +2,23 @@
 
 Deze handleiding beschrijft hoe je Simurace installeert en configureert.
 
+## Inhoudstabel
+1. [Stap 1: Repository clonen of zip-bestand uitpakken](#stap-1-repository-clonen-of-zip-bestand-uitpakken)
+2. [Stap 2: `.env`-files aanmaken](#stap-2-env-files-aanmaken)
+   - [API `.env`-file](#api-env-file)
+   - [PWA `.env`-file](#pwa-env-file)
+3. [Stap 3: Installeren van benodigde npm packages](#stap-3-installeren-van-benodigde-npm-packages)
+4. [Stap 4: Docker Desktop configureren](#stap-4-docker-desktop-configureren)
+5. [Stap 5: Database seeden](#stap-5-database-seeden)
+   - [Alles seeden](#alles-seeden)
+   - [Alles resetten](#alles-resetten)
+   - [Tabellen apart seeden](#tabellen-apart-seeden)
+   - [Tabellen apart resetten](#tabellen-apart-resetten)
+6. [Stap 6: Het project opstarten](#stap-6-het-project-opstarten)
+   - [Development server starten](#development-server-starten)
+   - [Demo-omgeving starten](#demo-omgeving-starten)
+7. [Stap 7: Meer weten over functionaliteiten?](#stap-7-meer-weten-over-functionaliteiten)
+
 ## Stap 1: Repository clonen of zip-bestand uitpakken
 Clone de repository of pak het zip-bestand uit in een gewenste map.
 
