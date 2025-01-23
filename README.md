@@ -1,8 +1,19 @@
-# Researchproject - Simurace
-## Wat is Simurace
-Simurace is een visualisatie tool gemakt met Three js (en tres.js). De tool maakt het mogelijk om atletiekwedstrijden (loopnummers op de piste) te simuleren om zo prestatieinzichten te krijgen en tactieken te bedenken. 
+# Simurace
 
+Simurace is een tool ontworpen om loop evenementen op atletiekpistes te simuleren. Het biedt gebruikers de mogelijkheid om inzichten en prestaties te analyseren en geavanceerde tactieken te ontwikkelen voor atletiekwedstrijden.
 
-Lees ook: 
-- [Installatiehandleiding](INSTALATION-MANUAL.md)
-- [Gebruikershandleiding](USER-MANUAL.md)
+## Functies
+- **Simulaties**: Simuleer realistische atletiekwedstrijden op basis van input zoals atleten, tijden, en disciplines.
+- **Analyse**: Krijg diepgaande inzichten in prestaties en strategieën.
+- **Tactiekontwikkeling**: Ontwikkel en test nieuwe tactieken voor wedstrijden.
+
+## Installatie
+Voor een gedetailleerde uitleg over de installatie van Simurace, raadpleeg de [Installatiehandleiding](INSTALATION-MANUAL.md).
+
+## Gebruikershandleiding
+Lees de [Gebruikershandleiding](USER-MANUAL.md) om een volledig overzicht te krijgen van de functionaliteiten en hoe je Simurace optimaal kunt gebruiken.
+
+## Demonstratie
+Bekijk de onderstaande video voor een demonstratie van Simurace in actie:
+
+[![Bekijk de demonstratie](https://img.youtube.com/vi/Y6HVYu0-Gkg/0.jpg)](https://www.youtube.com/watch?v=Y6HVYu0-Gkg&t=1485s)
