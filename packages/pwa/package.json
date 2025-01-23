@@ -10,7 +10,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "run:pwa": "npm run build && npx serve dist -l 3001",
+    "start": "npm run run:pwa"
   },
   "dependencies": {
     "@apollo/client": "^3.12.4",

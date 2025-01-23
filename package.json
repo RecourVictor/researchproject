@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write .",
-    "dev": "lerna run dev --parallel --stream"
+    "dev": "lerna run dev --parallel --stream",
+    "start": "lerna run start --parallel --stream"
   },
   "workspaces": [
     "packages/*"
@@ -22,7 +23,8 @@
   },
   "devDependencies": {
     "lerna": "^8.1.9",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "vite-plugin-pwa": "^0.21.1"
   },
   "dependencies": {
     "api": "^0.0.1",

@@ -1,6 +1,6 @@
 <template>
   <div class="relative h-screen overflow-hidden">
-    <AthleticsTrack class="" :athletes="[]" :rounds="0" :isPaused="true" />
+    <AthleticsTrack :startIndex="0" :athletes="[]" :rounds="0" :isPaused="true" :timer="0" />
   </div>
   <main class="absolute top-0 left-0 backdrop-blur w-screen h-screen flex justify-center items-center px-4">
     <div
