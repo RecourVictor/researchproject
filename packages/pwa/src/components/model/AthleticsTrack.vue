@@ -25,7 +25,11 @@
         :position="[getStartPosition().x, 0, getStartPosition().z]"
         :rotation="[0, getStartPosition().r * (Math.PI / 180), 0]"
       >
-        <FBXModel path="/models/test.fbx" :scale="0.01" />
+        <FBXModel
+          path="/models/yoo/Running.fbx"
+          :scale="0.01"
+          @loaded="fbx => onFbxLoaded(fbx, athlete.id)"
+        />
       </TresMesh>
     </Suspense>
 
@@ -48,6 +52,34 @@ import * as THREE from 'three'
 import { TresCanvas, useRenderLoop } from '@tresjs/core'
 import { OrbitControls, GLTFModel, FBXModel } from '@tresjs/cientos'
 import { ref, watchEffect } from 'vue'
+
+// ----------------------------
+const onFbxLoaded = (fbx: THREE.Group, athleteId: string) => {
+  const mixer = new THREE.AnimationMixer(fbx)
+  animationMixers.set(athleteId, mixer)
+  fbx.animations.forEach(clip => {
+    mixer.clipAction(clip).play()
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------
 
 // Breakpoints detecteren
 const screenSize = ref('default')
