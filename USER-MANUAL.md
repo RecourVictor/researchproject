@@ -37,6 +37,7 @@
 3. Vul gegevens in zoals naam, achternaam, geboortedatum, geslacht en nationaliteit.
    ![Atleet toeveogen](./assets/screenshots/atleet-aanmaken.png)
 4. Optioneel: voeg persoonlijke records toe door een discipline te kiezen en een tijd in seconden in te voeren.
+   BV: als atleet een PB heeft van 2:12:53s moet je 132.53 invullen, heeft de atleet een PB van 43.55s moet je 43.55 invullen.
    ![Atleet toeveogen](./assets/screenshots/atleet-pbs.png)
 5. Klik onderaan op **‘Atleet toevoegen‘**.
    ![Atleet toeveogen](./assets/screenshots/atleet-toevoegen.png)
@@ -60,29 +61,35 @@
 
 ### Alle simulaties bekijken
 1. Klik bovenaan in de navigatie op **‘Simulaties’**.  
-   [Afbeelding: Overzichtsscherm van simulaties]
+   ![Overzicht simulaties](./assets/screenshots/simulaties.png)
 2. Je krijgt een overzicht van alle simulaties.
 
 ### Een simulatie aanmaken
 1. Ga naar het overzicht van simulaties.
 2. Klik rechtsboven op de knop **‘Simulatie toevoegen’**.  
-   [Afbeelding: Formulier voor het aanmaken van een simulatie]
+   ![Simulatie toeveogen](./assets/screenshots/simulatie-toevoegenbtn.png)
 3. Vul gegevens in zoals wedstrijdnaam en discipline.
+   ![Simulatie toeveogen](./assets/screenshots/simulatie-aanmaken.png)
 4. Voeg atleten toe met een tijd in seconden.
+   BV: als atleet 2:12:53s loop moet je 132.53 invullen, loopt de atleet 43.55s moet je 43.55 invullen.
+   ![Simulatie toeveogen](./assets/screenshots/simulatie-atleten.png)
 5. Klik op **‘Simulatie aanmaken’**.
+   ![Simulatie toeveogen](./assets/screenshots/simulatie-toevoegen.png)
 
 ### Een simulatie bewerken
 1. Ga naar de overzichtspagina van simulaties.
 2. Klik op het **potlood-icoon** naast de simulatie die je wilt bewerken.  
-   [Afbeelding: Bewerken van een simulatie]
+   ![Simulatie bewerken](./assets/screenshots/simulatie-edit.png)
 3. Pas gegevens of atleten aan.
-4. Klik op **‘Simulatie bijwerken’**.
+4. Klik op **‘Simulatie bewerken’**.
+   ![Simulatie bewerken](./assets/screenshots/simulatie-bewerken.png)
 
 ### Een simulatie verwijderen
 1. Ga naar de overzichtspagina van simulaties.
 2. Klik op het **prullenbak-icoon** naast de simulatie die je wilt verwijderen.  
-   [Afbeelding: Bevestigingspopup voor het verwijderen van een simulatie]
+   ![Simulatie verwijderen](./assets/screenshots/simulatie-delete.png)
 3. Bevestig de verwijdering in de popup.
+   ![Simulatie verwijderen](./assets/screenshots/simulatie-verwijderen.png)
 
 ### Simulaties afspelen
 1. Klik op het **play-icoon** naast een simulatie om deze af te spelen.  
