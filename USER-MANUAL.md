@@ -13,13 +13,17 @@
   - [Een simulatie bewerken](#een-simulatie-bewerken)
   - [Een simulatie verwijderen](#een-simulatie-verwijderen)
   - [Simulaties afspelen](#simulaties-afspelen)
+    - [Simulaties starten](#simulaties-starten)
+    - [Simulaties pauseren](#simulaties-pauseren)
+    - [Simulaties herstarten](#simulaties-herstarten)
+    - [Simulaties stoppen](#simulaties-stoppen)
 - [Instellingen wijzigen](#instellingen-wijzigen)
 - [De PWA installeren](#de-pwa-installeren)
 
 ## Simurace opstarten
 - **Development omgeving starten**: `npm run dev`
 - **Demo omgeving starten**: `npm run start`
-- Surf naar `localhost:5173` om de applicatie te openen.  
+- Surf naar in de development omgeving naar `localhost:5173`, in de demo omgeving moet je surfen naar `localhost:3001` om de applicatie te openen.  
   ![Startscherm](./assets/screenshots/startscherm.png)
   Hier zie je een overzichtsscherm met navigatie naar simulaties, atleten en instellingen.
 
