@@ -38,21 +38,23 @@
    ![Atleet toeveogen](./assets/screenshots/atleet-aanmaken.png)
 4. Optioneel: voeg persoonlijke records toe door een discipline te kiezen en een tijd in seconden in te voeren.
    ![Atleet toeveogen](./assets/screenshots/atleet-pbs.png)
-5. Klik onderaan op **‘Atleet toevoegen**.
+5. Klik onderaan op **‘Atleet toevoegen‘**.
    ![Atleet toeveogen](./assets/screenshots/atleet-toevoegen.png)
 
 ### Een atleet bewerken
 1. Ga naar de overzichtspagina van atleten.
 2. Klik op het **potlood-icoon** naast de atleet die je wilt bewerken.  
-   [Afbeelding: Bewerken van een atleet]
+   ![Atleet bewerken](./assets/screenshots/atleet-edit.png)
 3. Pas gegevens of persoonlijke records aan.
-4. Klik op **‘Atleet bijwerken’**.
+4. Klik op **‘Atleet bewerken’**.
+   ![Atleet bewerken](./assets/screenshots/atleet-bewerken.png)
 
 ### Een atleet verwijderen
 1. Ga naar de overzichtspagina van atleten.
 2. Klik op het **prullenbak-icoon** naast de atleet die je wilt verwijderen.  
-   [Afbeelding: Bevestigingspopup voor het verwijderen van een atleet]
+   ![Atleet verwijderen](./assets/screenshots/atleet-delete.png)
 3. Bevestig de verwijdering in de popup.
+   ![Atleet verwijderen](./assets/screenshots/atleet-verwijderen.png)
 
 ## Simulaties
 
