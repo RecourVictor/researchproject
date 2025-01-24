@@ -95,28 +95,33 @@
 
 #### Simulatie starten
 1. Klik op het **play-icoon** naast een simulatie om deze af te spelen.  
-   ![Afbeelding: Looppiste met startscherm van de simulatie]
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-starticon.png)
 2. Klik op **‘Simulatie starten’**.
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-start.png)
 3. De simulatie is gestart.
 
 #### Simulatie pauseren
 1. Klik op het **pauze-icoon** rechtsonder op het scherm.  
    *(Op mobiele apparaten staat dit icoon rechtsboven op het scherm.)*
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-pauze.png)
 2. De simulatie is gepauseerd.
 3. Om de simulatie te hervatten, klik je op het **play-icoon**.
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-play.png)
 
 #### Simulatie herstarten
 1. Klik op het **replay-icoon** rechtsonder op het scherm.  
    *(Op mobiele apparaten staat dit icoon rechtsboven op het scherm.)*
-   ![Afbeelding: Looppiste met startscherm van de simulatie]
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-replay.png)
 2. Klik op **‘Simulatie starten’**.
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-start.png)
 3. De simulatie is geherstart.
 
 #### Simulatie stoppen
 1. Klik op het **stop-icoon** rechtsonder op het scherm.  
    *(Op mobiele apparaten staat dit icoon rechtsboven op het scherm.)*
-   ![Afbeelding: Looppiste met startscherm van de simulatie]
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-stop.png)
 2. Klik op **‘Simulaties’**.
+   ![Simuwlatie afspelen](./assets/screenshots/simulatie-end.png)
 3. Je gaat terug naar het overzicht met alle simulaties.
 
 ## Instellingen wijzigen
