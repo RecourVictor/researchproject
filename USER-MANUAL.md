@@ -126,12 +126,13 @@
 
 ## Instellingen wijzigen
 1. Klik op **‘Instellingen’** in de navigatie.  
-   [Afbeelding: Instellingenpagina]
+   ![Instellingen](./assets/screenshots/instellingen.png)
 2. Pas instellingen aan door opties aan of uit te vinken.
 
 ## De PWA installeren
 ### In Google Chrome
 1. Open de applicatie in Google Chrome.
 2. Klik op het **installatie-icoon** rechts in de adresbalk.  
-   [Afbeelding: Installatieprompt voor de PWA]
+   ![Installatie PWA](./assets/screenshots/pwa-install.png)
 3. Volg de installatie-instructies.
+   ![Installatie PWA](./assets/screenshots/pwa-download.png)
