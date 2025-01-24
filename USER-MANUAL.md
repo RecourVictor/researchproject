@@ -14,7 +14,7 @@
   - [Een simulatie verwijderen](#een-simulatie-verwijderen)
   - [Simulaties afspelen](#simulaties-afspelen)
     - [Simulaties starten](#simulaties-starten)
-    - [Simulaties pauseren](#simulaties-pauseren)
+    - [Simulaties gepauzeerd](#simulaties-pauseren)
     - [Simulaties herstarten](#simulaties-herstarten)
     - [Simulaties stoppen](#simulaties-stoppen)
 - [Instellingen wijzigen](#instellingen-wijzigen)
@@ -77,7 +77,7 @@
 4. Voeg atleten toe met een tijd in seconden.
    BV: als atleet 2:12:53s loop moet je 132.53 invullen, loopt de atleet 43.55s moet je 43.55 invullen.
    ![Simulatie toeveogen](./assets/screenshots/simulatie-atleten.png)
-5. Klik op **‘Simulatie aanmaken’**.
+5. Klik op **‘Simulatie toevoegen’**.
    ![Simulatie toeveogen](./assets/screenshots/simulatie-toevoegen.png)
 
 ### Een simulatie bewerken
@@ -104,11 +104,11 @@
    ![Simuwlatie afspelen](./assets/screenshots/simulatie-start.png)
 3. De simulatie is gestart.
 
-#### Simulatie pauseren
+#### Simulatie gepauzeerd
 1. Klik op het **pauze-icoon** rechtsonder op het scherm.  
    *(Op mobiele apparaten staat dit icoon rechtsboven op het scherm.)*
    ![Simuwlatie afspelen](./assets/screenshots/simulatie-pauze.png)
-2. De simulatie is gepauseerd.
+2. De simulatie is gepauzeerd.
 3. Om de simulatie te hervatten, klik je op het **play-icoon**.
    ![Simuwlatie afspelen](./assets/screenshots/simulatie-play.png)
 
