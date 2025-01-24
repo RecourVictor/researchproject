@@ -14,7 +14,7 @@ Voor een gedetailleerde uitleg over de installatie van Simurace, raadpleeg de [I
 Lees de [Gebruikershandleiding](USER-MANUAL.md) om een volledig overzicht te krijgen van de functionaliteiten en hoe je Simurace optimaal kunt gebruiken.
 
 ## Design File
-Het design van Simurace is ook beschikbaar in het repository. Je kunt het bestand vinden in de map [`assets/design`](assets/design/). 
+Het design van Simurace is ook beschikbaar in het repository. Je kunt het bestand vinden in de map [assets/design](assets/design/). 
 
 ## Demonstratie
 Bekijk de onderstaande video voor een demonstratie van Simurace in actie:
