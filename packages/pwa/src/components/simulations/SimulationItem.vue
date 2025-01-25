@@ -84,6 +84,7 @@ const handleConfirmed = () => {
   isPopupVisible.value = false
   if (simulatie) {
     removeSimulation({ id: simulatie.id })
+    console.log('Simulation deleted')
   }
 }
 

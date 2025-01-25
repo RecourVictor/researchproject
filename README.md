@@ -19,4 +19,4 @@ Het design van Simurace is ook beschikbaar in het repository. Je kunt het bestan
 ## Demonstratie
 Bekijk de onderstaande video voor een demonstratie van Simurace in actie:
 
-[![Bekijk de demonstratie](https://img.youtube.com/vi/Y6HVYu0-Gkg/0.jpg)](https://www.youtube.com/watch?v=Y6HVYu0-Gkg&t=1485s)
+[![Bekijk de demonstratie](https://img.youtube.com/vi/U2_vmieSKck/0.jpg)](https://www.youtube.com/watch?v=U2_vmieSKck)
