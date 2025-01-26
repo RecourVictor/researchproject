@@ -5,11 +5,12 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { AthletesModule } from './athletes/athletes.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { SeedModule } from './seed/seed.module';
-import { CountryModule } from './country/country.module';
-import { DisiplinesModule } from './disiplines/disiplines.module';
-import { SettingsModule } from './settings/settings.module';
-import { SimulationsModule } from './simulations/simulations.module';
+import { SeedModule } from './seed/seed.module'
+import { CountryModule } from './country/country.module'
+import { DisiplinesModule } from './disiplines/disiplines.module'
+import { SettingsModule } from './settings/settings.module'
+import { SimulationsModule } from './simulations/simulations.module'
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { SimulationsModule } from './simulations/simulations.module';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mongodb',
       url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
