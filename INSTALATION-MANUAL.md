@@ -132,11 +132,13 @@ Navigeer naar de rootmap van het project in je terminal.
 ```bash
 npm run dev
 ```
+Surf naar: http://localhost:5173/ om Simurace te gebruiken.
 
 ### Demo-omgeving starten
 ```bash
 npm run start
 ```
+Surf naar: http://localhost:3001/ om Simurace te gebruiken.
 
 ## Stap 7: Meer weten over functionaliteiten?
 Lees de [gebruikershandleiding](USER-MANUAL.md) om meer te ontdekken over de functionaliteiten van Simurace.
