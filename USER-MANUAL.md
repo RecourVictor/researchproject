@@ -118,7 +118,7 @@
    ![Simuwlatie afspelen](./assets/screenshots/simulatie-replay.png)
 2. Klik op **‘Simulatie starten’**.
    ![Simuwlatie afspelen](./assets/screenshots/simulatie-start.png)
-3. De simulatie is geherstart.
+3. De simulatie is herstart.
 
 #### Simulatie stoppen
 1. Klik op het **stop-icoon** rechtsonder op het scherm.  
