@@ -6,9 +6,8 @@
       "use": "@vercel/node"
     },
     {
-      "src": "packages/pwa/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "src": "packages/pwa/index.html",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
