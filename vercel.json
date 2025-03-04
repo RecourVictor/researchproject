@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "packages/api/dist/main.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "packages/pwa/index.html",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "packages/api/dist/main.js" }
+  ]
+}
